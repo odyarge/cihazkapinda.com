@@ -1,4 +1,9 @@
 ﻿using AutoMapper;
+using ODY.Cihazkapinda.BannerImages;
+using ODY.Cihazkapinda.BannerSettings;
+using ODY.Cihazkapinda.GeneralSettings;
+using ODY.Cihazkapinda.SiteSettings;
+using ODY.Cihazkapinda.ThemeSettings;
 
 namespace ODY.Cihazkapinda
 {
@@ -6,9 +11,25 @@ namespace ODY.Cihazkapinda
     {
         public CihazkapindaApplicationAutoMapperProfile()
         {
-            /* You can configure your AutoMapper mapping configuration here.
-             * Alternatively, you can split your mapping configurations
-             * into multiple profile classes for a better organization. */
+            CreateMap<SiteSetting, SiteSettingDto>();
+            CreateMap<SiteSettingDto, SiteSettingCreateUpdateDto>();
+            CreateMap<SiteSettingCreateUpdateDto, SiteSetting>();
+
+            CreateMap<GeneralSetting, GeneralSettingDto>();
+            CreateMap<GeneralSettingDto, GeneralSettingCreateUpdateDto>();
+            CreateMap<GeneralSettingCreateUpdateDto, GeneralSetting>();
+
+            CreateMap<ThemeSetting, ThemeSettingDto>();
+            CreateMap<ThemeSettingDto, ThemeSettingCreateUpdateDto>();
+            CreateMap<ThemeSettingCreateUpdateDto, ThemeSetting>();
+
+            CreateMap<BannerSetting, BannerSettingDto>();
+            CreateMap<BannerSettingDto, BannerSettingCreateUpdateDto>();
+            CreateMap<BannerSettingCreateUpdateDto, BannerSetting>();
+
+            CreateMap<BannerImage, BannerImageDto>();
+            CreateMap<BannerImageDto, BannerImageCreateUpdateDto>();
+            CreateMap<BannerImageCreateUpdateDto, BannerImage>();
         }
     }
 }

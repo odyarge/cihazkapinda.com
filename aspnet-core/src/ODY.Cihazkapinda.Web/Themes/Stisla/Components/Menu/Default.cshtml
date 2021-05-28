@@ -1,0 +1,62 @@
+﻿@using Lsw.Abp.AspNetCore.Mvc.UI.Theme.Stisla.Themes.Stisla.Components.Menu
+@using Volo.Abp.AspNetCore.Mvc.UI.Layout
+@using Volo.Abp.UI.Navigation
+@inject IPageLayout PageLayout
+@model ApplicationMenu
+
+<!-- ========== Left Sidebar Start ========== -->
+<div class="vertical-menu">
+
+    <div data-simplebar class="h-100">
+
+        <!--- Sidemenu -->
+        <div id="sidebar-menu">
+            <!-- Left Menu Start -->
+            <ul class="metismenu list-unstyled" id="side-menu">
+                <li class="menu-title" key="t-menu">Menu</li>
+
+
+                @foreach (var menuItem in Model.Items)
+    {
+        var elementId = string.IsNullOrEmpty(menuItem.ElementId) ? string.Empty : $"id={menuItem.ElementId}";
+        var cssClass = string.IsNullOrEmpty(menuItem.CssClass) ? string.Empty : menuItem.CssClass;
+        var disabled = menuItem.IsDisabled ? "disabled" : string.Empty;
+        var active = PageLayout.Content.MenuItemName == menuItem.Name ? "active" : "";
+        var childActive = LeftNavbarMenuViewComponent.ChildActive(menuItem.Items, PageLayout.Content.MenuItemName) ? "active" : "";
+        var url = string.IsNullOrEmpty(menuItem.Url) ? "#" : Url.Content(menuItem.Url);
+        if (menuItem.IsLeaf)
+        {
+            if (menuItem.Url != null)
+            {
+                 <li class="@active">
+                     <a class="waves-effect @disabled" style="@cssClass" @elementId href="@url">
+                         <i class="@LeftNavbarMenuViewComponent.ReWriteIcon(menuItem.Name, menuItem.Icon)"></i>
+                         <span key="t-calendar">@menuItem.DisplayName</span>
+                     </a>
+                </li>
+            }
+        }
+        else
+        {
+                 <li @childActive>
+                    <a href="javascript: void(0);" class="has-arrow waves-effect"  id="Menu_@(menuItem.Name)">
+                        <i class="@LeftNavbarMenuViewComponent.ReWriteIcon(menuItem.Name, menuItem.Icon)"></i>
+                        <span key="t-layouts">@menuItem.DisplayName</span>
+                    </a>
+                    <ul class="sub-menu" aria-expanded="true">
+                        @foreach (var childMenuItem in menuItem.Items)
+                         {
+                            @await Html.PartialAsync("~/Themes/Stisla/Components/Menu/_MenuItem.cshtml", childMenuItem)
+                         }
+                    </ul>
+                </li>
+        }
+    }
+
+
+            </ul>
+        </div>
+        <!-- Sidebar -->
+    </div>
+</div>
+<!-- Left Sidebar End -->

@@ -1,0 +1,153 @@
+﻿@using Volo.Abp.AspNetCore.Mvc.AntiForgery
+@using Volo.Abp.AspNetCore.Mvc.UI.Components.LayoutHook
+@using Volo.Abp.AspNetCore.Mvc.UI.Layout
+@using Lsw.Abp.AspNetCore.Mvc.UI.Theme.Stisla.Bundling
+@using Lsw.Abp.AspNetCore.Mvc.Ui.Theme.Stisla.Themes.Stisla.Components.LeftNavbar
+@using Lsw.Abp.AspNetCore.Mvc.UI.Theme.Stisla.Themes.Stisla.Components.PageAlerts
+@using Lsw.Abp.AspNetCore.Mvc.Ui.Theme.Stisla.Themes.Stisla.Components.TopNavbar
+@using Volo.Abp.AspNetCore.Mvc.UI.Theming
+@using Volo.Abp.AspNetCore.Mvc.UI.Widgets.Components.WidgetScripts
+@using Volo.Abp.AspNetCore.Mvc.UI.Widgets.Components.WidgetStyles
+@using Volo.Abp.Localization
+@using Volo.Abp.Ui.Branding
+@inject IAbpAntiForgeryManager AbpAntiForgeryManager
+@inject IBrandingProvider BrandingProvider
+@inject IPageLayout PageLayout
+@{ Layout = null;
+    AbpAntiForgeryManager.SetCookie();
+    var containerClass = ViewBag.FluidLayout == true ? "container-fluid" : "container"; //TODO: Better and type-safe options
+
+    var pageTitle = ViewBag.Title == null ? BrandingProvider.AppName : ViewBag.Title; //TODO: Discard to get from Title
+
+    if (PageLayout.Content.Title != null)
+    {
+        if (!string.IsNullOrWhiteSpace(pageTitle))
+        {
+            pageTitle = " | " + pageTitle;
+        }
+
+        pageTitle = PageLayout.Content.Title + pageTitle;
+    }
+
+    var rtl = CultureHelper.IsRtl ? "rtl" : string.Empty; }
+
+<!DOCTYPE html>
+<html lang="@CultureInfo.CurrentCulture.Name" dir="@rtl">
+<head>
+    @await Component.InvokeLayoutHookAsync(LayoutHooks.Head.First, StandardLayouts.Public)
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <!-- Web Fonts  -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800%7CShadows+Into+Light" rel="stylesheet" type="text/css">
+
+    <!-- Vendor CSS -->
+    <link rel="stylesheet" href="~/frontend/vendor/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/frontend/vendor/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href="~/frontend/vendor/animate/animate.min.css">
+    <link rel="stylesheet" href="~/frontend/vendor/simple-line-icons/css/simple-line-icons.min.css">
+    <link rel="stylesheet" href="~/frontend/vendor/owl.carousel/assets/owl.carousel.min.css">
+    <link rel="stylesheet" href="~/frontend/vendor/owl.carousel/assets/owl.theme.default.min.css">
+    <link rel="stylesheet" href="~/frontend/vendor/magnific-popup/magnific-popup.min.css">
+
+    <!-- Theme CSS -->
+    <link rel="stylesheet" href="~/frontend/css/theme.css">
+    <link rel="stylesheet" href="~/frontend/css/theme-elements.css">
+    <link rel="stylesheet" href="~/frontend/css/theme-blog.css">
+    <link rel="stylesheet" href="~/frontend/css/theme-shop.css">
+
+    <!-- Current Page CSS -->
+    <link rel="stylesheet" href="~/frontend/vendor/rs-plugin/css/settings.css">
+    <link rel="stylesheet" href="~/frontend/vendor/rs-plugin/css/layers.css">
+    <link rel="stylesheet" href="~/frontend/vendor/rs-plugin/css/navigation.css">
+    <link rel="stylesheet" href="~/frontend/vendor/circle-flip-slideshow/css/component.css">
+
+    <!-- Demo CSS -->
+    <!-- Skin CSS -->
+    <link rel="stylesheet" href="~/frontend/css/skins/default.css">
+
+    <!-- Theme Custom CSS -->
+    <link rel="stylesheet" href="~/frontend/css/custom.css">
+
+    <!-- Head Libs -->
+    <script src="~/frontend/vendor/modernizr/modernizr.min.js"></script>
+
+    <title>@pageTitle</title>
+
+    @if (ViewBag.Description != null)
+    {
+<meta name="description" content="@ViewBag.Description" />}
+
+    @await RenderSectionAsync("styles", false)
+
+    @await Component.InvokeLayoutHookAsync(LayoutHooks.Head.Last, StandardLayouts.Public)
+
+</head>
+
+<body class="loading-overlay-showing" data-plugin-page-transition data-loading-overlay data-plugin-options="{'hideDelay': 500}">
+    @await Component.InvokeLayoutHookAsync(LayoutHooks.Body.First, StandardLayouts.Public)
+    @(await Component.InvokeAsync<PageAlertsViewComponent>())
+    @await Component.InvokeLayoutHookAsync(LayoutHooks.PageContent.First, StandardLayouts.Public)
+    @RenderBody()
+    @await Component.InvokeLayoutHookAsync(LayoutHooks.PageContent.Last, StandardLayouts.Public)
+
+    <abp-script-bundle name="@StislaThemeBundles.Scripts.Global" />
+
+    <!-- Vendor -->
+    <script src="~/frontend/vendor/jquery/jquery.min.js"></script>
+    <script src="~/frontend/vendor/jquery.appear/jquery.appear.min.js"></script>
+    <script src="~/frontend/vendor/jquery.easing/jquery.easing.min.js"></script>
+    <script src="~/frontend/vendor/jquery.cookie/jquery.cookie.min.js"></script>
+    <script src="~/frontend/vendor/popper/umd/popper.min.js"></script>
+    <script src="~/frontend/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script src="~/frontend/vendor/common/common.min.js"></script>
+    <script src="~/frontend/vendor/jquery.validation/jquery.validate.min.js"></script>
+    <script src="~/frontend/vendor/jquery.easy-pie-chart/jquery.easypiechart.min.js"></script>
+    <script src="~/frontend/vendor/jquery.gmap/jquery.gmap.min.js"></script>
+    <script src="~/frontend/vendor/jquery.lazyload/jquery.lazyload.min.js"></script>
+    <script src="~/frontend/vendor/isotope/jquery.isotope.min.js"></script>
+    <script src="~/frontend/vendor/owl.carousel/owl.carousel.min.js"></script>
+    <script src="~/frontend/vendor/magnific-popup/jquery.magnific-popup.min.js"></script>
+    <script src="~/frontend/vendor/vide/jquery.vide.min.js"></script>
+    <script src="~/frontend/vendor/vivus/vivus.min.js"></script>
+
+    <!-- Theme Base, Components and Settings -->
+    <script src="~/frontend/js/theme.js"></script>
+
+    <!-- Current Page Vendor and Views -->
+    <script src="~/frontend/vendor/rs-plugin/js/jquery.themepunch.tools.min.js"></script>
+    <script src="~/frontend/vendor/rs-plugin/js/jquery.themepunch.revolution.min.js"></script>
+    <script src="~/frontend/vendor/circle-flip-slideshow/js/jquery.flipshow.min.js"></script>
+    <script src="~/frontend/js/views/view.home.js"></script>
+
+    <!-- Theme Custom -->
+    <script src="~/frontend/js/custom.js"></script>
+
+    <!-- Theme Initialization Files -->
+    <script src="~/frontend/js/theme.init.js"></script>
+
+    <!-- Examples -->
+    <!--<script src="js/examples/examples.demos.js"></script>-->
+    <!-- Google Analytics: Change UA-XXXXX-X to be your site's ID. Go to http://www.google.com/analytics/ for more information.
+    <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-12345678-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+     -->
+
+    <script src="~/Abp/ApplicationConfigurationScript"></script>
+    <script src="~/Abp/ServiceProxyScript"></script>
+
+    @await Component.InvokeAsync(typeof(WidgetScriptsViewComponent))
+
+    @await RenderSectionAsync("scripts", false)
+
+    @await Component.InvokeLayoutHookAsync(LayoutHooks.Body.Last, StandardLayouts.Public)
+</body>
+</html>

@@ -1,4 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using ODY.Cihazkapinda.BannerImages;
+using ODY.Cihazkapinda.BannerSettings;
+using ODY.Cihazkapinda.GeneralSettings;
+using ODY.Cihazkapinda.SiteSettings;
+using ODY.Cihazkapinda.ThemeSettings;
 using ODY.Cihazkapinda.Users;
 using Volo.Abp.Data;
 using Volo.Abp.EntityFrameworkCore;
@@ -22,9 +27,19 @@ namespace ODY.Cihazkapinda.EntityFrameworkCore
     {
         public DbSet<AppUser> Users { get; set; }
 
-        /* Add DbSet properties for your Aggregate Roots / Entities here.
-         * Also map them inside CihazkapindaDbContextModelCreatingExtensions.ConfigureCihazkapinda
-         */
+        #region IMPORTANT_SETTINGS
+        public DbSet<SiteSetting> SiteSettings { get; set; }
+        public DbSet<ThemeSetting> ThemeSettings { get; set; }
+        #endregion IMPORTANT_SETTINGS
+
+        #region GENERAL_SETTINGS
+        public DbSet<GeneralSetting> GeneralSettings { get; set; }
+        #endregion GENERAL_SETTINGS
+
+        #region FRONTEND_SETTINGS
+        public DbSet<BannerSetting> BannerSettings { get; set; }
+        public DbSet<BannerImage> BannerImages { get; set; }
+        #endregion FRONTEND_SETTINGS
 
         public CihazkapindaDbContext(DbContextOptions<CihazkapindaDbContext> options)
             : base(options)

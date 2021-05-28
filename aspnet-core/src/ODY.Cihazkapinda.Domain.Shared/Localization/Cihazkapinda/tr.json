@@ -1,8 +1,72 @@
 ﻿{
   "culture": "tr",
   "texts": {
-    "Menu:Home": "Ana sayfa",
+    //MAIN MENU
+    "MainMenu:Home": "Anasayfa",
+    "MainMenu:Login": "Giriş",
+    //MENU
+    "Menu:Home": "Anasayfa",
+    "Menu:Components": "Bileşenler",
+    "Menu:Banner": "Banner",
+    "Menu:Settings": "Ayarlar",
+    "Menu:GeneralSettings": "Genel Ayarlar",
+    "Menu:ThemeSettings": "Tema Ayarları",
+    "Menu:SiteSettings": "Site Ayarları",
+    //TOPBAR MENU
+    "TopBar:Profile": "Profil",
+    "TopBar:Logout": "Çıkış Yap",
+    //PERMISSIONS
+    "Permission:GeneralSettings": "Genel Ayarlar",
+    "Permission:GeneralSettingsMenuList": "Menüde Göster",
+    "Permission:GeneralSettingsList": "Listele",
+    "Permission:GeneralSettingsCreate": "Oluştur",
+    "Permission:GeneralSettingsEdit": "Düzenle",
+    "Permission:GeneralSettingsDelete": "Sil",
+
+    "Permission:SiteSettings": "Site Ayarları",
+    "Permission:SiteSettingsMenuList": "Menüde Göster",
+    "Permission:SiteSettingsList": "Listele",
+    "Permission:SiteSettingsCreate": "Oluştur",
+    "Permission:SiteSettingsEdit": "Düzenle",
+    "Permission:SiteSettingsDelete": "Sil",
+
+    "Permission:ThemeSettings": "Tema Ayarları",
+    "Permission:ThemeSettingsMenuList": "Menüde Göster",
+    "Permission:ThemeSettingsList": "Listele",
+    "Permission:ThemeSettingsCreate": "Oluştur",
+    "Permission:ThemeSettingsEdit": "Düzenle",
+    "Permission:ThemeSettingsDelete": "Sil",
+
+    "Permission:Banner": "Banner",
+    "Permission:BannerMenuList": "Menüde Göster",
+    "Permission:BannerList": "Listele",
+    "Permission:BannerCreate": "Oluştur",
+    "Permission:BannerEdit": "Düzenle",
+    "Permission:BannerDelete": "Sil",
+
+    "Permission:BannerImages": "Banner Resimleri",
+    "Permission:BannerImagesMenuList": "Menüde Göster",
+    "Permission:BannerImagesList": "Listele",
+    "Permission:BannerImagesCreate": "Oluştur",
+    "Permission:BannerImagesEdit": "Düzenle",
+    "Permission:BannerImagesDelete": "Sil",
+
+    //GENERAL
     "Welcome": "Hoşgeldiniz",
-    "LongWelcomeMessage": "Uygulamaya hoşgeldiniz. Bu, ABP framework'ü üzerine bina edilmiş bir başlangıç projesidir. Daha fazla bilgi için abp.io adresini ziyaret edebilirsiniz."
+    "LongWelcomeMessage": "Uygulamaya hoşgeldiniz. Bu, ABP framework'ü üzerine bina edilmiş bir başlangıç projesidir. Daha fazla bilgi için abp.io adresini ziyaret edebilirsiniz.",
+    "Password": "Şifre",
+    "UserNameOrEmailAddress": "Kullanıcı adı veya Mail Adresi",
+    "RememberMe": "Beni Hatırla",
+    "AreYouANewUser": "Yeni kullanıcı mısınız?",
+    "AlreadyRegistered ": "Zaten kayıtlı mısınız?",
+    "Email": "Mail Adresi",
+    "Username": "Kullanıcı Adı",
+    "TermOfUse": "Kullanıcı sözleşmesi",
+    "CreateRole": "Rol Oluştur",
+    "CreateUser": "Kullanıcı Oluştur",
+    "SideBar:Setting": "Mod Ayarları",
+    "SideBar:LayoutChange": "Mod Seç",
+    "SideBar:LightMode": "Aydınlık Mod",
+    "SideBar:DarkMode": "Karanlık Mod"
   }
 }

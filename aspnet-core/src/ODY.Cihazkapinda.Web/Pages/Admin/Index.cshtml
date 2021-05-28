@@ -1,0 +1,9 @@
+﻿@page
+@using Microsoft.AspNetCore.Mvc.Localization
+@using ODY.Cihazkapinda.Localization
+@using Volo.Abp.Users
+@model ODY.Cihazkapinda.Web.Pages.Admin.IndexModel
+@inject IHtmlLocalizer<CihazkapindaResource> L
+@inject ICurrentUser CurrentUser
+@{ if (CurrentUser.IsAuthenticated == false)
+        Response.Redirect("/Account/Login"); }
