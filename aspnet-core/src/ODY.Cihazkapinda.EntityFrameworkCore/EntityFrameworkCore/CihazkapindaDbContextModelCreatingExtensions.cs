@@ -2,6 +2,7 @@
 using ODY.Cihazkapinda.BannerImages;
 using ODY.Cihazkapinda.BannerSettings;
 using ODY.Cihazkapinda.GeneralSettings;
+using ODY.Cihazkapinda.OperatorSettings;
 using ODY.Cihazkapinda.SiteSettings;
 using ODY.Cihazkapinda.ThemeSettings;
 using Volo.Abp;
@@ -73,6 +74,16 @@ namespace ODY.Cihazkapinda.EntityFrameworkCore
                 b.ConfigureByConvention();
 
                 b.Ignore(x => x.ExtraProperties);
+                b.Property(x => x.Image).IsRequired();
+            });
+
+            builder.Entity<OperatorSetting>(b =>
+            {
+                b.ToTable(CihazkapindaConsts.DbTablePrefix + "OperatorSetting", CihazkapindaConsts.DbSchema);
+                b.ConfigureByConvention();
+
+                b.Ignore(x => x.ExtraProperties);
+                b.Property(x => x.OperatorName).IsRequired();
                 b.Property(x => x.Image).IsRequired();
             });
         }

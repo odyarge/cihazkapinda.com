@@ -11,6 +11,7 @@
         public const string GeneralSettings = Settings + ".GeneralSettings";
         public const string ThemeSettings = Settings + ".ThemeSettings";
         public const string BannerSettings = Settings + ".BannerSettings";
+        public const string OperatorSettings = Settings + ".OperatorSettings";
         #endregion SETTINGS
 
         #region COMPONENTS

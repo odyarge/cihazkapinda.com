@@ -13,6 +13,7 @@ namespace ODY.Cihazkapinda.Permissions
             var GeneralSettingsGroup = context.AddGroup(CihazkapindaPermissions.GeneralSettingsGroup, L("Permission:GeneralSettings"));
             var ThemeSettingsGroup = context.AddGroup(CihazkapindaPermissions.ThemeSettingsGroup, L("Permission:ThemeSettings"));
             var BannerSettingsGroup = context.AddGroup(CihazkapindaPermissions.BannerSettingsGroup, L("Permission:Banner"));
+            var OperatorSettingsGroup = context.AddGroup(CihazkapindaPermissions.OperatorSettingsGroup, L("Permission:OperatorSettings"));
 
             var siteSettingGroup = SiteSettingsGroup.AddPermission(CihazkapindaPermissions.SiteSettings.SiteSettingDefault, L("Permission:SiteSettings"));
             siteSettingGroup.AddChild(CihazkapindaPermissions.SiteSettings.MenuList, L("Permission:SiteSettingsMenuList"));
@@ -48,6 +49,13 @@ namespace ODY.Cihazkapinda.Permissions
             bannerImageGroup.AddChild(CihazkapindaPermissions.BannerImages.Create, L("Permission:BannerImagesCreate"));
             bannerImageGroup.AddChild(CihazkapindaPermissions.BannerImages.Edit, L("Permission:BannerImagesEdit"));
             bannerImageGroup.AddChild(CihazkapindaPermissions.BannerImages.Delete, L("Permission:BannerImagesDelete"));
+
+            var operatorSettingGroup = OperatorSettingsGroup.AddPermission(CihazkapindaPermissions.OperatorSettings.OperatorSettingDefault, L("Permission:OperatorSettings"));
+            operatorSettingGroup.AddChild(CihazkapindaPermissions.OperatorSettings.MenuList, L("Permission:OperatorSettingsMenuList"));
+            operatorSettingGroup.AddChild(CihazkapindaPermissions.OperatorSettings.List, L("Permission:OperatorSettingsList"));
+            operatorSettingGroup.AddChild(CihazkapindaPermissions.OperatorSettings.Create, L("Permission:OperatorSettingsCreate"));
+            operatorSettingGroup.AddChild(CihazkapindaPermissions.OperatorSettings.Edit, L("Permission:OperatorSettingsEdit"));
+            operatorSettingGroup.AddChild(CihazkapindaPermissions.OperatorSettings.Delete, L("Permission:OperatorSettingsDelete"));
 
             //Define your own permissions here. Example:
             //myGroup.AddPermission(CihazkapindaPermissions.MyPermission1, L("Permission:MyPermission1"));

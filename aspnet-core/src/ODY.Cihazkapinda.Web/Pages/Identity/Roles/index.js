@@ -19,7 +19,8 @@
             return actionList.addManyTail(
                 [
                     {
-                        text: l('Edit'),
+                        text: '<span style="cursor:pointer;" class="form-control border-0">' + l("Edit") + '</span>',
+                        displayNameHtml: true,
                         visible: abp.auth.isGranted(
                             'AbpIdentity.Roles.Update'
                         ),
@@ -30,7 +31,8 @@
                         },
                     },
                     {
-                        text: l('Permissions'),
+                        text: '<span style="cursor:pointer;" class="form-control border-0">' + l("Permissions") + '</span>',
+                        displayNameHtml: true,
                         visible: abp.auth.isGranted(
                             'AbpIdentity.Roles.ManagePermissions'
                         ),
@@ -42,7 +44,8 @@
                         },
                     },
                     {
-                        text: l('Delete'),
+                        text: '<span style="cursor:pointer; color:red;" class="form-control border-0">' + l("Delete") + '</span>',
+                        displayNameHtml: true,
                         visible: function (data) {
                             return (
                                 !data.isStatic &&
@@ -121,7 +124,12 @@
                 ajax: abp.libs.datatables.createAjax(
                     _identityRoleAppService.getList
                 ),
-                columnDefs: abp.ui.extensions.tableColumns.get('identity.role').columns.toArray()
+                columnDefs: abp.ui.extensions.tableColumns.get('identity.role').columns.toArray(),
+                initComplete: function (settings, json) {
+                    $('div.dropdown.action-button > ul').attr("class", "dropdown-menu centered");
+                    $('div.dropdown.action-button > ul > li').css("float", "left");
+                    $('div.dropdown.action-button').attr("class", "dropright");
+                }
             })
         );
 

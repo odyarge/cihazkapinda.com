@@ -44,7 +44,7 @@
                         },
                     },
                     {
-                        text: '<span style="cursor:pointer;" class="form-control border-0">' + l("Delete") + '</span>',
+                        text: '<span style="cursor:pointer;color:red;" class="form-control border-0">' + l("Delete") + '</span>',
                         displayNameHtml: true,
                         visible: abp.auth.isGranted(
                             'AbpTenantManagement.Tenants.Delete'
@@ -100,8 +100,15 @@
                 serverSide: true,
                 ajax: abp.libs.datatables.createAjax(_tenantAppService.getList),
                 columnDefs: abp.ui.extensions.tableColumns.get('tenantManagement.tenant').columns.toArray(),
-            })
+                initComplete: function (settings, json) {
+                    $('div.dropdown.action-button > ul').attr("class", "dropdown-menu centered");
+                    $('div.dropdown.action-button > ul > li').css("float", "left");
+                    $('div.dropdown.action-button').attr("class", "dropright");
+                }
+            },
+            )
         );
+
 
         _createModal.onResult(function () {
             _dataTable.ajax.reload();

@@ -62,6 +62,11 @@ namespace ODY.Cihazkapinda.Web.Menus
             {
                 settingsMenu.AddItem(new ApplicationMenuItem(CihazkapindaMenus.ThemeSettings, l["Menu:ThemeSettings"], "/Admin/ThemeSettings/"));
             }
+
+            if (await context.IsGrantedAsync(CihazkapindaPermissions.OperatorSettings.MenuList) && await context.IsGrantedAsync(TenantManagementPermissions.Tenants.Default))
+            {
+                settingsMenu.AddItem(new ApplicationMenuItem(CihazkapindaMenus.OperatorSettings, l["Menu:OperatorSettings"], "/Admin/OperatorSettings/"));
+            }
             #endregion SETTINGS_SUB_MENUS
             #endregion SETTINGS
 

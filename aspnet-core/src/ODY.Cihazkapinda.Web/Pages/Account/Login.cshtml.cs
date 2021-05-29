@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using ODY.Cihazkapinda.SiteSettings;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -52,17 +53,21 @@ namespace ODY.Cihazkapinda.Web.Pages.Account
 
         protected IAuthenticationSchemeProvider _schemeProvider;
         protected AbpAccountOptions _accountOptions;
+        private readonly ISiteSettingAppService _siteSettingAppService;
 
         public LoginModel(
             IAuthenticationSchemeProvider schemeProvider,
-            IOptions<AbpAccountOptions> accountOptions)
+            IOptions<AbpAccountOptions> accountOptions,
+            ISiteSettingAppService siteSettingAppService)
         {
             _schemeProvider = schemeProvider;
             _accountOptions = accountOptions.Value;
+            _siteSettingAppService = siteSettingAppService;
         }
 
         public virtual async Task<IActionResult> OnGetAsync()
         {
+            await CheckToActivated();
             LoginInput = new LoginInputModel();
 
             var schemes = await _schemeProvider.GetAllSchemesAsync();
@@ -236,6 +241,19 @@ namespace ODY.Cihazkapinda.Web.Pages.Account
             if (!await SettingProvider.IsTrueAsync(AccountSettingNames.EnableLocalLogin).ConfigureAwait(false))
             {
                 throw new UserFriendlyException(L["LocalLoginDisabledMessage"]);
+            }
+        }
+
+        public async Task CheckToActivated()
+        {
+            if (CurrentTenant.Id != null)
+            {
+                var checkActivated = await _siteSettingAppService.GetAsyncByTenantName(CurrentTenant.Name);
+                bool activated = checkActivated.SITE_ACTIVATED;
+                if (activated == false)
+                {
+                    Response.Redirect("/Error/Activate/");
+                }
             }
         }
 

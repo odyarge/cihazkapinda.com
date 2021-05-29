@@ -7,6 +7,7 @@
         public const string ThemeSettingsGroup = "ThemeSettings";
         public const string GeneralSettingsGroup = "GeneralSettings";
         public const string BannerSettingsGroup = "BannerSettings";
+        public const string OperatorSettingsGroup = "OperatorSettings";
 
         public static class SiteSettings
         {
@@ -56,6 +57,16 @@
             public const string Create = BannerImageDefault + ".Create";
             public const string Edit = BannerImageDefault + ".Edit";
             public const string Delete = BannerImageDefault + ".Delete";
+        }
+
+        public static class OperatorSettings
+        {
+            public const string OperatorSettingDefault = OperatorSettingsGroup + ".OperatorSettings";
+            public const string MenuList = OperatorSettingDefault + ".MenuList";
+            public const string List = OperatorSettingDefault + ".List";
+            public const string Create = OperatorSettingDefault + ".Create";
+            public const string Edit = OperatorSettingDefault + ".Edit";
+            public const string Delete = OperatorSettingDefault + ".Delete";
         }
     }
 }

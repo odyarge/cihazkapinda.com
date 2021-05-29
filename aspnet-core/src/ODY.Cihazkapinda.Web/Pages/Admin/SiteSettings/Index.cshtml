@@ -1,0 +1,34 @@
+﻿@page
+@using Microsoft.AspNetCore.Mvc.Localization
+@using ODY.Cihazkapinda.Localization
+@using Volo.Abp.Users
+@model ODY.Cihazkapinda.Web.Pages.Admin.SiteSettings.IndexModel
+@inject IHtmlLocalizer<CihazkapindaResource> L
+@inject ICurrentUser CurrentUser
+
+@section scripts {
+    <abp-script-bundle name="@typeof(ODY.Cihazkapinda.Web.Pages.Admin.SiteSettings.IndexModel).FullName">
+        <abp-script src="/Pages/Admin/SiteSettings/index.js" />
+    </abp-script-bundle>
+}
+
+<style>
+    .centered {
+        transform: translate3d(78px, -13px, 0px) !important;
+    }
+</style>
+<abp-card id="SiteSettingWrapper">
+    <abp-card-header>
+        <abp-row>
+            <abp-column size-md="_6">
+                <abp-card-title>@L["SiteSetting"]</abp-card-title>
+            </abp-column>
+            <abp-column size-md="_6" class="text-right">
+                <button type="button" class="btn btn-primary waves-effect waves-light" name="CreateSite">@L["CreateSite"]</button>
+            </abp-column>
+        </abp-row>
+    </abp-card-header>
+    <abp-card-body>
+        <abp-table style="border-collapse: collapse; border-spacing: 0; width: 100%;" striped-rows="true" class="table table-striped table-bordered dt-responsive nowrap"></abp-table>
+    </abp-card-body>
+</abp-card>

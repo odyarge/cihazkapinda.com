@@ -2,6 +2,7 @@
 using ODY.Cihazkapinda.BannerImages;
 using ODY.Cihazkapinda.BannerSettings;
 using ODY.Cihazkapinda.GeneralSettings;
+using ODY.Cihazkapinda.OperatorSettings;
 using ODY.Cihazkapinda.SiteSettings;
 using ODY.Cihazkapinda.ThemeSettings;
 using ODY.Cihazkapinda.Users;
@@ -30,6 +31,7 @@ namespace ODY.Cihazkapinda.EntityFrameworkCore
         #region IMPORTANT_SETTINGS
         public DbSet<SiteSetting> SiteSettings { get; set; }
         public DbSet<ThemeSetting> ThemeSettings { get; set; }
+        public DbSet<OperatorSetting> OperatorSettings { get; set; }
         #endregion IMPORTANT_SETTINGS
 
         #region GENERAL_SETTINGS

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using ODY.Cihazkapinda.SiteSettings;
 using Volo.Abp;
 using Volo.Abp.Account;
 using Volo.Abp.Account.Settings;
@@ -37,14 +38,19 @@ namespace ODY.Cihazkapinda.Web.Pages.Account
         [BindProperty(SupportsGet = true)]
         public string ExternalLoginAuthSchema { get; set; }
 
-        
-        public RegisterModel(IAccountAppService accountAppService)
+
+        private readonly ISiteSettingAppService _siteSettingAppService;
+
+
+        public RegisterModel(IAccountAppService accountAppService, ISiteSettingAppService siteSettingAppService)
         {
             AccountAppService = accountAppService;
+            _siteSettingAppService = siteSettingAppService;
         }
 
         public virtual async Task<IActionResult> OnGetAsync(string reference)
         {
+            await CheckToActivated();
             await CheckSelfRegistrationAsync();
             await TrySetEmailAsync();
             return Page();
@@ -158,6 +164,19 @@ namespace ODY.Cihazkapinda.Web.Pages.Account
                 !await SettingProvider.IsTrueAsync(AccountSettingNames.EnableLocalLogin))
             {
                 throw new UserFriendlyException(L["SelfRegistrationDisabledMessage"]);
+            }
+        }
+
+        public async Task CheckToActivated()
+        {
+            if (CurrentTenant.Id != null)
+            {
+                var checkActivated = await _siteSettingAppService.GetAsyncByTenantName(CurrentTenant.Name);
+                bool activated = checkActivated.SITE_ACTIVATED;
+                if (activated == false)
+                {
+                    Response.Redirect("/Error/Activate/");
+                }
             }
         }
 

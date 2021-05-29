@@ -1,0 +1,26 @@
+﻿@page
+@using Volo.Abp.AspNetCore.Mvc.UI.Bootstrap.TagHelpers.Modal
+@using Microsoft.AspNetCore.Mvc.Localization
+@using ODY.Cihazkapinda.Localization
+@model ODY.Cihazkapinda.Web.Pages.Admin.SiteSettings.EditModalModel
+@inject IHtmlLocalizer<CihazkapindaResource> L
+@{
+    Layout = null;
+}
+
+<form asp-page="/Admin/SiteSettings/EditModal">
+    <abp-modal size="Default">
+        <abp-modal-header title="@L["SiteSetting"].Value"></abp-modal-header>
+        <abp-modal-body>
+            <abp-input asp-for="siteSettingEditModal.Id" />
+            <abp-input asp-for="siteSettingEditModal.TenantId" />
+            <abp-select asp-for="siteSettingEditModal.SITE_OWNER" asp-items="Model.tenantList" />
+            <abp-input asp-for="siteSettingEditModal.SITE_NAME" />
+            <abp-select asp-for="siteSettingEditModal.SITE_OPERATOR" asp-items="Model.operatorList" />
+            <abp-input asp-for="siteSettingEditModal.SITE_LICENSE" />
+            <abp-input asp-for="siteSettingEditModal.SITE_LICENSE_FINISH_TIME" />
+            <abp-input asp-for="siteSettingEditModal.SITE_ACTIVATED" />
+        </abp-modal-body>
+        <abp-modal-footer buttons="@(AbpModalButtons.Cancel|AbpModalButtons.Save)"></abp-modal-footer>
+    </abp-modal>
+</form>

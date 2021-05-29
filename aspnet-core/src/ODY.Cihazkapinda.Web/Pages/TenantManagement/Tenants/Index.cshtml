@@ -12,17 +12,21 @@
 @inject IHtmlLocalizer<AbpTenantManagementResource> L
 @inject IAuthorizationService Authorization
 @inject IPageLayout PageLayout
-@{
-    PageLayout.Content.Title = L["Tenants"].Value;
-    PageLayout.Content.BreadCrumb.Add(L["Menu:TenantManagement"].Value);
-    PageLayout.Content.MenuItemName = TenantManagementMenuNames.Tenants;
-}
+@{ PageLayout.Content.Title = L["Tenants"].Value;
+                PageLayout.Content.BreadCrumb.Add(L["Menu:TenantManagement"].Value);
+                PageLayout.Content.MenuItemName = TenantManagementMenuNames.Tenants; }
 @section scripts {
     <abp-script-bundle name="@typeof(IndexModel).FullName">
         <abp-script src="/Pages/FeatureManagement/feature-management-modal.js" />
         <abp-script src="/Pages/TenantManagement/Tenants/Index.js" />
     </abp-script-bundle>
+
 }
+<style>
+    .centered {
+        transform: translate3d(78px, -13px, 0px) !important;
+    }
+</style>
 <abp-card id="TenantsWrapper">
     <abp-card-header>
         <abp-row>
@@ -38,3 +42,4 @@
         <abp-table style="border-collapse: collapse; border-spacing: 0; width: 100%;" striped-rows="true" class="table table-striped table-bordered dt-responsive nowrap"></abp-table>
     </abp-card-body>
 </abp-card>
+

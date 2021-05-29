@@ -12,6 +12,7 @@
     "Menu:GeneralSettings": "Genel Ayarlar",
     "Menu:ThemeSettings": "Tema Ayarları",
     "Menu:SiteSettings": "Site Ayarları",
+    "Menu:OperatorSettings": "Operatör Ayarları",
     //TOPBAR MENU
     "TopBar:Profile": "Profil",
     "TopBar:Logout": "Çıkış Yap",
@@ -50,6 +51,13 @@
     "Permission:BannerImagesCreate": "Oluştur",
     "Permission:BannerImagesEdit": "Düzenle",
     "Permission:BannerImagesDelete": "Sil",
+
+    "Permission:OperatorSettings": "Operatörler",
+    "Permission:OperatorSettingsMenuList": "Menüde Göster",
+    "Permission:OperatorSettingsList": "Listele",
+    "Permission:OperatorSettingsCreate": "Oluştur",
+    "Permission:OperatorSettingsEdit": "Düzenle",
+    "Permission:OperatorSettingsDelete": "Sil",
 
     //GENERAL
     "Welcome": "Hoşgeldiniz",

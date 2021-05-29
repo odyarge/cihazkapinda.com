@@ -2,6 +2,7 @@
 using ODY.Cihazkapinda.BannerImages;
 using ODY.Cihazkapinda.BannerSettings;
 using ODY.Cihazkapinda.GeneralSettings;
+using ODY.Cihazkapinda.OperatorSettings;
 using ODY.Cihazkapinda.SiteSettings;
 using ODY.Cihazkapinda.ThemeSettings;
 
@@ -30,6 +31,10 @@ namespace ODY.Cihazkapinda
             CreateMap<BannerImage, BannerImageDto>();
             CreateMap<BannerImageDto, BannerImageCreateUpdateDto>();
             CreateMap<BannerImageCreateUpdateDto, BannerImage>();
+
+            CreateMap<OperatorSetting, OperatorSettingDto>();
+            CreateMap<OperatorSettingDto, OperatorSettingCreateUpdateDto>();
+            CreateMap<OperatorSettingCreateUpdateDto, OperatorSetting>();
         }
     }
 }
