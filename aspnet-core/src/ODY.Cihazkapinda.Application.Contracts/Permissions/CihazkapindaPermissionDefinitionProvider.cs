@@ -14,6 +14,7 @@ namespace ODY.Cihazkapinda.Permissions
             var ThemeSettingsGroup = context.AddGroup(CihazkapindaPermissions.ThemeSettingsGroup, L("Permission:ThemeSettings"));
             var BannerSettingsGroup = context.AddGroup(CihazkapindaPermissions.BannerSettingsGroup, L("Permission:Banner"));
             var OperatorSettingsGroup = context.AddGroup(CihazkapindaPermissions.OperatorSettingsGroup, L("Permission:OperatorSettings"));
+            var LicensesGroup = context.AddGroup(CihazkapindaPermissions.LicensesGroup, L("Permission:Licenses"));
 
             var siteSettingGroup = SiteSettingsGroup.AddPermission(CihazkapindaPermissions.SiteSettings.SiteSettingDefault, L("Permission:SiteSettings"));
             siteSettingGroup.AddChild(CihazkapindaPermissions.SiteSettings.MenuList, L("Permission:SiteSettingsMenuList"));
@@ -56,6 +57,13 @@ namespace ODY.Cihazkapinda.Permissions
             operatorSettingGroup.AddChild(CihazkapindaPermissions.OperatorSettings.Create, L("Permission:OperatorSettingsCreate"));
             operatorSettingGroup.AddChild(CihazkapindaPermissions.OperatorSettings.Edit, L("Permission:OperatorSettingsEdit"));
             operatorSettingGroup.AddChild(CihazkapindaPermissions.OperatorSettings.Delete, L("Permission:OperatorSettingsDelete"));
+
+            var licensesSettingGroup = LicensesGroup.AddPermission(CihazkapindaPermissions.Licenses.LicenseDefault, L("Permission:Licenses"));
+            licensesSettingGroup.AddChild(CihazkapindaPermissions.Licenses.MenuList, L("Permission:LicensesMenuList"));
+            licensesSettingGroup.AddChild(CihazkapindaPermissions.Licenses.List, L("Permission:LicensesList"));
+            licensesSettingGroup.AddChild(CihazkapindaPermissions.Licenses.Create, L("Permission:LicensesCreate"));
+            licensesSettingGroup.AddChild(CihazkapindaPermissions.Licenses.Edit, L("Permission:LicensesEdit"));
+            licensesSettingGroup.AddChild(CihazkapindaPermissions.Licenses.Delete, L("Permission:LicensesDelete"));
 
             //Define your own permissions here. Example:
             //myGroup.AddPermission(CihazkapindaPermissions.MyPermission1, L("Permission:MyPermission1"));

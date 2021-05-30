@@ -18,6 +18,8 @@ namespace ODY.Cihazkapinda.SiteSettings
         public string SITE_OPERATOR { get; set; }
         [Required]
         public bool SITE_ACTIVATED { get; set; }
+        [Required]
+        public bool SITE_INSTALL { get; set; }
         public DateTime SITE_LICENSE_FINISH_TIME { get; set; }
     }
 }

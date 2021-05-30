@@ -2,6 +2,9 @@
 @using Microsoft.AspNetCore.Mvc.Localization
 @using ODY.Cihazkapinda.Localization
 @using Volo.Abp.Users
+@using ODY.Cihazkapinda.Permissions
+@using Microsoft.AspNetCore.Authorization
+@inject IAuthorizationService AuthorizationService
 @model ODY.Cihazkapinda.Web.Pages.Admin.OperatorSettings.IndexModel
 @inject IHtmlLocalizer<CihazkapindaResource> L
 @inject ICurrentUser CurrentUser
@@ -25,7 +28,10 @@
                 <abp-card-title>@L["OperatorSetting"]</abp-card-title>
             </abp-column>
             <abp-column size-md="_6" class="text-right">
-                <button type="button" class="btn btn-primary waves-effect waves-light" name="CreateOperator">@L["CreateOperator"]</button>
+                @if (await AuthorizationService.IsGrantedAsync(CihazkapindaPermissions.OperatorSettings.Create))
+                {
+                    <button type="button" class="btn btn-primary waves-effect waves-light" name="CreateOperator">@L["CreateOperator"]</button>
+                }
             </abp-column>
         </abp-row>
     </abp-card-header>

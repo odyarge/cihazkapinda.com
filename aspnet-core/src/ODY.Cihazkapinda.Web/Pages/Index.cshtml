@@ -11,7 +11,8 @@
 @section scripts {
     <abp-script src="/Pages/Index.js" />
 }
-@{ Layout = "~/Themes/Stisla/Layouts/Frontend.cshtml";}
+@{ var layout = Model.theme;
+                Layout = "~/" + layout; }
 
 
 <div class="loading-overlay">

@@ -18,6 +18,7 @@ namespace ODY.Cihazkapinda.SiteSettings
         public string SITE_LICENSE { get; set; }
         public string SITE_OPERATOR { get; set; }
         public bool SITE_ACTIVATED { get; set; }
+        public bool SITE_INSTALL { get; set; }
         public DateTime SITE_LICENSE_FINISH_TIME { get; set; }
 
         protected SiteSetting()
@@ -30,6 +31,7 @@ namespace ODY.Cihazkapinda.SiteSettings
             [NotNull] string _siteLicense,
             [NotNull] string _siteOperator,
             bool _siteActivated,
+            bool _siteInstall,
             DateTime _siteLicenseFinishTime)
         {
             TenantId = tenantId;
@@ -38,6 +40,7 @@ namespace ODY.Cihazkapinda.SiteSettings
             SITE_LICENSE = Check.NotNullOrWhiteSpace(_siteLicense, nameof(_siteLicense));
             SITE_OPERATOR = Check.NotNullOrWhiteSpace(_siteOperator, nameof(_siteOperator));
             SITE_ACTIVATED = _siteActivated;
+            SITE_INSTALL = _siteInstall;
             SITE_LICENSE_FINISH_TIME = _siteLicenseFinishTime;
         }
     }

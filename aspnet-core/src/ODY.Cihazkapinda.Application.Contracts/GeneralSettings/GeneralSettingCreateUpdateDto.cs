@@ -13,5 +13,6 @@ namespace ODY.Cihazkapinda.GeneralSettings
         public string Email { get; set; }
         public string Phone { get; set; }
         public string WorkTime { get; set; }
+        public string SiteTheme { get; set; }
     }
 }

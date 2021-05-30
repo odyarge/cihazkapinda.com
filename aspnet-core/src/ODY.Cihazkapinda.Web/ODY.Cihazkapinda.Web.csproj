@@ -16,9 +16,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Host\**" />
     <Compile Remove="Logs\**" />
+    <Content Remove="Host\**" />
     <Content Remove="Logs\**" />
+    <EmbeddedResource Remove="Host\**" />
     <EmbeddedResource Remove="Logs\**" />
+    <None Remove="Host\**" />
     <None Remove="Logs\**" />
   </ItemGroup>
 
@@ -54,7 +58,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Host\Operators\" />
+    <Folder Include="wwwroot\host\logo\" />
+    <Folder Include="wwwroot\tenant\" />
   </ItemGroup>
 
 </Project>

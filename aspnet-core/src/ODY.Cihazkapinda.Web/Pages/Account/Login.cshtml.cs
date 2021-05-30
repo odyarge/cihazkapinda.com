@@ -249,10 +249,17 @@ namespace ODY.Cihazkapinda.Web.Pages.Account
             if (CurrentTenant.Id != null)
             {
                 var checkActivated = await _siteSettingAppService.GetAsyncByTenantName(CurrentTenant.Name);
-                bool activated = checkActivated.SITE_ACTIVATED;
-                if (activated == false)
+                if(checkActivated != null)
                 {
-                    Response.Redirect("/Error/Activate/");
+                    bool activated = checkActivated.SITE_ACTIVATED;
+                    if (activated == false)
+                    {
+                        Response.Redirect("/Error/Activate/");
+                    }
+                }
+                else
+                {
+                    Response.Redirect("/Error/404");
                 }
             }
         }

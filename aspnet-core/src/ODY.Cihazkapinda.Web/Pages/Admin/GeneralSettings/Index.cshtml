@@ -1,0 +1,23 @@
+﻿@page
+@using Microsoft.AspNetCore.Mvc.Localization
+@using ODY.Cihazkapinda.Localization
+@using Volo.Abp.Users
+@model ODY.Cihazkapinda.Web.Pages.Admin.GeneralSettings.IndexModel
+@inject IHtmlLocalizer<CihazkapindaResource> L
+@inject ICurrentUser CurrentUser
+
+@section scripts {
+    <abp-script-bundle name="@typeof(ODY.Cihazkapinda.Web.Pages.Admin.GeneralSettings.IndexModel).FullName">
+        <abp-script src="/Pages/Admin/GeneralSettings/index.js" />
+    </abp-script-bundle>
+}
+<abp-card id="GeneralSettingWrapper">
+    <abp-card-body>
+        <div id="tabs">
+            <ul class="nav nav-tabs" id="SettingsTabs" role="tablist">
+            </ul>
+            <div class="tab-content" id="SettingsTabsContent">
+            </div>
+        </div>
+    </abp-card-body>
+</abp-card>

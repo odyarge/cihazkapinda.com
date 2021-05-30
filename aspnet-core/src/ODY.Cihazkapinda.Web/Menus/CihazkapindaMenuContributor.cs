@@ -58,7 +58,7 @@ namespace ODY.Cihazkapinda.Web.Menus
                 settingsMenu.AddItem(new ApplicationMenuItem(CihazkapindaMenus.GeneralSettings, l["Menu:GeneralSettings"], "/Admin/GeneralSettings/"));
             }
 
-            if (await context.IsGrantedAsync(CihazkapindaPermissions.ThemeSettings.MenuList))
+            if (await context.IsGrantedAsync(CihazkapindaPermissions.ThemeSettings.MenuList) && await context.IsGrantedAsync(TenantManagementPermissions.Tenants.Default))
             {
                 settingsMenu.AddItem(new ApplicationMenuItem(CihazkapindaMenus.ThemeSettings, l["Menu:ThemeSettings"], "/Admin/ThemeSettings/"));
             }
@@ -66,6 +66,11 @@ namespace ODY.Cihazkapinda.Web.Menus
             if (await context.IsGrantedAsync(CihazkapindaPermissions.OperatorSettings.MenuList) && await context.IsGrantedAsync(TenantManagementPermissions.Tenants.Default))
             {
                 settingsMenu.AddItem(new ApplicationMenuItem(CihazkapindaMenus.OperatorSettings, l["Menu:OperatorSettings"], "/Admin/OperatorSettings/"));
+            }
+
+            if (await context.IsGrantedAsync(CihazkapindaPermissions.Licenses.MenuList) && await context.IsGrantedAsync(TenantManagementPermissions.Tenants.Default))
+            {
+                settingsMenu.AddItem(new ApplicationMenuItem(CihazkapindaMenus.Licenses, l["Menu:Licenses"], "/Admin/Licenses/"));
             }
             #endregion SETTINGS_SUB_MENUS
             #endregion SETTINGS

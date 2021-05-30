@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ODY.Cihazkapinda.ThemeSettings;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,13 +12,28 @@ namespace ODY.Cihazkapinda.GeneralSettings
 {
     public class GeneralSettingAppService : CrudAppService<GeneralSetting, GeneralSettingDto, Guid, PagedAndSortedResultRequestDto, GeneralSettingCreateUpdateDto, GeneralSettingCreateUpdateDto>, IGeneralSettingAppService
     {
-        public GeneralSettingAppService(IRepository<GeneralSetting, Guid> repository) : base(repository)
+        private readonly IRepository<ThemeSetting, Guid> _themeRepository;
+        public GeneralSettingAppService(IRepository<GeneralSetting, Guid> repository, IRepository<ThemeSetting, Guid> themeRepository) : base(repository)
         {
             GetPolicyName = Permissions.CihazkapindaPermissions.GeneralSettings.GeneralSettingDefault;
             GetListPolicyName = Permissions.CihazkapindaPermissions.GeneralSettings.List;
             CreatePolicyName = Permissions.CihazkapindaPermissions.GeneralSettings.Create;
             UpdatePolicyName = Permissions.CihazkapindaPermissions.GeneralSettings.Edit;
             DeletePolicyName = Permissions.CihazkapindaPermissions.GeneralSettings.Delete;
+
+            _themeRepository = themeRepository;
+        }
+
+        public async Task<string> GetAsyncTheme(Guid? input)
+        {
+            var item = await Repository.FindAsync(x => x.TenantId == input);
+            var theme = await _themeRepository.FindAsync(x => x.THEME_NAME == item.SiteTheme);
+            return theme.THEME_PATH;
+        }
+        public async Task<GeneralSettingDto> GetAsyncByTenant(Guid? input)
+        {
+            var item = await Repository.FindAsync(x => x.TenantId == input);
+            return ObjectMapper.Map<GeneralSetting, GeneralSettingDto>(item);
         }
     }
 }

@@ -28,6 +28,10 @@ namespace ODY.Cihazkapinda.Web.Models.SiteSettingModals
         [Display(Name = "SiteActivated")]
         public bool SITE_ACTIVATED { get; set; }
         [Required]
+        [HiddenInput]
+        [Display(Name = "SiteInstall")]
+        public bool SITE_INSTALL { get; set; }
+        [Required]
         [Display(Name = "SiteLicenseFinishTime")]
         public DateTime SITE_LICENSE_FINISH_TIME { get; set; }
     }

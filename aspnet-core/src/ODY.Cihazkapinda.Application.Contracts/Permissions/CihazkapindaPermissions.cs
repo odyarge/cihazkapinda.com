@@ -8,6 +8,7 @@
         public const string GeneralSettingsGroup = "GeneralSettings";
         public const string BannerSettingsGroup = "BannerSettings";
         public const string OperatorSettingsGroup = "OperatorSettings";
+        public const string LicensesGroup = "Licenses";
 
         public static class SiteSettings
         {
@@ -67,6 +68,15 @@
             public const string Create = OperatorSettingDefault + ".Create";
             public const string Edit = OperatorSettingDefault + ".Edit";
             public const string Delete = OperatorSettingDefault + ".Delete";
+        }
+        public static class Licenses
+        {
+            public const string LicenseDefault = LicensesGroup + ".Licenses";
+            public const string MenuList = LicenseDefault + ".MenuList";
+            public const string List = LicenseDefault + ".List";
+            public const string Create = LicenseDefault + ".Create";
+            public const string Edit = LicenseDefault + ".Edit";
+            public const string Delete = LicenseDefault + ".Delete";
         }
     }
 }

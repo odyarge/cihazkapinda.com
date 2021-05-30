@@ -15,6 +15,7 @@ namespace ODY.Cihazkapinda.Web.Pages.Admin.OperatorSettings
         }
         public async virtual Task<IActionResult> OnGetAsync()
         {
+            await CheckAll();
             return await Task.FromResult<IActionResult>(Page());
         }
     }

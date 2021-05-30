@@ -46,6 +46,7 @@ namespace ODY.Cihazkapinda.Web.Pages.Admin.SiteSettings
         }
         public async virtual Task<IActionResult> OnGetAsync()
         {
+            await CheckAll();
             siteSettingCreateModal = new SiteSettingCreateModal();
             siteSettingCreateModal.SITE_LICENSE_FINISH_TIME = DateTime.Now;
             siteSettingCreateModal.SITE_LICENSE = GuidGenerator.Create().ToString();

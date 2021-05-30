@@ -19,6 +19,7 @@ namespace ODY.Cihazkapinda.GeneralSettings
         public string Email { get; set; }
         public string Phone { get; set; }
         public string WorkTime { get; set; }
+        public string SiteTheme { get; set; }
 
         protected GeneralSetting()
         {
@@ -29,6 +30,7 @@ namespace ODY.Cihazkapinda.GeneralSettings
             [NotNull] string _logo,
             [NotNull] string _description,
             [NotNull] string _title,
+            [NotNull] string _siteTheme,
             string _email,
             string _phone,
             string _workTime)
@@ -37,6 +39,7 @@ namespace ODY.Cihazkapinda.GeneralSettings
             Logo = Check.NotNullOrWhiteSpace(_logo, nameof(_logo));
             Title = Check.NotNullOrWhiteSpace(_title, nameof(_title));
             Description = Check.NotNullOrWhiteSpace(_description, nameof(_description));
+            SiteTheme = Check.NotNullOrWhiteSpace(_siteTheme, nameof(_siteTheme));
             Email = _email;
             Phone = _phone;
             WorkTime = _workTime;

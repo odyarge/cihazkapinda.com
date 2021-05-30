@@ -2,6 +2,7 @@
 using ODY.Cihazkapinda.BannerImages;
 using ODY.Cihazkapinda.BannerSettings;
 using ODY.Cihazkapinda.GeneralSettings;
+using ODY.Cihazkapinda.Licenses;
 using ODY.Cihazkapinda.OperatorSettings;
 using ODY.Cihazkapinda.SiteSettings;
 using ODY.Cihazkapinda.ThemeSettings;
@@ -25,6 +26,7 @@ namespace ODY.Cihazkapinda.EntityFrameworkCore
                 b.Property(x => x.Logo).IsRequired();
                 b.Property(x => x.Title).IsRequired();
                 b.Property(x => x.Description).IsRequired();
+                b.Property(x => x.SiteTheme).IsRequired();
             });
 
             builder.Entity<SiteSetting>(b =>
@@ -85,6 +87,16 @@ namespace ODY.Cihazkapinda.EntityFrameworkCore
                 b.Ignore(x => x.ExtraProperties);
                 b.Property(x => x.OperatorName).IsRequired();
                 b.Property(x => x.Image).IsRequired();
+            });
+
+            builder.Entity<License>(b =>
+            {
+                b.ToTable(CihazkapindaConsts.DbTablePrefix + "License", CihazkapindaConsts.DbSchema);
+                b.ConfigureByConvention();
+
+                b.Ignore(x => x.ExtraProperties);
+                b.Property(x => x.LICENSE_OWNER).IsRequired();
+                b.Property(x => x.LICENSE).IsRequired();
             });
         }
     }

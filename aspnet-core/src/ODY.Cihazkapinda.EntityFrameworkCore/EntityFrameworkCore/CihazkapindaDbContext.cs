@@ -2,6 +2,7 @@
 using ODY.Cihazkapinda.BannerImages;
 using ODY.Cihazkapinda.BannerSettings;
 using ODY.Cihazkapinda.GeneralSettings;
+using ODY.Cihazkapinda.Licenses;
 using ODY.Cihazkapinda.OperatorSettings;
 using ODY.Cihazkapinda.SiteSettings;
 using ODY.Cihazkapinda.ThemeSettings;
@@ -27,6 +28,7 @@ namespace ODY.Cihazkapinda.EntityFrameworkCore
     public class CihazkapindaDbContext : AbpDbContext<CihazkapindaDbContext>
     {
         public DbSet<AppUser> Users { get; set; }
+        public DbSet<License> Licenses { get; set; }
 
         #region IMPORTANT_SETTINGS
         public DbSet<SiteSetting> SiteSettings { get; set; }

@@ -23,21 +23,73 @@ namespace ODY.Cihazkapinda.Web.Pages
             if (CurrentTenant.Id != null)
             {
                 var checkActivated = await _siteSettingAppService.GetAsyncByTenantName(CurrentTenant.Name);
-                bool activated = checkActivated.SITE_ACTIVATED;
-                if (activated == false)
+                if (checkActivated != null)
                 {
-                    Response.Redirect("/Error/Activate/");
+                    bool activated = checkActivated.SITE_ACTIVATED;
+                    if (activated == false)
+                    {
+                        Response.Redirect("/Error/Activate/");
+                    }
+                }
+                else
+                {
+                    Response.Redirect("/Error/404");
+                }
+            }
+        }
+
+        public async Task CheckToInstalled()
+        {
+            if (CurrentTenant.Id != null)
+            {
+                var checkActivated = await _siteSettingAppService.GetAsyncByTenantName(CurrentTenant.Name);
+                if (checkActivated != null)
+                {
+                    bool activated = checkActivated.SITE_INSTALL;
+                    if (activated == false)
+                    {
+                        Response.Redirect("/Install/Index");
+                    }
+                }
+                else
+                {
+                    Response.Redirect("/Error/404");
+                }
+            }
+        }
+
+        public async Task CheckToActivatedAndInstalled()
+        {
+            if (CurrentTenant.Id != null)
+            {
+                var checkActivated = await _siteSettingAppService.GetAsyncByTenantName(CurrentTenant.Name);
+                if (checkActivated != null)
+                {
+                    bool activated = checkActivated.SITE_ACTIVATED;
+                    bool installed = checkActivated.SITE_INSTALL;
+                    if (installed == false)
+                    {
+                        Response.Redirect("/Install/Index");
+                    }
+                    if (activated == false)
+                    {
+                        Response.Redirect("/Error/Activate/");
+                    }
+                }
+                else
+                {
+                    Response.Redirect("/Error/404");
                 }
             }
         }
 
         public async Task CheckAll()
         {
-            await CheckToActivated();
             if (CurrentUser.IsAuthenticated == false)
             {
-                Response.Redirect("/Error/404");
+                Response.Redirect("/Account/Login");
             }
+            await CheckToActivatedAndInstalled();
         }
     }
 }

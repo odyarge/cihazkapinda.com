@@ -2,6 +2,9 @@
 @using Microsoft.AspNetCore.Mvc.Localization
 @using ODY.Cihazkapinda.Localization
 @using Volo.Abp.Users
+@using ODY.Cihazkapinda.Permissions
+@using Microsoft.AspNetCore.Authorization
+@inject IAuthorizationService AuthorizationService
 @model ODY.Cihazkapinda.Web.Pages.Admin.SiteSettings.IndexModel
 @inject IHtmlLocalizer<CihazkapindaResource> L
 @inject ICurrentUser CurrentUser
@@ -11,7 +14,6 @@
         <abp-script src="/Pages/Admin/SiteSettings/index.js" />
     </abp-script-bundle>
 }
-
 <style>
     .centered {
         transform: translate3d(78px, -13px, 0px) !important;
@@ -24,7 +26,10 @@
                 <abp-card-title>@L["SiteSetting"]</abp-card-title>
             </abp-column>
             <abp-column size-md="_6" class="text-right">
-                <button type="button" class="btn btn-primary waves-effect waves-light" name="CreateSite">@L["CreateSite"]</button>
+                @if (await AuthorizationService.IsGrantedAsync(CihazkapindaPermissions.SiteSettings.Create))
+                {
+                    <button type="button" class="btn btn-primary waves-effect waves-light" name="CreateSite">@L["CreateSite"]</button>
+                }
             </abp-column>
         </abp-row>
     </abp-card-header>

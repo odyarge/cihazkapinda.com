@@ -1,0 +1,45 @@
+﻿@page
+@using Microsoft.AspNetCore.Mvc.Localization
+@using ODY.Cihazkapinda.Localization
+@using Volo.Abp.Users
+@model ODY.Cihazkapinda.Web.Pages.Admin.GeneralSettings.SubSettings.GeneralModel
+@inject IHtmlLocalizer<CihazkapindaResource> L
+@inject ICurrentUser CurrentUser
+@{
+    Layout = null;
+}
+
+<script>
+    $('input[type="file"]').change(function (e) {
+        var fileName = e.target.files[0].name;
+        document.getElementById("file").nextElementSibling.innerHTML = fileName;
+    });
+</script>
+
+<form asp-page="/Admin/GeneralSettings/SubSettings/General" enctype="multipart/form-data">
+    <abp-card id="GeneralWrapper">
+        <abp-card-body>
+            <abp-input asp-for="generalSettingEditModal.Id" />
+            <abp-input asp-for="generalSettingEditModal.TenantId" />
+
+            <abp-select asp-for="generalSettingEditModal.SiteTheme" asp-items="Model.themeList" />
+            <div class="col-12">
+                <label asp-for="@Model.file" style="margin-left:-13px;margin-bottom: 25px;">@L["ChooseFile"]</label>
+                <input type="file" asp-for="@Model.file" class="custom-file-input">
+                <label class="custom-file-label" style="margin-top: 25px;">@L["ChooseFile"]</label>
+            </div>
+            <abp-input asp-for="generalSettingEditModal.Title" />
+            <abp-input asp-for="generalSettingEditModal.Description" />
+            <div class="row">
+                <div class="col-6">
+                    <abp-input asp-for="generalSettingEditModal.Email" />
+                </div>
+                <div class="col-6">
+                    <abp-input asp-for="generalSettingEditModal.Phone" />
+                </div>
+            </div>
+            <abp-input asp-for="generalSettingEditModal.WorkTime" />
+            <input type="submit" class="btn btn-primary" value="Kaydet" />
+        </abp-card-body>
+    </abp-card>
+</form>

@@ -109,7 +109,7 @@
                     _operatorSettingAppService.getList
                 ),
                 columnDefs: abp.ui.extensions.tableColumns.get('operatorSetting').columns.toArray(),
-                initComplete: function (settings, json) {
+                drawCallback: function (settings, json) {
                     $('div.dropdown.action-button > ul').attr("class", "dropdown-menu centered");
                     $('div.dropdown.action-button > ul > li').css("float", "left");
                     $('div.dropdown.action-button').attr("class", "dropright");

@@ -47,6 +47,7 @@ namespace ODY.Cihazkapinda.Web.Pages.Admin.SiteSettings
 
         public async virtual Task<IActionResult> OnGetAsync(Guid id)
         {
+            await CheckAll();
             siteSettingEditModal = ObjectMapper.Map<SiteSettingDto, SiteSettingEditModal>(
                 await _siteSettingAppService.GetAsync(id)
                 );

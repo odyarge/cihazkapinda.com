@@ -15,12 +15,30 @@
             <abp-input asp-for="siteSettingEditModal.Id" />
             <abp-input asp-for="siteSettingEditModal.TenantId" />
             <abp-select asp-for="siteSettingEditModal.SITE_OWNER" asp-items="Model.tenantList" />
-            <abp-input asp-for="siteSettingEditModal.SITE_NAME" />
+            <abp-input asp-for="siteSettingEditModal.SITE_NAME" readonly="true"/>
             <abp-select asp-for="siteSettingEditModal.SITE_OPERATOR" asp-items="Model.operatorList" />
-            <abp-input asp-for="siteSettingEditModal.SITE_LICENSE" />
+            <abp-input asp-for="siteSettingEditModal.SITE_LICENSE" readonly="true" />
             <abp-input asp-for="siteSettingEditModal.SITE_LICENSE_FINISH_TIME" />
             <abp-input asp-for="siteSettingEditModal.SITE_ACTIVATED" />
+            <abp-input asp-for="siteSettingEditModal.SITE_INSTALL" />
         </abp-modal-body>
         <abp-modal-footer buttons="@(AbpModalButtons.Cancel|AbpModalButtons.Save)"></abp-modal-footer>
     </abp-modal>
 </form>
+<script>
+    $('#siteSettingEditModal_SITE_OWNER').on('change', function () {
+        var selectedValue = $(this).find(":selected").val();
+        document.getElementById("siteSettingEditModal_SITE_NAME").value = selectedValue;
+
+        abp.ajax({
+            type: 'GET',
+            url: "/api/app/license/async-by-name?input=" + selectedValue
+        }).then(function (result) {
+            if (result !== undefined) {
+                document.getElementById("siteSettingEditModal_SITE_LICENSE").value = result.license;
+            }
+        }).catch(function () {
+            alert("request failed :(");
+        });
+    });
+</script>

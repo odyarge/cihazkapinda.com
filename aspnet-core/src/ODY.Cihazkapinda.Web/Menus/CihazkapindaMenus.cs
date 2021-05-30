@@ -12,6 +12,7 @@
         public const string ThemeSettings = Settings + ".ThemeSettings";
         public const string BannerSettings = Settings + ".BannerSettings";
         public const string OperatorSettings = Settings + ".OperatorSettings";
+        public const string Licenses = Settings + ".Licenses";
         #endregion SETTINGS
 
         #region COMPONENTS

@@ -13,6 +13,7 @@
     "Menu:ThemeSettings": "Tema Ayarları",
     "Menu:SiteSettings": "Site Ayarları",
     "Menu:OperatorSettings": "Operatör Ayarları",
+    "Menu:Licenses": "Lisanslar",
     //TOPBAR MENU
     "TopBar:Profile": "Profil",
     "TopBar:Logout": "Çıkış Yap",
@@ -58,6 +59,13 @@
     "Permission:OperatorSettingsCreate": "Oluştur",
     "Permission:OperatorSettingsEdit": "Düzenle",
     "Permission:OperatorSettingsDelete": "Sil",
+
+    "Permission:Licenses": "Lisanslar",
+    "Permission:LicensesMenuList": "Menüde Göster",
+    "Permission:LicensesList": "Listele",
+    "Permission:LicensesCreate": "Oluştur",
+    "Permission:LicensesEdit": "Düzenle",
+    "Permission:LicensesDelete": "Sil",
 
     //GENERAL
     "Welcome": "Hoşgeldiniz",

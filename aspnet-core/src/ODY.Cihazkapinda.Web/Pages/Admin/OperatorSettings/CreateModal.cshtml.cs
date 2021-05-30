@@ -37,6 +37,7 @@ namespace ODY.Cihazkapinda.Web.Pages.Admin.OperatorSettings
         }
         public async virtual Task<IActionResult> OnGetAsync()
         {
+            await CheckAll();
             operatorSettingCreateModal = new OperatorSettingCreateModal();
             return await Task.FromResult<IActionResult>(Page());
         }
@@ -46,17 +47,18 @@ namespace ODY.Cihazkapinda.Web.Pages.Admin.OperatorSettings
             ValidateModel();
 
             //string tenantPath = CurrentTenant.Id == null ? "Host" : CurrentTenant.Id.ToString();
-            string filePath = string.Empty;
+            string ignoreWWW = string.Empty;
             if (file.Length > 0)
             {
-                filePath = Path.Combine("Host\\Operators", file.FileName);
+                ignoreWWW = Path.Combine("host\\operators", file.FileName);
+                string filePath = Path.Combine("wwwroot\\host\\operators", file.FileName);
                 using (var stream = new FileStream(filePath, FileMode.Create))
                 {
                     await file.CopyToAsync(stream);
                 }
             }
             operatorSettingCreateModal.TenantId = CurrentTenant.Id;
-            operatorSettingCreateModal.Image = filePath;
+            operatorSettingCreateModal.Image = ignoreWWW;
             var create = ObjectMapper.Map<OperatorSettingCreateModal, OperatorSettingCreateUpdateDto>(operatorSettingCreateModal);
             await _operatorSettingAppService.CreateAsync(create);
             return await Task.FromResult<IActionResult>(Page());

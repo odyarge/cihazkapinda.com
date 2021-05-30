@@ -89,6 +89,26 @@
                         }
                     },
                     {
+                        title: l('SiteInstall'),
+                        data: 'sitE_INSTALL',
+                        render: function (data, type, row) {
+                            var name = '';
+                            if (row.sitE_INSTALL === true) {
+                                name =
+                                    '<span class="badge badge-pill badge-success ml-1">' +
+                                    l('Yes') +
+                                    '</span>';
+                            }
+                            else {
+                                name =
+                                    '<span class="badge badge-pill badge-danger ml-1">' +
+                                    l('No') +
+                                    '</span>';
+                            }
+                            return name;
+                        }
+                    },
+                    {
                         title: l('SiteName'),
                         data: 'sitE_NAME'
                     },
@@ -144,7 +164,7 @@
                     _siteSettingAppService.getList
                 ),
                 columnDefs: abp.ui.extensions.tableColumns.get('siteSetting').columns.toArray(),
-                initComplete: function (settings, json) {
+                drawCallback: function (settings, json) {
                     $('div.dropdown.action-button > ul').attr("class", "dropdown-menu centered");
                     $('div.dropdown.action-button > ul > li').css("float", "left");
                     $('div.dropdown.action-button').attr("class", "dropright");
