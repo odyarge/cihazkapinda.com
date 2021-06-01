@@ -8,6 +8,10 @@ namespace ODY.Cihazkapinda.Web.Pages.Identity.Roles
     public class IndexModel : IdentityPageModel
     {
         private readonly ISiteSettingAppService _siteSettingAppService;
+        public IndexModel(ISiteSettingAppService siteSettingAppService)
+        {
+            _siteSettingAppService = siteSettingAppService;
+        }
         public async virtual Task<IActionResult> OnGetAsync()
         {
             await CheckToActivated();

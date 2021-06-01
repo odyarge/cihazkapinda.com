@@ -1,9 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ODY.Cihazkapinda.BannerImages;
 using ODY.Cihazkapinda.BannerSettings;
+using ODY.Cihazkapinda.Categories;
 using ODY.Cihazkapinda.GeneralSettings;
 using ODY.Cihazkapinda.Licenses;
 using ODY.Cihazkapinda.OperatorSettings;
+using ODY.Cihazkapinda.ProductManagement;
 using ODY.Cihazkapinda.SiteSettings;
 using ODY.Cihazkapinda.ThemeSettings;
 using ODY.Cihazkapinda.Users;
@@ -44,6 +46,16 @@ namespace ODY.Cihazkapinda.EntityFrameworkCore
         public DbSet<BannerSetting> BannerSettings { get; set; }
         public DbSet<BannerImage> BannerImages { get; set; }
         #endregion FRONTEND_SETTINGS
+
+        #region CATEGORY
+        public DbSet<Category> Category { get; set; }
+        #endregion CATEGORY
+
+        #region PRODUCTS
+        public DbSet<Product> Product { get; set; }
+        public DbSet<ProductImage> ProductImage { get; set; }
+        public DbSet<ProductProperty> ProductProperty { get; set; }
+        #endregion PRODUCTS
 
         public CihazkapindaDbContext(DbContextOptions<CihazkapindaDbContext> options)
             : base(options)

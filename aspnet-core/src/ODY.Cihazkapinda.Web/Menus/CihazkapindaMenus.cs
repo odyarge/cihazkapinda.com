@@ -18,6 +18,7 @@
         #region COMPONENTS
         public const string Components = Prefix + ".Components";
         public const string Banner = Components + ".Banner";
+        public const string BannerImages = Components + ".BannerImages";
         #endregion COMPONENTS
 
         //Add your menu items here...

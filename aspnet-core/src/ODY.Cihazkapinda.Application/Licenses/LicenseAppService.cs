@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Volo.Abp;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Data;
@@ -42,6 +43,16 @@ namespace ODY.Cihazkapinda.Licenses
             {
                 var item = await Repository.FindAsync(x => x.LICENSE_OWNER == input);
                 return ObjectMapper.Map<License, LicenseDto>(item);
+            }
+        }
+
+        [RemoteService(false)]
+        [Authorize(Permissions.CihazkapindaPermissions.Licenses.Delete)]
+        public async Task DeleteLicense(Guid id)
+        {
+            using (_dataFilter.Disable<IMultiTenant>())
+            {
+                await Repository.DeleteAsync(id);
             }
         }
     }

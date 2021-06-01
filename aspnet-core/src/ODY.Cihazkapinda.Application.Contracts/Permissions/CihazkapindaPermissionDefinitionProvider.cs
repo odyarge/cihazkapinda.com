@@ -9,12 +9,14 @@ namespace ODY.Cihazkapinda.Permissions
         public override void Define(IPermissionDefinitionContext context)
         {
             var myGroup = context.AddGroup(CihazkapindaPermissions.GroupName);
-            var SiteSettingsGroup = context.AddGroup(CihazkapindaPermissions.SiteSettingsGroup, L("Permission:SiteSettings"));
+            
+            var SiteSettingsGroup = context.AddGroup(CihazkapindaPermissions.SiteSettingsGroup, L("Permission:SiteSettings"), Volo.Abp.MultiTenancy.MultiTenancySides.Host);
+            SiteSettingsGroup.MultiTenancySide = Volo.Abp.MultiTenancy.MultiTenancySides.Host;
             var GeneralSettingsGroup = context.AddGroup(CihazkapindaPermissions.GeneralSettingsGroup, L("Permission:GeneralSettings"));
-            var ThemeSettingsGroup = context.AddGroup(CihazkapindaPermissions.ThemeSettingsGroup, L("Permission:ThemeSettings"));
+            var ThemeSettingsGroup = context.AddGroup(CihazkapindaPermissions.ThemeSettingsGroup, L("Permission:ThemeSettings"), Volo.Abp.MultiTenancy.MultiTenancySides.Host);
             var BannerSettingsGroup = context.AddGroup(CihazkapindaPermissions.BannerSettingsGroup, L("Permission:Banner"));
-            var OperatorSettingsGroup = context.AddGroup(CihazkapindaPermissions.OperatorSettingsGroup, L("Permission:OperatorSettings"));
-            var LicensesGroup = context.AddGroup(CihazkapindaPermissions.LicensesGroup, L("Permission:Licenses"));
+            var OperatorSettingsGroup = context.AddGroup(CihazkapindaPermissions.OperatorSettingsGroup, L("Permission:OperatorSettings"), Volo.Abp.MultiTenancy.MultiTenancySides.Host);
+            var LicensesGroup = context.AddGroup(CihazkapindaPermissions.LicensesGroup, L("Permission:Licenses"), Volo.Abp.MultiTenancy.MultiTenancySides.Host);
 
             var siteSettingGroup = SiteSettingsGroup.AddPermission(CihazkapindaPermissions.SiteSettings.SiteSettingDefault, L("Permission:SiteSettings"));
             siteSettingGroup.AddChild(CihazkapindaPermissions.SiteSettings.MenuList, L("Permission:SiteSettingsMenuList"));

@@ -20,7 +20,6 @@ namespace ODY.Cihazkapinda.Web.Pages.Admin.ThemeSettings
         public ThemeSettingEditModal themeSettingEditModal { get; set; }
 
         [BindProperty]
-        [Required]
         [Display(Name = "File")]
         public IFormFile file { get; set; }
 
@@ -53,25 +52,29 @@ namespace ODY.Cihazkapinda.Web.Pages.Admin.ThemeSettings
             ValidateModel();
 
             //string tenantPath = CurrentTenant.Id == null ? "Host" : CurrentTenant.Id.ToString();
-            string ignoreWWW = string.Empty;
-            if (file.Length > 0)
+            string ignoreWWW = themeSettingEditModal.THEME_PATH;
+            if(file != null)
             {
-                ignoreWWW = Path.Combine("Themes\\Stisla\\Layouts", file.FileName);
-                if(newTheme == true)
+                if (file.Length > 0)
                 {
-                    string oldFilePath = themeSettingEditModal.THEME_PATH;
-                    if (System.IO.File.Exists(oldFilePath))
+                    ignoreWWW = Path.Combine("Themes\\Stisla\\Layouts", file.FileName);
+                    if (newTheme == true)
                     {
-                        System.IO.File.Delete(oldFilePath);
-                    }
+                        string oldFilePath = themeSettingEditModal.THEME_PATH;
+                        if (System.IO.File.Exists(oldFilePath))
+                        {
+                            System.IO.File.Delete(oldFilePath);
+                        }
 
-                    string filePath = Path.Combine("Themes\\Stisla\\Layouts", file.FileName);
-                    using (var stream = new FileStream(filePath, FileMode.Create))
-                    {
-                        await file.CopyToAsync(stream);
+                        string filePath = Path.Combine("Themes\\Stisla\\Layouts", file.FileName);
+                        using (var stream = new FileStream(filePath, FileMode.Create))
+                        {
+                            await file.CopyToAsync(stream);
+                        }
                     }
                 }
             }
+            
             themeSettingEditModal.TenantId = CurrentTenant.Id;
             themeSettingEditModal.THEME_PATH = ignoreWWW;
             var update = ObjectMapper.Map<ThemeSettingEditModal, ThemeSettingCreateUpdateDto>(themeSettingEditModal);

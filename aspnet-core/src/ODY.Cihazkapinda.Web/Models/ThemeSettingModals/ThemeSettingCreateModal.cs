@@ -15,8 +15,10 @@ namespace ODY.Cihazkapinda.Web.Models.ThemeSettingModals
         [Display(Name = "ThemeName")]
         public string THEME_NAME { get; set; }
         [Display(Name = "ThemePath")]
+        [HiddenInput]
         public string THEME_PATH { get; set; }
         [Display(Name = "ThemeActivated")]
         public bool THEME_ACTIVATED { get; set; }
+        public bool THEME_PRO { get; set; }
     }
 }

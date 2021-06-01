@@ -59,57 +59,61 @@ namespace ODY.Cihazkapinda.Web.Pages.Admin.GeneralSettings.SubSettings
         {
             var test = ModelState.IsValid;
             ValidateModel();
-            string ignoreWWW = string.Empty;
+            string ignoreWWW = generalSettingEditModal.Logo;
             string tenantPath = string.Empty;
             string oldFilePath = string.Empty;
             string filePath = string.Empty;
-            if (file.Length > 0)
+            if(file != null)
             {
-                if (CurrentTenant.Id == null)
+                if (file.Length > 0)
                 {
-                    tenantPath = "wwwroot\\host\\logo";
-                    ignoreWWW = Path.Combine("\\host\\logo", file.FileName);
-                    oldFilePath = tenantPath + "\\" + generalSettingEditModal.Logo;
-                    filePath = Path.Combine(tenantPath, file.FileName);
-                }
-                else
-                {
-                    tenantPath = "wwwroot\\tenant\\" + CurrentTenant.Id.ToString() + "\\logo";
-                    ignoreWWW = Path.Combine("tenant\\" + CurrentTenant.Id.ToString() + "\\logo", file.FileName);
-                    oldFilePath = tenantPath + "\\" + generalSettingEditModal.Logo;
-                    filePath = Path.Combine(tenantPath, file.FileName);
-                }
+                    if (CurrentTenant.Id == null)
+                    {
+                        tenantPath = "wwwroot\\host\\logo";
+                        ignoreWWW = Path.Combine("\\host\\logo", file.FileName);
+                        oldFilePath = tenantPath + "\\" + generalSettingEditModal.Logo;
+                        filePath = Path.Combine(tenantPath, file.FileName);
+                    }
+                    else
+                    {
+                        tenantPath = "wwwroot\\tenant\\" + CurrentTenant.Id.ToString() + "\\logo";
+                        ignoreWWW = Path.Combine("tenant\\" + CurrentTenant.Id.ToString() + "\\logo", file.FileName);
+                        oldFilePath = tenantPath + "\\" + generalSettingEditModal.Logo;
+                        filePath = Path.Combine(tenantPath, file.FileName);
+                    }
 
-                if (System.IO.File.Exists(oldFilePath))
-                {
-                    System.IO.File.Delete(oldFilePath);
-                }
-                if (!Directory.Exists(tenantPath))
-                {
-                    Directory.CreateDirectory(tenantPath);
-                }
-                using (var stream = new FileStream(filePath, FileMode.Create))
-                {
-                    await file.CopyToAsync(stream);
+                    if (System.IO.File.Exists(oldFilePath))
+                    {
+                        System.IO.File.Delete(oldFilePath);
+                    }
+                    if (!Directory.Exists(tenantPath))
+                    {
+                        Directory.CreateDirectory(tenantPath);
+                    }
+                    using (var stream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await file.CopyToAsync(stream);
+                    }
                 }
             }
+            
             generalSettingEditModal.TenantId = CurrentTenant.Id;
             generalSettingEditModal.Logo = ignoreWWW;
             var update = ObjectMapper.Map<GeneralSettingEditModal, GeneralSettingCreateUpdateDto>(generalSettingEditModal);
             await _generalSettingAppService.UpdateAsync(generalSettingEditModal.Id, update);
 
             //Düzenlenecek
-            return RedirectToPage("../Index");
+            return RedirectSafely("/Admin/GeneralSettings/");
         }
 
 
         public async Task GetThemes(string selected)
         {
-            PagedAndSortedResultRequestDto pagedAndSortedResultRequestDto = new PagedAndSortedResultRequestDto();
-            var list = await _themeSettingAppService.GetListAsync(pagedAndSortedResultRequestDto);
+
+            var list = await _themeSettingAppService.GetListAsyncAllThemes();
 
             themeList = new List<SelectListItem>();
-            foreach (var item in list.Items)
+            foreach (var item in list)
             {
                 SelectListItem option;
                 if (item.THEME_NAME == selected)

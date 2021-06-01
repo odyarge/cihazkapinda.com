@@ -71,6 +71,8 @@
                 $('#key_2').attr("class", "form-control text-center font-size-18 border-success");
                 $('#key_3').attr("class", "form-control text-center font-size-18 border-success");
                 $('#key_4').attr("class", "form-control text-center font-size-18 border-success");
+
+                document.getElementById("license").value = key;
             }
         }).catch(function () {
             alert("request failed :(");

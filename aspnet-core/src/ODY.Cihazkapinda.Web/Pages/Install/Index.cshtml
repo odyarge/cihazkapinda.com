@@ -13,11 +13,11 @@
                         </blockquote>
                         <form asp-page="/Install/Index" id="installForm">
                             <input type="hidden" asp-for="currentTenant" />
-                            <input type="hidden" asp-for="installModal.licenseCreateModal.LICENSE" />
+                            <input type="hidden" asp-for="license" />
                             <div id="progrss-wizard" class="twitter-bs-wizard">
                                 <ul class="twitter-bs-wizard-nav nav-justified">
                                     <li class="nav-item">
-                                        <a href="#license" class="nav-link" data-toggle="tab">
+                                        <a href="#license-input" class="nav-link" data-toggle="tab">
                                             <span class="step-number mr-2">01</span>
                                             Lisans Anahtarı
                                         </a>
@@ -47,7 +47,7 @@
                                     <div class="progress-bar bg-success progress-bar-striped progress-bar-animated"></div>
                                 </div>
                                 <div class="tab-content twitter-bs-wizard-tab-content">
-                                    <div class="tab-pane text-center" id="license">
+                                    <div class="tab-pane text-center" id="license-input">
                                         <h2 class="title">ANAHTAR</h2>
                                         <blockquote class="blockquote">
                                             <p>Lisans anahtarını doğru girdiğinizden emin olun!</p>
@@ -105,7 +105,7 @@
                                     <div class="tab-pane" id="theme-settings">
                                         <div class="row">
                                             <div class="col-lg-12">
-                                                <abp-select asp-for="installModal.themeSettingCreateModal.THEME_NAME" asp-items="Model.themeList"/>
+                                                <abp-select asp-for="installModal.generalSettingCreateModal.SiteTheme" asp-items="Model.themeList"/>
                                             </div>
                                         </div>
                                     </div>

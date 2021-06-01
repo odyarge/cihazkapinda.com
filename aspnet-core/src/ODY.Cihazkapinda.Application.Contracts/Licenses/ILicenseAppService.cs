@@ -11,5 +11,6 @@ namespace ODY.Cihazkapinda.Licenses
     {
         Task<LicenseDto> GetCheckLicense(string license, string owner);
         Task<LicenseDto> GetAsyncByName(string input);
+        Task DeleteLicense(Guid id);
     }
 }

@@ -17,7 +17,7 @@ namespace ODY.Cihazkapinda.BannerSettings
         public Guid? TenantId { get; protected set; }
 
         public string Title { get; set; }
-        public string WelcomeMessage { get; set; }
+        public bool Active { get; set; }
         public ICollection<BannerImage> Images { get; set; }
 
         protected BannerSetting()
@@ -26,11 +26,11 @@ namespace ODY.Cihazkapinda.BannerSettings
         }
         public BannerSetting(Guid? _tenantId,
             [NotNull] string _title,
-            [NotNull] string _welcomeMessage)
+            bool _active)
         {
             TenantId = _tenantId;
             Title = Check.NotNullOrWhiteSpace(_title, nameof(_title));
-            WelcomeMessage = Check.NotNullOrWhiteSpace(_welcomeMessage, nameof(_welcomeMessage));
+            Active = _active;
             Images = new Collection<BannerImage>();
         }
     }

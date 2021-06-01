@@ -15,7 +15,7 @@
 </script>
 <form asp-page="/Admin/ThemeSettings/CreateModal">
     <abp-modal size="Default">
-        <abp-modal-header title="@L["ThemeSettings"].Value"></abp-modal-header>
+        <abp-modal-header title="@L["ThemeSetting"].Value"></abp-modal-header>
         <abp-modal-body>
             <abp-input asp-for="themeSettingCreateModal.TenantId" />
             <abp-input asp-for="themeSettingCreateModal.THEME_NAME" />
@@ -26,6 +26,7 @@
             </div>
             <abp-input asp-for="newTheme" />
             <abp-input asp-for="themeSettingCreateModal.THEME_ACTIVATED" />
+            <abp-input asp-for="themeSettingCreateModal.THEME_PRO" />
         </abp-modal-body>
         <abp-modal-footer buttons="@(AbpModalButtons.Cancel|AbpModalButtons.Save)"></abp-modal-footer>
     </abp-modal>

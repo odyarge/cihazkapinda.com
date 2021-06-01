@@ -10,5 +10,6 @@ namespace ODY.Cihazkapinda.SiteSettings
     public interface ISiteSettingAppService : ICrudAppService<SiteSettingDto, Guid, PagedAndSortedResultRequestDto, SiteSettingCreateUpdateDto, SiteSettingCreateUpdateDto>
     {
         Task<SiteSettingDto> GetAsyncByTenantName(string input);
+        Task<bool> UpdateInstall(string license, string owner);
     }
 }

@@ -14,20 +14,22 @@
         document.getElementById("file").nextElementSibling.innerHTML = fileName;
     });
 </script>
-<form asp-page="/Admin/ThemeSettings/EditModal">
+<form asp-page="/Admin/ThemeSetting/EditModal">
     <abp-modal size="Default">
         <abp-modal-header title="@L["ThemeSettings"].Value"></abp-modal-header>
         <abp-modal-body>
             <abp-input asp-for="themeSettingEditModal.Id" />
             <abp-input asp-for="themeSettingEditModal.TenantId" />
             <abp-input asp-for="themeSettingEditModal.THEME_NAME" />
+            <abp-input asp-for="themeSettingEditModal.THEME_PATH" />
             <div class="col-12" style="margin-bottom: 10px;">
                 <label asp-for="@Model.file" style="margin-left:-13px;">@L["ChooseFile"]</label>
-                <input required type="file" asp-for="@Model.file" class="custom-file-input">
+                <input type="file" asp-for="@Model.file" class="custom-file-input">
                 <label class="custom-file-label" style="margin-top: 25px;">@L["ChooseFile"]</label>
             </div>
             <abp-input asp-for="newTheme" />
             <abp-input asp-for="themeSettingEditModal.THEME_ACTIVATED" />
+            <abp-input asp-for="themeSettingEditModal.THEME_PRO" />
         </abp-modal-body>
         <abp-modal-footer buttons="@(AbpModalButtons.Cancel|AbpModalButtons.Save)"></abp-modal-footer>
     </abp-modal>

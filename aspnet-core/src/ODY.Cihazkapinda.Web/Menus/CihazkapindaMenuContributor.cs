@@ -39,7 +39,11 @@ namespace ODY.Cihazkapinda.Web.Menus
             #region COMPONENTS_SUB_MENUS
             if (await context.IsGrantedAsync(CihazkapindaPermissions.BannerSettings.MenuList))
             {
-                componentsMenu.AddItem(new ApplicationMenuItem(CihazkapindaMenus.Components, l["Menu:Banner"], "/Admin/BannerSettings/"));
+                componentsMenu.AddItem(new ApplicationMenuItem(CihazkapindaMenus.BannerSettings, l["Menu:BannerSettings"], "/Admin/BannerSettings/"));
+            }
+            if (await context.IsGrantedAsync(CihazkapindaPermissions.BannerImages.MenuList))
+            {
+                componentsMenu.AddItem(new ApplicationMenuItem(CihazkapindaMenus.BannerImages, l["Menu:BannerImages"], "/Admin/BannerImages/"));
             }
             #endregion COMPONENTS_SUB_MENUS
             #endregion COMPONENTS

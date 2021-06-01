@@ -11,6 +11,7 @@ namespace ODY.Cihazkapinda.Web.Models.GeneralSettingModals
     {
         [HiddenInput]
         public Guid? TenantId { get; set; }
+        [HiddenInput]
         public string Logo { get; set; }
         [Required]
         [Display(Name = "Title")]

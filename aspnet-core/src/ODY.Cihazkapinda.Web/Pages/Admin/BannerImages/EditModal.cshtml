@@ -1,0 +1,34 @@
+﻿@page
+@using Volo.Abp.AspNetCore.Mvc.UI.Bootstrap.TagHelpers.Modal
+@using Microsoft.AspNetCore.Mvc.Localization
+@using ODY.Cihazkapinda.Localization
+@model ODY.Cihazkapinda.Web.Pages.Admin.BannerImages.EditModalModel
+@inject IHtmlLocalizer<CihazkapindaResource> L
+@{
+    Layout = null;
+}
+
+<script>
+    $('input[type="file"]').change(function (e) {
+        var fileName = e.target.files[0].name;
+        (this).nextElementSibling.innerHTML = fileName;
+    });
+</script>
+<form asp-page="/Admin/BannerImages/CreateModal">
+    <abp-modal size="Default">
+        <abp-modal-header title="@L["BannerImage"].Value"></abp-modal-header>
+        <abp-modal-body>
+            <abp-input asp-for="bannerImageEditModal.Id" />
+            <abp-input asp-for="bannerImageEditModal.TenantId" />
+            <abp-select asp-for="bannerImageEditModal.BannerSettingId" asp-items="Model.bannerList" />
+            <abp-input asp-for="bannerImageEditModal.Title" />
+            <abp-input asp-for="bannerImageEditModal.Content" />
+            <div class="col-12">
+                <label asp-for="@Model.file" style="margin-left:-13px;">@L["ChooseFile"]</label>
+                <input type="file" asp-for="@Model.file" class="custom-file-input">
+                <label class="custom-file-label" style="margin-top: 25px;">@L["ChooseFile"]</label>
+            </div>
+        </abp-modal-body>
+        <abp-modal-footer buttons="@(AbpModalButtons.Cancel|AbpModalButtons.Save)"></abp-modal-footer>
+    </abp-modal>
+</form>

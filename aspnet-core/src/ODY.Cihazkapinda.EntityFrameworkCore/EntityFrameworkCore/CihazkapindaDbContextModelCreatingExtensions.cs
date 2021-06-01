@@ -1,9 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ODY.Cihazkapinda.BannerImages;
 using ODY.Cihazkapinda.BannerSettings;
+using ODY.Cihazkapinda.Categories;
 using ODY.Cihazkapinda.GeneralSettings;
 using ODY.Cihazkapinda.Licenses;
 using ODY.Cihazkapinda.OperatorSettings;
+using ODY.Cihazkapinda.ProductManagement;
 using ODY.Cihazkapinda.SiteSettings;
 using ODY.Cihazkapinda.ThemeSettings;
 using Volo.Abp;
@@ -61,7 +63,6 @@ namespace ODY.Cihazkapinda.EntityFrameworkCore
 
                 b.Ignore(x => x.ExtraProperties);
                 b.Property(x => x.Title).IsRequired();
-                b.Property(x => x.WelcomeMessage).IsRequired();
 
                 b.HasMany(x => x.Images)
                     .WithOne(x => x.BannerSetting)
@@ -77,6 +78,8 @@ namespace ODY.Cihazkapinda.EntityFrameworkCore
 
                 b.Ignore(x => x.ExtraProperties);
                 b.Property(x => x.Image).IsRequired();
+                b.Property(x => x.Title).IsRequired();
+                b.Property(x => x.Content).IsRequired();
             });
 
             builder.Entity<OperatorSetting>(b =>
@@ -97,6 +100,62 @@ namespace ODY.Cihazkapinda.EntityFrameworkCore
                 b.Ignore(x => x.ExtraProperties);
                 b.Property(x => x.LICENSE_OWNER).IsRequired();
                 b.Property(x => x.LICENSE).IsRequired();
+            });
+
+            builder.Entity<Product>(b =>
+            {
+                b.ToTable(CihazkapindaConsts.DbTablePrefix + "Product", CihazkapindaConsts.DbSchema);
+                b.ConfigureByConvention();
+
+                b.Ignore(x => x.ExtraProperties);
+                b.Property(x => x.Title).IsRequired();
+                b.Property(x => x.Description).IsRequired();
+                b.Property(x => x.Price).HasPrecision(18,2);
+
+                b.HasMany(x => x.Images)
+                    .WithOne(x => x.Product)
+                    .HasForeignKey(x => x.ProductId)
+                    .OnDelete(DeleteBehavior.Cascade)
+                    .IsRequired();
+
+                b.HasOne(x => x.ProductProperty)
+                    .WithOne(x => x.Product)
+                    .HasForeignKey<ProductProperty>(x => x.ProductId)
+                    .OnDelete(DeleteBehavior.Cascade);
+            });
+
+            builder.Entity<ProductImage>(b =>
+            {
+                b.ToTable(CihazkapindaConsts.DbTablePrefix + "ProductImage", CihazkapindaConsts.DbSchema);
+                b.ConfigureByConvention();
+
+                b.Ignore(x => x.ExtraProperties);
+                b.Property(x => x.Image).IsRequired();
+            });
+
+            builder.Entity<ProductProperty>(b =>
+            {
+                b.ToTable(CihazkapindaConsts.DbTablePrefix + "ProductProperty", CihazkapindaConsts.DbSchema);
+                b.ConfigureByConvention();
+
+                b.Ignore(x => x.ExtraProperties);
+                b.Property(x => x.KEY).IsRequired();
+                b.Property(x => x.VALUE).IsRequired();
+            });
+
+            builder.Entity<Category>(b =>
+            {
+                b.ToTable(CihazkapindaConsts.DbTablePrefix + "Category", CihazkapindaConsts.DbSchema);
+                b.ConfigureByConvention();
+
+                b.Ignore(x => x.ExtraProperties);
+                b.Property(x => x.Name).IsRequired();
+
+                b.HasMany(x => x.Products)
+                    .WithOne(x => x.Category)
+                    .HasForeignKey(x => x.CategoryId)
+                    .OnDelete(DeleteBehavior.Cascade)
+                    .IsRequired();
             });
         }
     }

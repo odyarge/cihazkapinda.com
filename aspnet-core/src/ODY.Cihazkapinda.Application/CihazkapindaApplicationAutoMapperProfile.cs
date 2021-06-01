@@ -1,9 +1,11 @@
 ﻿using AutoMapper;
 using ODY.Cihazkapinda.BannerImages;
 using ODY.Cihazkapinda.BannerSettings;
+using ODY.Cihazkapinda.Categories;
 using ODY.Cihazkapinda.GeneralSettings;
 using ODY.Cihazkapinda.Licenses;
 using ODY.Cihazkapinda.OperatorSettings;
+using ODY.Cihazkapinda.ProductManagement;
 using ODY.Cihazkapinda.SiteSettings;
 using ODY.Cihazkapinda.ThemeSettings;
 
@@ -40,6 +42,22 @@ namespace ODY.Cihazkapinda
             CreateMap<License, LicenseDto>();
             CreateMap<LicenseDto, LicenseCreateUpdateDto>();
             CreateMap<LicenseCreateUpdateDto, License>();
+
+            CreateMap<Category, CategoryDto>();
+            CreateMap<CategoryDto, CategoryCreateUpdateDto>();
+            CreateMap<CategoryCreateUpdateDto, Category>();
+
+            CreateMap<Product, ProductDto>();
+            CreateMap<ProductDto, ProductCreateUpdateDto>();
+            CreateMap<ProductCreateUpdateDto, Product>();
+
+            CreateMap<ProductImage, ProductImageDto>();
+            CreateMap<ProductImageDto, ProductImageCreateUpdateDto>();
+            CreateMap<ProductImageCreateUpdateDto, ProductImage>();
+
+            CreateMap<ProductProperty, ProductPropertyDto>();
+            CreateMap<ProductPropertyDto, ProductPropertyCreateUpdateDto>();
+            CreateMap<ProductPropertyCreateUpdateDto, ProductProperty>();
         }
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Volo.Abp;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Data;
@@ -25,12 +26,25 @@ namespace ODY.Cihazkapinda.SiteSettings
             _dataFilter = dataFilter;
         }
 
+        [RemoteService(false)]
         public async Task<SiteSettingDto> GetAsyncByTenantName(string input)
         {
             using (_dataFilter.Disable<IMultiTenant>())
             {
                 var item = await Repository.FindAsync(x => x.SITE_OWNER == input);
                 return ObjectMapper.Map<SiteSetting, SiteSettingDto>(item);
+            }
+        }
+
+        [RemoteService(false)]
+        public async Task<bool> UpdateInstall(string license, string owner)
+        {
+            using (_dataFilter.Disable<IMultiTenant>())
+            {
+                var item = await Repository.FindAsync(x => x.SITE_OWNER == owner && x.SITE_LICENSE == license);
+                item.SITE_INSTALL = true;
+                await Repository.UpdateAsync(item);
+                return true;
             }
         }
     }

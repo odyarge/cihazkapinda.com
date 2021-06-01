@@ -16,9 +16,6 @@ namespace ODY.Cihazkapinda.Web.Models
         public LicenseCreateModal licenseCreateModal { get; set; }
 
         [BindProperty]
-        public ThemeSettingCreateModal themeSettingCreateModal { get; set; }
-
-        [BindProperty]
         public GeneralSettingCreateModal generalSettingCreateModal { get; set; }
     }
 }

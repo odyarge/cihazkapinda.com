@@ -12,8 +12,8 @@ namespace ODY.Cihazkapinda.BannerSettings
         public Guid? TenantId { get; protected set; }
 
         public string Title { get; set; }
-        public string WelcomeMessage { get; set; }
         public ICollection<BannerImageDto> Images { get; set; }
+        public bool Active { get; set; }
 
         public BannerSettingDto()
         {

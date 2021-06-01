@@ -1,0 +1,41 @@
+﻿@page
+@using Volo.Abp.AspNetCore.Mvc.UI.Bootstrap.TagHelpers.Modal
+@using Microsoft.AspNetCore.Mvc.Localization
+@using ODY.Cihazkapinda.Localization
+@model ODY.Cihazkapinda.Web.Pages.Admin.BannerSettings.EditModalModel
+@inject IHtmlLocalizer<CihazkapindaResource> L
+@{
+    Layout = null;
+    int index = 0;
+}
+<form asp-page="/Admin/BannerSettings/EditModal">
+    <abp-modal size="Default">
+        <abp-modal-header title="@L["BannerSetting"].Value"></abp-modal-header>
+        <abp-modal-body>
+            <abp-input asp-for="bannerSettingEditModal.Id" />
+            <abp-input asp-for="bannerSettingEditModal.TenantId" />
+            <abp-input asp-for="bannerSettingEditModal.Title" />
+            <h5>İçerikler</h5>
+            <div class="form-group" style="margin:0 10px 0 10px;">
+                @foreach (var item in Model.bannerSettingEditModal.Images)
+                {
+                    index++;
+                    <div class="row border border-color-hover-light" style="margin-top:10px; padding-bottom:10px; padding-top:10px;">
+                        <div class="col-4" style="text-align:center;">
+                            <img src="@item.Image" style="background-color:#e5e5e5;" class="rounded avatar-lg" />
+                        </div>
+                        <div class="col-4" style="padding-top:5px;">
+                            <abp-input disabled="true" asp-for="@item.Title" />
+                        </div>
+                        <div class="col-4" style="padding-top:5px;">
+                            <abp-input disabled="true" asp-for="@item.Content" />
+                        </div>
+                    </div>
+                }
+            </div>
+            <br />
+            <abp-input asp-for="bannerSettingEditModal.Active" />
+        </abp-modal-body>
+        <abp-modal-footer buttons="@(AbpModalButtons.Cancel|AbpModalButtons.Save)"></abp-modal-footer>
+    </abp-modal>
+</form>

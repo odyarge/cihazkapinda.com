@@ -13,5 +13,6 @@ namespace ODY.Cihazkapinda.ThemeSettings
         [Required]
         public string THEME_PATH { get; set; }
         public bool THEME_ACTIVATED { get; set; }
+        public bool THEME_PRO { get; set; }
     }
 }

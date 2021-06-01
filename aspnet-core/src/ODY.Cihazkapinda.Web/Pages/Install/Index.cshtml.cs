@@ -10,6 +10,7 @@ using ODY.Cihazkapinda.Licenses;
 using ODY.Cihazkapinda.SiteSettings;
 using ODY.Cihazkapinda.ThemeSettings;
 using ODY.Cihazkapinda.Web.Models;
+using ODY.Cihazkapinda.Web.Models.GeneralSettingModals;
 using Volo.Abp.Application.Dtos;
 
 namespace ODY.Cihazkapinda.Web.Pages.Install
@@ -21,6 +22,9 @@ namespace ODY.Cihazkapinda.Web.Pages.Install
 
         [BindProperty]
         public string currentTenant { get; set; }
+
+        [BindProperty]
+        public string license { get; set; }
 
         [BindProperty]
         public List<SelectListItem> themeList { get; set; }
@@ -42,23 +46,23 @@ namespace ODY.Cihazkapinda.Web.Pages.Install
 
         public async virtual Task<IActionResult> OnGetAsync()
         {
-            if(CurrentUser.IsAuthenticated == false)
-                return RedirectToPage("/Account/Login");
+            if (CurrentUser.IsAuthenticated == false)
+                return RedirectSafely("/Account/Login");
 
             var checkActivated = await _siteSettingAppService.GetAsyncByTenantName(CurrentTenant.Name);
-            if(checkActivated != null)
+            if (checkActivated != null)
             {
                 bool activated = checkActivated.SITE_INSTALL;
                 if (activated == true)
                 {
-                    return RedirectToPage("/");
+                    return RedirectSafely("/");
                 }
             }
             else
             {
-                return RedirectToPage("/Error/404");
+                return RedirectSafely("/Error/404");
             }
-            
+
             installModal = new InstallModal();
             currentTenant = CurrentTenant.Name;
             await GetThemes();
@@ -69,16 +73,27 @@ namespace ODY.Cihazkapinda.Web.Pages.Install
         {
             ValidateModel();
 
-            return await Task.FromResult<IActionResult>(Page());
+            installModal.generalSettingCreateModal.Logo = "Default";
+            installModal.generalSettingCreateModal.TenantId = CurrentTenant.Id;
+            var generalSettingCreate = ObjectMapper.Map<GeneralSettingCreateModal, GeneralSettingCreateUpdateDto>(installModal.generalSettingCreateModal);
+            await _generalSettingAppService.CreateAsync(generalSettingCreate);
+
+            var siteSetting = await _siteSettingAppService.UpdateInstall(license, CurrentTenant.Name);
+            if(siteSetting == true)
+            {
+                var old_license = await _licenseAppService.GetCheckLicense(license, CurrentTenant.Name);
+                await _licenseAppService.DeleteLicense(old_license.Id);
+            }
+
+            return RedirectSafely("/");
         }
 
         public async Task GetThemes()
         {
-            PagedAndSortedResultRequestDto pagedAndSortedResultRequestDto = new PagedAndSortedResultRequestDto();
-            var list = await _themeSettingAppService.GetListAsync(pagedAndSortedResultRequestDto);
+            var list = await _themeSettingAppService.GetListAsyncAllThemes();
 
             themeList = new List<SelectListItem>();
-            foreach (var item in list.Items)
+            foreach (var item in list)
             {
                 SelectListItem option = new SelectListItem
                 {
