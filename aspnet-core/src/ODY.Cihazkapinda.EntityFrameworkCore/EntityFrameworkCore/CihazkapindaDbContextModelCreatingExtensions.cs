@@ -141,6 +141,16 @@ namespace ODY.Cihazkapinda.EntityFrameworkCore
                 b.Ignore(x => x.ExtraProperties);
                 b.Property(x => x.KEY).IsRequired();
                 b.Property(x => x.VALUE).IsRequired();
+                b.Property(x => x.TITLE).IsRequired();
+            });
+
+            builder.Entity<ProductPropertyTitle>(b =>
+            {
+                b.ToTable(CihazkapindaConsts.DbTablePrefix + "ProductPropertyTitle", CihazkapindaConsts.DbSchema);
+                b.ConfigureByConvention();
+
+                b.Ignore(x => x.ExtraProperties);
+                b.Property(x => x.Name).IsRequired();
             });
 
             builder.Entity<Category>(b =>

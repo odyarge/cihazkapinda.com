@@ -23,8 +23,12 @@ namespace ODY.Cihazkapinda.Web.Models.ProductManagementModals
         [Display(Name = "Description")]
         public string Description { get; set; }
 
+        [Required]
         [Display(Name = "Price")]
         public decimal Price { get; set; }
+
+        [Display(Name = "DiscountPrice")]
+        public decimal DiscountPrice { get; set; }
 
         [Display(Name = "Installment")]
         public int Installment { get; set; }
@@ -32,7 +36,11 @@ namespace ODY.Cihazkapinda.Web.Models.ProductManagementModals
         [Display(Name = "Discount")]
         public bool Discount { get; set; }
 
+        [Display(Name = "Active")]
+        public bool Active { get; set; }
+
         [Required]
+        [HiddenInput]
         [Display(Name = "CategoryId")]
         public Guid CategoryId { get; set; }
     }

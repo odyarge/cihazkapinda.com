@@ -19,7 +19,15 @@
         public const string Components = Prefix + ".Components";
         public const string Banner = Components + ".Banner";
         public const string BannerImages = Components + ".BannerImages";
+        public const string Categories = Components + ".Categories";
         #endregion COMPONENTS
+
+        #region PRODUCTMANAGEMENT
+        public const string ProductManagement = Components + ".ProductManagement";
+        public const string Products = ProductManagement + ".Products";
+        public const string ProductAdd = ProductManagement + ".ProductAdd";
+        public const string ProductImages = ProductManagement + ".ProductImages";
+        #endregion PRODUCTMANAGEMENT
 
         //Add your menu items here...
 

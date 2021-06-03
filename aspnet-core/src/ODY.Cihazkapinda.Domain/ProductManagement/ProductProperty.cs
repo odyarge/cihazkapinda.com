@@ -15,6 +15,7 @@ namespace ODY.Cihazkapinda.ProductManagement
         public Guid? TenantId { get; protected set; }
         public string KEY { get; set; }
         public string VALUE { get; set; }
+        public string TITLE { get; set; }
         public Product Product { get; set; }
         public Guid ProductId { get; set; }
 
@@ -25,11 +26,13 @@ namespace ODY.Cihazkapinda.ProductManagement
         public ProductProperty(Guid? tenantId,
             [NotNull] string _key,
             [NotNull] string _value,
+            [NotNull] string _title,
             Guid _productId)
         {
             TenantId = tenantId;
             KEY = Check.NotNullOrWhiteSpace(_key, nameof(_key));
             VALUE = Check.NotNullOrWhiteSpace(_value, nameof(_value));
+            TITLE = Check.NotNullOrWhiteSpace(_title, nameof(_title));
             ProductId = _productId;
         }
     }

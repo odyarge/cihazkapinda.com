@@ -9,6 +9,8 @@
         public const string BannerSettingsGroup = "BannerSettings";
         public const string OperatorSettingsGroup = "OperatorSettings";
         public const string LicensesGroup = "Licenses";
+        public const string ProductManagementGroup = "ProductManagement";
+        public const string CategoriesGroup = "Categories";
 
         public static class SiteSettings
         {
@@ -77,6 +79,51 @@
             public const string Create = LicenseDefault + ".Create";
             public const string Edit = LicenseDefault + ".Edit";
             public const string Delete = LicenseDefault + ".Delete";
+        }
+        public static class Categories
+        {
+            public const string CategoriesDefault = CategoriesGroup + ".Categories";
+            public const string MenuList = CategoriesDefault + ".MenuList";
+            public const string List = CategoriesDefault + ".List";
+            public const string Create = CategoriesDefault + ".Create";
+            public const string Edit = CategoriesDefault + ".Edit";
+            public const string Delete = CategoriesDefault + ".Delete";
+        }
+        public static class Products
+        {
+            public const string ProductsDefault = ProductManagementGroup + ".Products";
+            public const string MenuList = ProductsDefault + ".MenuList";
+            public const string List = ProductsDefault + ".List";
+            public const string Create = ProductsDefault + ".Create";
+            public const string Edit = ProductsDefault + ".Edit";
+            public const string Delete = ProductsDefault + ".Delete";
+        }
+        public static class ProductImages
+        {
+            public const string ProductImagesDefault = ProductManagementGroup + ".ProductImages";
+            public const string MenuList = ProductImagesDefault + ".MenuList";
+            public const string List = ProductImagesDefault + ".List";
+            public const string Create = ProductImagesDefault + ".Create";
+            public const string Edit = ProductImagesDefault + ".Edit";
+            public const string Delete = ProductImagesDefault + ".Delete";
+        }
+        public static class ProductProperties
+        {
+            public const string ProductPropertiesDefault = ProductManagementGroup + ".ProductProperties";
+            public const string MenuList = ProductPropertiesDefault + ".MenuList";
+            public const string List = ProductPropertiesDefault + ".List";
+            public const string Create = ProductPropertiesDefault + ".Create";
+            public const string Edit = ProductPropertiesDefault + ".Edit";
+            public const string Delete = ProductPropertiesDefault + ".Delete";
+        }
+        public static class ProductPropertyTitles
+        {
+            public const string ProductPropertyTitlesDefault = ProductManagementGroup + ".ProductPropertyTitles";
+            public const string MenuList = ProductPropertyTitlesDefault + ".MenuList";
+            public const string List = ProductPropertyTitlesDefault + ".List";
+            public const string Create = ProductPropertyTitlesDefault + ".Create";
+            public const string Edit = ProductPropertyTitlesDefault + ".Edit";
+            public const string Delete = ProductPropertyTitlesDefault + ".Delete";
         }
     }
 }

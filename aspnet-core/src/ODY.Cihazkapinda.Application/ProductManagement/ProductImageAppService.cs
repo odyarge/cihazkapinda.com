@@ -13,11 +13,11 @@ namespace ODY.Cihazkapinda.ProductManagement
     {
         public ProductImageAppService(IRepository<ProductImage, Guid> repository) : base(repository)
         {
-            GetPolicyName = Permissions.CihazkapindaPermissions.GeneralSettings.GeneralSettingDefault;
-            GetListPolicyName = Permissions.CihazkapindaPermissions.GeneralSettings.List;
-            CreatePolicyName = Permissions.CihazkapindaPermissions.GeneralSettings.Create;
-            UpdatePolicyName = Permissions.CihazkapindaPermissions.GeneralSettings.Edit;
-            DeletePolicyName = Permissions.CihazkapindaPermissions.GeneralSettings.Delete;
+            GetPolicyName = Permissions.CihazkapindaPermissions.ProductImages.ProductImagesDefault;
+            GetListPolicyName = Permissions.CihazkapindaPermissions.ProductImages.List;
+            CreatePolicyName = Permissions.CihazkapindaPermissions.ProductImages.Create;
+            UpdatePolicyName = Permissions.CihazkapindaPermissions.ProductImages.Edit;
+            DeletePolicyName = Permissions.CihazkapindaPermissions.ProductImages.Delete;
         }
     }
 }

@@ -1,0 +1,400 @@
+﻿@page
+@using Microsoft.AspNetCore.Mvc.Localization
+@using ODY.Cihazkapinda.Localization
+@using Volo.Abp.Users
+@model ODY.Cihazkapinda.Web.Pages.Admin.ProductManagement.ProductAdd.IndexModel
+@inject IHtmlLocalizer<CihazkapindaResource> L
+@inject ICurrentUser CurrentUser
+<style>
+    * {
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        -o-box-sizing: border-box;
+        -ms-box-sizing: border-box;
+        box-sizing: border-box;
+    }
+
+    .tree-structure {
+        list-style: none;
+        clear: both;
+        padding-left: 15px;
+    }
+
+        .tree-structure li {
+            position: relative;
+        }
+
+            .tree-structure li a {
+                color: black;
+                text-decoration: none;
+                vertical-align: middle;
+                -webkit-transition: all 0.5s ease-in-out;
+                -moz-transition: all 0.5s ease-in-out;
+                -ms-transition: all 0.5s ease-in-out;
+                -o-transition: all 0.5s ease-in-out;
+                transition: all 0.2s ease-in-out;
+                display: inline-block;
+                max-width: calc(100% - 50px);
+                vertical-align: top;
+            }
+
+                .tree-structure li a:hover {
+                    padding-left: 5px;
+                }
+
+        .tree-structure > li > .num {
+            display: inline-block;
+            background: #333;
+            min-width: 24px;
+            padding-left: 0px;
+            padding-right: 0px;
+            text-align: center;
+            padding: 3px 9px;
+            margin-right: 10px;
+            color: #fff;
+            font-weight: 700;
+            font-size: 12px;
+        }
+
+            .tree-structure > li > .num:after {
+                position: absolute;
+                content: "";
+                width: 1px;
+                height: 100%;
+                background-color: #939393;
+                top: 5px;
+                left: 12px;
+                z-index: -1;
+            }
+
+        .tree-structure > li:last-child > .num:after {
+            height: calc(100% - 44px);
+        }
+
+        .tree-structure ol {
+            padding: 20px 0 20px 45px;
+        }
+
+            .tree-structure ol li {
+                list-style-type: none;
+                padding: 8px 0
+            }
+
+                .tree-structure ol li .num {
+                    position: relative;
+                }
+
+                .tree-structure ol li a {
+                    color: #000;
+                    font-weight: normal;
+                }
+
+        .tree-structure .num {
+            background-color: #666;
+            min-width: 24px;
+            padding-left: 0px;
+            padding-right: 0px;
+            text-align: center;
+            padding: 3px 9px;
+            margin-right: 10px;
+            color: #fff;
+            font-weight: 700;
+            font-size: 12px;
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        .tree-structure ol li .num:before {
+            position: absolute;
+            content: "";
+            top: 0;
+            bottom: 0;
+            right: 100%;
+            margin: auto;
+            width: 33px;
+            height: 1px;
+            background-color: #939393;
+        }
+</style>
+<!-- start page title -->
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box d-flex align-items-center justify-content-between">
+            <h4 class="mb-0 font-size-18">@ViewData["ProductCreateAndUpdateTitle"]</h4>
+        </div>
+    </div>
+</div>
+<!-- end page title -->
+
+<form asp-page="/ProductManagement/ProductAdd" enctype="multipart/form-data">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+
+                    <h4 class="card-title">Genel Özellikler</h4>
+                    <p class="card-title-desc">Genel özellikleri doldurunuz.</p>
+
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <abp-input asp-for="productAllCreateModal.productCreateModal.Title" />
+                            </div>
+                            <div class="form-group">
+                                <abp-input asp-for="productAllCreateModal.productCreateModal.SubTitle" />
+                            </div>
+                            <div class="form-group">
+                                <abp-input asp-for="productAllCreateModal.productCreateModal.Price" />
+                            </div>
+                            <div class="form-group" id="discountPrice" style="display:none;">
+                                <abp-input asp-for="productAllCreateModal.productCreateModal.DiscountPrice" />
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <label for="selectedCategoryShow">Kategori Seç</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12">
+                                        <button type="button" id="selectedCategoryShow" class="btn btn-primary waves-effect waves-light form-control" data-toggle="modal" data-target=".bs-example-modal-lg">Kategori Seç</button>
+                                    </div>
+                                </div>
+                                <abp-input asp-for="productAllCreateModal.productCreateModal.CategoryId" />
+                            </div>
+
+                            <div class="form-group">
+                                <abp-input asp-for="productAllCreateModal.productCreateModal.Installment" />
+                            </div>
+
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-sm-6" style="margin-top:30px;">
+                                        <div class="custom-control custom-switch custom-switch-lg mb-3" dir="ltr">
+                                            <abp-input asp-for="productAllCreateModal.productCreateModal.Discount" class="custom-control-input" />
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6" style="margin-top:30px;">
+                                        <div class="custom-control custom-switch custom-switch-lg mb-3" dir="ltr">
+                                            <abp-input asp-for="productAllCreateModal.productCreateModal.Active" class="custom-control-input" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="form-group">
+                                <abp-input asp-for="productAllCreateModal.productCreateModal.Description" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title mb-3">Ürün Resimleri</h4>
+                    <div class="dropzone" action="#">
+                        <div class="fallback">
+                            <input name="file" type="file" multiple="multiple">
+                        </div>
+                        <div class="dz-message needsclick">
+                            <div class="mb-3">
+                                <i class="display-4 text-muted bx bxs-cloud-upload"></i>
+                            </div>
+
+                            <h4>Resimleri sürükleyin veya tıklayıp seçin.</h4>
+                        </div>
+                    </div>
+                </div>
+
+            </div> <!-- end card-->
+            <div class="card">
+                <div class="card-body">
+
+                    <h4 class="card-title">Detay</h4>
+                    <p class="card-title-desc">Ürün ile ilgili detaylı bilgileri doldurunuz.</p>
+                    <div id="product-property-wrapper">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label for="metatitle">Anahtar</label>
+                                    <input id="metatitle" name="productname" type="text" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label for="metakeywords">Değer</label>
+                                    <input id="metakeywords" name="manufacturername" type="text" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label for="metadescription">Özellik Başlığı</label>
+                                    <input id="metakeywords" name="manufacturername" type="text" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-sm-1">
+                                <div class="form-group" style="margin-top:25px;">
+                                    <button type="button" class="btn btn-success waves-effect waves-light form-control add-prop">Ekle</button>
+                                </div>
+                            </div>
+                            <div class="col-sm-1">
+                                <div class="form-group" style="margin-top:25px;">
+                                    <button type="button" class="btn btn-danger waves-effect waves-light form-control disabled">Sil</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="product-property-wrapper-add" style="display:none;">
+                        <div class="row" id="product-property">
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label for="metatitle">Anahtar</label>
+                                    <input id="metatitle" name="productname" type="text" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label for="metakeywords">Değer</label>
+                                    <input id="metakeywords" name="manufacturername" type="text" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label for="metadescription">Özellik Başlığı</label>
+                                    <input id="metakeywords" name="manufacturername" type="text" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-sm-1">
+                                <div class="form-group" style="margin-top:25px;">
+                                    <button type="button" class="btn btn-success waves-effect waves-light form-control add-prop">Ekle</button>
+                                </div>
+                            </div>
+                            <div class="col-sm-1">
+                                <div class="form-group" style="margin-top:25px;">
+                                    <button type="button" class="btn btn-danger waves-effect waves-light form-control delete-prop">Sil</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Tamamla</h4>
+                    <p class="card-title-desc">Girdiğiniz değerleri kontrol edip kaydediniz.</p>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-primary mr-1 waves-effect waves-light">Kaydet</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title mt-0" id="myLargeModalLabel">Kategoriler</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <ol class="tree-structure">
+                            @Html.Raw(Model.cat_list_text)
+                        </ol>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary waves-effect waves-light" data-dismiss="modal" aria-label="Close">Tamam</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<!-- end row -->
+@section scripts {
+    <script>
+        Dropzone.autoDiscover = false;
+
+        var myDropzone = new Dropzone(".dropzone", {
+            addRemoveLinks: true,
+            autoProcessQueue: false,
+            parallelUploads: 10 // Number of files process at a time (default 2)
+        });
+
+        $(".add-prop").click(function () {
+            var clone = $('#product-property-wrapper-add').clone('#product-property');
+            clone[0].style = "display:block;"
+            $('#product-property-wrapper').append(clone);
+        });
+
+
+        $(".delete-prop").click(function () {
+            $(this)
+                .parents("#product-property-wrapper-add").remove();
+        });
+
+        $('#productAllCreateModal_productCreateModal_Discount').on("click", function (e) {
+            let target = e.target;
+            if ($("#productAllCreateModal_productCreateModal_Discount").is(":checked") == true) {
+                document.getElementById("discountPrice").style = "display:block;";
+                document.getElementById("productAllCreateModal_productCreateModal_DiscountPrice").setAttribute("required", "required");
+            }
+            else {
+                document.getElementById("discountPrice").style = "display:none;";
+                document.getElementById("productAllCreateModal_productCreateModal_DiscountPrice").removeAttribute("required");
+            }
+        });
+        var selectedCategory = "";
+        $('.main-category').click(function () {
+            $('.sub-main-category').css("color", "black");
+            $('.sub-main-category').css("font-weight", "normal");
+            $('.main-category').css("color", "black");
+            $('.main-category').css("font-weight", "normal");
+            $(this).css("color", "red");
+            $(this).css("font-weight", "bold");
+
+
+            if ($(this).parent().children('ol.sub-category').css("display") === "block") {
+                $(this).parent().children('ol.sub-category').css("display", "none");
+            }
+            else {
+                $(this).parent().children('ol.sub-category').css("display", "block");
+            }
+            selectedCategory = $(this).parent().children('input[type="hidden"]').val();
+            $('#productAllCreateModal_productCreateModal_CategoryId').val(selectedCategory);
+            $('#selectedCategoryShow').html($(this).html());
+        });
+        $('.sub-main-category').click(function () {
+            $('.sub-main-category').css("color", "black");
+            $('.sub-main-category').css("font-weight", "normal");
+            $('.main-category').css("color", "black");
+            $('.main-category').css("font-weight", "normal");
+            $(this).css("color", "red");
+            $(this).css("font-weight", "bold");
+
+
+            if ($(this).parent().children('ol.sub-category').css("display") === "block") {
+                $(this).parent().children('ol.sub-category').css("display", "none");
+            }
+            else {
+                $(this).parent().children('ol.sub-category').css("display", "block");
+            }
+            selectedCategory = $(this).parent().children('input[type="hidden"]').val();
+            $('#productAllCreateModal_productCreateModal_CategoryId').val(selectedCategory);
+            $('#selectedCategoryShow').html($(this).html());
+        });
+    </script>
+}

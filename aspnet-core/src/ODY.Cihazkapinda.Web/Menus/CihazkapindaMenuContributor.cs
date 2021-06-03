@@ -45,6 +45,30 @@ namespace ODY.Cihazkapinda.Web.Menus
             {
                 componentsMenu.AddItem(new ApplicationMenuItem(CihazkapindaMenus.BannerImages, l["Menu:BannerImages"], "/Admin/BannerImages/"));
             }
+            if (await context.IsGrantedAsync(CihazkapindaPermissions.Categories.MenuList))
+            {
+                componentsMenu.AddItem(new ApplicationMenuItem(CihazkapindaMenus.Categories, l["Menu:Categories"], "/Admin/Categories/"));
+            }
+            if (await context.IsGrantedAsync(CihazkapindaPermissions.Products.MenuList))
+            {
+                var productManagement = new ApplicationMenuItem(CihazkapindaMenus.ProductManagement, l["Menu:ProductManagement"], "");
+
+                if (await context.IsGrantedAsync(CihazkapindaPermissions.Products.MenuList))
+                {
+                    productManagement.AddItem(new ApplicationMenuItem(CihazkapindaMenus.Products, l["Menu:Products"], "/Admin/ProductManagement/Products/"));
+                }
+
+                if (await context.IsGrantedAsync(CihazkapindaPermissions.Products.Create))
+                {
+                    productManagement.AddItem(new ApplicationMenuItem(CihazkapindaMenus.ProductAdd, l["Menu:ProductAdd"], "/Admin/ProductManagement/ProductAdd/"));
+                }
+
+                if (await context.IsGrantedAsync(CihazkapindaPermissions.ProductImages.MenuList))
+                {
+                    productManagement.AddItem(new ApplicationMenuItem(CihazkapindaMenus.ProductImages, l["Menu:ProductImages"], "/Admin/ProductManagement/ProductImages/"));
+                }
+                componentsMenu.AddItem(productManagement);
+            }
             #endregion COMPONENTS_SUB_MENUS
             #endregion COMPONENTS
 

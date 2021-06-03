@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ODY.Cihazkapinda.EntityFrameworkCore;
 using Volo.Abp.EntityFrameworkCore;
@@ -10,9 +11,10 @@ using Volo.Abp.EntityFrameworkCore;
 namespace ODY.Cihazkapinda.Migrations
 {
     [DbContext(typeof(CihazkapindaMigrationsDbContext))]
-    partial class CihazkapindaMigrationsDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210602234404_ProductPropertyTitles_Added")]
+    partial class ProductPropertyTitles_Added
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -442,9 +444,6 @@ namespace ODY.Cihazkapinda.Migrations
 
                     b.Property<bool>("Discount")
                         .HasColumnType("bit");
-
-                    b.Property<decimal>("DiscountPrice")
-                        .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("Installment")
                         .HasColumnType("int");

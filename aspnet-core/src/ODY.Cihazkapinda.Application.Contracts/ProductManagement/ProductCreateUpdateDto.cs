@@ -11,8 +11,10 @@ namespace ODY.Cihazkapinda.ProductManagement
         public string SubTitle { get; set; }
         public string Description { get; set; }
         public decimal Price { get; set; }
+        public decimal DiscountPrice { get; set; }
         public int Installment { get; set; }
         public bool Discount { get; set; }
+        public bool Active { get; set; }
         public Guid CategoryId { get; set; }
     }
 }

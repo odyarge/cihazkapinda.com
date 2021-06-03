@@ -9,12 +9,14 @@ namespace ODY.Cihazkapinda.Permissions
         public override void Define(IPermissionDefinitionContext context)
         {
             var myGroup = context.AddGroup(CihazkapindaPermissions.GroupName);
-            
+
             var SiteSettingsGroup = context.AddGroup(CihazkapindaPermissions.SiteSettingsGroup, L("Permission:SiteSettings"), Volo.Abp.MultiTenancy.MultiTenancySides.Host);
             SiteSettingsGroup.MultiTenancySide = Volo.Abp.MultiTenancy.MultiTenancySides.Host;
             var GeneralSettingsGroup = context.AddGroup(CihazkapindaPermissions.GeneralSettingsGroup, L("Permission:GeneralSettings"));
             var ThemeSettingsGroup = context.AddGroup(CihazkapindaPermissions.ThemeSettingsGroup, L("Permission:ThemeSettings"), Volo.Abp.MultiTenancy.MultiTenancySides.Host);
             var BannerSettingsGroup = context.AddGroup(CihazkapindaPermissions.BannerSettingsGroup, L("Permission:Banner"));
+            var CategoriesGroup = context.AddGroup(CihazkapindaPermissions.CategoriesGroup, L("Permission:Categories"));
+            var ProductManagementGroup = context.AddGroup(CihazkapindaPermissions.ProductManagementGroup, L("Permission:ProductManagement"));
             var OperatorSettingsGroup = context.AddGroup(CihazkapindaPermissions.OperatorSettingsGroup, L("Permission:OperatorSettings"), Volo.Abp.MultiTenancy.MultiTenancySides.Host);
             var LicensesGroup = context.AddGroup(CihazkapindaPermissions.LicensesGroup, L("Permission:Licenses"), Volo.Abp.MultiTenancy.MultiTenancySides.Host);
 
@@ -66,6 +68,41 @@ namespace ODY.Cihazkapinda.Permissions
             licensesSettingGroup.AddChild(CihazkapindaPermissions.Licenses.Create, L("Permission:LicensesCreate"));
             licensesSettingGroup.AddChild(CihazkapindaPermissions.Licenses.Edit, L("Permission:LicensesEdit"));
             licensesSettingGroup.AddChild(CihazkapindaPermissions.Licenses.Delete, L("Permission:LicensesDelete"));
+
+            var categoriesGroup = CategoriesGroup.AddPermission(CihazkapindaPermissions.Categories.CategoriesDefault, L("Permission:Categories"));
+            categoriesGroup.AddChild(CihazkapindaPermissions.Categories.MenuList, L("Permission:CategoriesMenuList"));
+            categoriesGroup.AddChild(CihazkapindaPermissions.Categories.List, L("Permission:CategoriesList"));
+            categoriesGroup.AddChild(CihazkapindaPermissions.Categories.Create, L("Permission:CategoriesCreate"));
+            categoriesGroup.AddChild(CihazkapindaPermissions.Categories.Edit, L("Permission:CategoriesEdit"));
+            categoriesGroup.AddChild(CihazkapindaPermissions.Categories.Delete, L("Permission:CategoriesDelete"));
+
+            var productsGroup = ProductManagementGroup.AddPermission(CihazkapindaPermissions.Products.ProductsDefault, L("Permission:Products"));
+            productsGroup.AddChild(CihazkapindaPermissions.Products.MenuList, L("Permission:ProductsMenuList"));
+            productsGroup.AddChild(CihazkapindaPermissions.Products.List, L("Permission:ProductsList"));
+            productsGroup.AddChild(CihazkapindaPermissions.Products.Create, L("Permission:ProductsCreate"));
+            productsGroup.AddChild(CihazkapindaPermissions.Products.Edit, L("Permission:ProductsEdit"));
+            productsGroup.AddChild(CihazkapindaPermissions.Products.Delete, L("Permission:ProductsDelete"));
+
+            var productImagesGroup = ProductManagementGroup.AddPermission(CihazkapindaPermissions.ProductImages.ProductImagesDefault, L("Permission:ProductImages"));
+            productImagesGroup.AddChild(CihazkapindaPermissions.ProductImages.MenuList, L("Permission:ProductImagesMenuList"));
+            productImagesGroup.AddChild(CihazkapindaPermissions.ProductImages.List, L("Permission:ProductImagesList"));
+            productImagesGroup.AddChild(CihazkapindaPermissions.ProductImages.Create, L("Permission:ProductImagesCreate"));
+            productImagesGroup.AddChild(CihazkapindaPermissions.ProductImages.Edit, L("Permission:ProductImagesEdit"));
+            productImagesGroup.AddChild(CihazkapindaPermissions.ProductImages.Delete, L("Permission:ProductImagesDelete"));
+
+            var productPropertiesGroup = ProductManagementGroup.AddPermission(CihazkapindaPermissions.ProductProperties.ProductPropertiesDefault, L("Permission:ProductProperties"));
+            productPropertiesGroup.AddChild(CihazkapindaPermissions.ProductProperties.MenuList, L("Permission:ProductPropertiesMenuList"));
+            productPropertiesGroup.AddChild(CihazkapindaPermissions.ProductProperties.List, L("Permission:ProductPropertiesList"));
+            productPropertiesGroup.AddChild(CihazkapindaPermissions.ProductProperties.Create, L("Permission:ProductPropertiesCreate"));
+            productPropertiesGroup.AddChild(CihazkapindaPermissions.ProductProperties.Edit, L("Permission:ProductPropertiesEdit"));
+            productPropertiesGroup.AddChild(CihazkapindaPermissions.ProductProperties.Delete, L("Permission:ProductPropertiesDelete"));
+
+            var productPropertyTitlesGroup = ProductManagementGroup.AddPermission(CihazkapindaPermissions.ProductPropertyTitles.ProductPropertyTitlesDefault, L("Permission:ProductPropertyTitles"));
+            productPropertyTitlesGroup.AddChild(CihazkapindaPermissions.ProductPropertyTitles.MenuList, L("Permission:ProductPropertyTitlesMenuList"));
+            productPropertyTitlesGroup.AddChild(CihazkapindaPermissions.ProductPropertyTitles.List, L("Permission:ProductPropertyTitlesList"));
+            productPropertyTitlesGroup.AddChild(CihazkapindaPermissions.ProductPropertyTitles.Create, L("Permission:ProductPropertyTitlesCreate"));
+            productPropertyTitlesGroup.AddChild(CihazkapindaPermissions.ProductPropertyTitles.Edit, L("Permission:ProductPropertyTitlesEdit"));
+            productPropertyTitlesGroup.AddChild(CihazkapindaPermissions.ProductPropertyTitles.Delete, L("Permission:ProductPropertyTitlesDelete"));
 
             //Define your own permissions here. Example:
             //myGroup.AddPermission(CihazkapindaPermissions.MyPermission1, L("Permission:MyPermission1"));
