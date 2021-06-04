@@ -56,6 +56,8 @@ namespace ODY.Cihazkapinda.EntityFrameworkCore
         public DbSet<ProductImage> ProductImage { get; set; }
         public DbSet<ProductProperty> ProductProperty { get; set; }
         public DbSet<ProductPropertyTitle> ProductPropertyTitle { get; set; }
+        public DbSet<ProductPropertyTemplate> ProductPropertyTemplate { get; set; }
+        public DbSet<ProductPropertySubTemplate> ProductPropertySubTemplate { get; set; }
         #endregion PRODUCTS
 
         public CihazkapindaDbContext(DbContextOptions<CihazkapindaDbContext> options)

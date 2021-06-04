@@ -27,6 +27,13 @@ namespace ODY.Cihazkapinda.Licenses
             _dataFilter = dataFilter;
         }
 
+
+        [Authorize(Permissions.CihazkapindaPermissions.Licenses.List)]
+        public async Task<List<LicenseDto>> GetAllList()
+        {
+            var list = await Repository.GetListAsync();
+            return ObjectMapper.Map<List<License>, List<LicenseDto>>(list.OrderByDescending(x => x.CreationTime).ToList());
+        }
         public async Task<LicenseDto> GetCheckLicense(string license, string owner)
         {
             using (_dataFilter.Disable<IMultiTenant>())

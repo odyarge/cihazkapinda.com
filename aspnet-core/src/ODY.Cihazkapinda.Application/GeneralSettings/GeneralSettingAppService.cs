@@ -1,4 +1,5 @@
-﻿using ODY.Cihazkapinda.ThemeSettings;
+﻿using Microsoft.AspNetCore.Authorization;
+using ODY.Cihazkapinda.ThemeSettings;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,6 +28,13 @@ namespace ODY.Cihazkapinda.GeneralSettings
 
             _themeRepository = themeRepository;
             _dataFilter = dataFilter;
+        }
+
+        [Authorize(Permissions.CihazkapindaPermissions.BannerSettings.List)]
+        public async Task<List<GeneralSettingDto>> GetAllList()
+        {
+            var list = await Repository.GetListAsync();
+            return ObjectMapper.Map<List<GeneralSetting>, List<GeneralSettingDto>>(list.OrderByDescending(x => x.CreationTime).ToList());
         }
 
         [RemoteService(false)]

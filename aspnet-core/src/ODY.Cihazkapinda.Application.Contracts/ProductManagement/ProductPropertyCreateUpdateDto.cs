@@ -9,6 +9,7 @@ namespace ODY.Cihazkapinda.ProductManagement
         public Guid? TenantId { get; set; }
         public string KEY { get; set; }
         public string VALUE { get; set; }
+        public string TITLE { get; set; }
         public Guid ProductId { get; set; }
     }
 }

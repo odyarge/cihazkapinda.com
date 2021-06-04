@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using ODY.Cihazkapinda.Categories;
 using ODY.Cihazkapinda.ProductManagement;
 using ODY.Cihazkapinda.SiteSettings;
@@ -21,10 +22,25 @@ namespace ODY.Cihazkapinda.Web.Pages.Admin.ProductManagement.ProductAdd
 
 
         [BindProperty]
+        public ProductAllEditModal productAllEditModal { get; set; }
+
+        [BindProperty]
         public string cat_list_text { get; set; }
-        public PagedResultDto<CategoryDto> list { get; set; }
+        public List<CategoryDto> list { get; set; }
         StringBuilder cat_list = new StringBuilder();
 
+
+        [BindProperty]
+        public List<string> PropKey { get; set; }
+
+        [BindProperty]
+        public List<string> PropValue { get; set; }
+
+        [BindProperty]
+        public List<string> PropTitle { get; set; }
+
+        [BindProperty]
+        public List<SelectListItem> SelectPropTitle { get; set; }
 
         #endregion PROPS
         #region SERVICES
@@ -54,6 +70,15 @@ namespace ODY.Cihazkapinda.Web.Pages.Admin.ProductManagement.ProductAdd
             {
                 ViewData["ProductCreateAndUpdateTitle"] = "Yeni Ürün";
                 productAllCreateModal = new ProductAllCreateModal();
+                await GetPropTitles();
+            }
+            else
+            {
+                ViewData["ProductCreateAndUpdateTitle"] = "Ürün Düzenle";
+                productAllEditModal.productEditModal = ObjectMapper.Map<ProductDto, ProductEditModal>(
+                        await _productAppService.GetAsync((Guid)id)
+                    );
+                await GetPropTitles();
             }
 
             await GetCategories();
@@ -62,10 +87,9 @@ namespace ODY.Cihazkapinda.Web.Pages.Admin.ProductManagement.ProductAdd
 
         public async Task GetCategories()
         {
-            PagedAndSortedResultRequestDto dto = new PagedAndSortedResultRequestDto() { Sorting = "creationTime ASC" };
-            list = await _categoryAppService.GetListAsync(dto);
+            list = await _categoryAppService.GetAllList();
 
-            List<CategoryDto> mainCategories = list.Items.Where(w => w.SubCategory == null).ToList();
+            List<CategoryDto> mainCategories = list.Where(w => w.SubCategory == null).ToList();
 
             cat_list.AppendLine("<li style='margin-bottom:5px;'><span class='num'>A</span><a style='cursor:pointer;' class='main-category'>Ana Kategori</a>");
             cat_list.AppendLine("<input type='hidden' value='main' id='mainCategory'/>");
@@ -83,7 +107,7 @@ namespace ODY.Cihazkapinda.Web.Pages.Admin.ProductManagement.ProductAdd
         }
         public async Task GetCategoriesList(Guid? topCatID)
         {
-            List<CategoryDto> subCategories = list.Items.Where(w => w.SubCategory == topCatID).ToList();
+            List<CategoryDto> subCategories = list.Where(w => w.SubCategory == topCatID).ToList();
             if (subCategories.Count == 0)
                 return;
 
@@ -96,6 +120,53 @@ namespace ODY.Cihazkapinda.Web.Pages.Admin.ProductManagement.ProductAdd
                 cat_list.AppendLine("</li>");
             }
             cat_list.AppendLine("</ol>");
+        }
+
+        public async Task GetPropTitles(string selected = null)
+        {
+            var list = await _productPropertyTitleAppService.GetAllList();
+            SelectPropTitle = new List<SelectListItem>();
+            SelectListItem empty = new SelectListItem
+            {
+                Text = "Seçiniz.",
+                Value = "choise"
+            };
+            SelectPropTitle.Add(empty);
+
+            foreach (var item in list)
+            {
+                SelectListItem newItem;
+                if (selected == null)
+                {
+                    newItem = new SelectListItem
+                    {
+                        Text = item.Name,
+                        Value = item.Name
+                    };
+                }
+                else
+                {
+                    if (selected == item.Name)
+                    {
+                        newItem = new SelectListItem
+                        {
+                            Text = item.Name,
+                            Value = item.Name,
+                            Selected = true
+                        };
+                    }
+                    else
+                    {
+                        newItem = new SelectListItem
+                        {
+                            Text = item.Name,
+                            Value = item.Name
+                        };
+                    }
+                }
+
+                SelectPropTitle.Add(newItem);
+            }
         }
     }
 
@@ -114,6 +185,26 @@ namespace ODY.Cihazkapinda.Web.Pages.Admin.ProductManagement.ProductAdd
         public ProductAllCreateModal()
         {
             productCreateModal = new ProductCreateModal();
+            productImageCreateUpdateDtos = new List<ProductImageCreateUpdateDto>();
+            productPropertyCreateUpdateDtos = new List<ProductPropertyCreateUpdateDto>();
+        }
+    }
+
+    public class ProductAllEditModal
+    {
+
+        [BindProperty]
+        public ProductEditModal productEditModal { get; set; }
+
+        [BindProperty]
+        public List<ProductImageCreateUpdateDto> productImageCreateUpdateDtos { get; set; }
+
+        [BindProperty]
+        public List<ProductPropertyCreateUpdateDto> productPropertyCreateUpdateDtos { get; set; }
+
+        public ProductAllEditModal()
+        {
+            productEditModal = new ProductEditModal();
             productImageCreateUpdateDtos = new List<ProductImageCreateUpdateDto>();
             productPropertyCreateUpdateDtos = new List<ProductPropertyCreateUpdateDto>();
         }

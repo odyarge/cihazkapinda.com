@@ -27,6 +27,10 @@
         public const string Products = ProductManagement + ".Products";
         public const string ProductAdd = ProductManagement + ".ProductAdd";
         public const string ProductImages = ProductManagement + ".ProductImages";
+        public const string ProductProperties = ProductManagement + ".ProductProperties";
+        public const string ProductPropertyTitle = ProductProperties + ".ProductPropertyTitles";
+        public const string ProductPropertyTemplate = ProductProperties + ".ProductPropertyTemplate";
+        public const string ProductPropertySubTemplate = ProductProperties + ".ProductPropertySubTemplate";
         #endregion PRODUCTMANAGEMENT
 
         //Add your menu items here...

@@ -61,7 +61,7 @@ namespace ODY.Cihazkapinda.Web.Pages.Admin.OperatorSettings
             operatorSettingCreateModal.Image = ignoreWWW;
             var create = ObjectMapper.Map<OperatorSettingCreateModal, OperatorSettingCreateUpdateDto>(operatorSettingCreateModal);
             await _operatorSettingAppService.CreateAsync(create);
-            return await Task.FromResult<IActionResult>(Page());
+            return NoContent();
         }
     }
 }

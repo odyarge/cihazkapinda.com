@@ -106,11 +106,10 @@ namespace ODY.Cihazkapinda.Web.Pages.Admin.BannerImages
 
         public async Task GetBannerSettings()
         {
-            PagedAndSortedResultRequestDto dto = new PagedAndSortedResultRequestDto();
-            var list = await _bannerSettingAppService.GetListAsync(dto);
+            var list = await _bannerSettingAppService.GetAllList();
 
             bannerList = new List<SelectListItem>();
-            foreach (var item in list.Items)
+            foreach (var item in list)
             {
                 SelectListItem option = new SelectListItem
                 {

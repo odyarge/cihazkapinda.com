@@ -68,7 +68,7 @@ namespace ODY.Cihazkapinda.Web.Pages.Admin.ThemeSettings
             themeSettingCreateModal.THEME_PATH = ignoreWWW;
             var create = ObjectMapper.Map<ThemeSettingCreateModal, ThemeSettingCreateUpdateDto>(themeSettingCreateModal);
             await _themeSettingAppService.CreateAsync(create);
-            return await Task.FromResult<IActionResult>(Page());
+            return NoContent();
         }
     }
 }

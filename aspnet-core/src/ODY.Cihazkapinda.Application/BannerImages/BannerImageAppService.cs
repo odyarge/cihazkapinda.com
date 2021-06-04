@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Authorization;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,6 +19,13 @@ namespace ODY.Cihazkapinda.BannerImages
             CreatePolicyName = Permissions.CihazkapindaPermissions.BannerImages.Create;
             UpdatePolicyName = Permissions.CihazkapindaPermissions.BannerImages.Edit;
             DeletePolicyName = Permissions.CihazkapindaPermissions.BannerImages.Delete;
+        }
+
+        [Authorize(Permissions.CihazkapindaPermissions.BannerImages.List)]
+        public async Task<List<BannerImageDto>> GetAllList()
+        {
+            var list = await Repository.GetListAsync();
+            return ObjectMapper.Map<List<BannerImage>, List<BannerImageDto>>(list.OrderByDescending(x => x.CreationTime).ToList());
         }
     }
 }

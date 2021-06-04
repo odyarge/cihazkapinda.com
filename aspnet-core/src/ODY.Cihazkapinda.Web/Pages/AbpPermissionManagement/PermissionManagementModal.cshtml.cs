@@ -64,7 +64,9 @@ namespace ODY.Cihazkapinda.Web.Pages.AbpPermissionManagement
                     "SiteSettings",
                     "ThemeSettings",
                     "Licenses",
-                    "OperatorSettings"
+                    "OperatorSettings",
+                    "ProductPropertyTemplate",
+                    "ProductPropertySubTemplate"
                 };
 
                 newList = new List<PermissionGroupDto>();

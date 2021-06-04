@@ -42,30 +42,6 @@
                     </div>
                 </div>
             </div>
-            <div id="form-element-wrapper" style="display:none;">
-                <div class="row border border-color-hover-light" id="form-element" style="margin-top:10px; padding-bottom:10px; padding-top:10px;">
-                    <div class="col-12">
-                        <label name="files">@L["ChooseFile"]</label>
-                        <input required type="file" name="files" class="custom-file-input">
-                        <label class="custom-file-label" style="margin:25px 10px 5px 10px;">@L["ChooseFile"]</label>
-                    </div>
-                    <div class="col-6" style="padding-top:5px;">
-                        <label name="titles">@L["Title"]</label>
-                        <input required name="titles" class="form-control" />
-                        <span asp-validation-for="titles" class="text-danger"></span>
-                    </div>
-                    <div class="col-6" style="padding-top:5px;">
-                        <label name="contents">@L["Content"]</label>
-                        <input required name="contents" class="form-control" />
-                        <span asp-validation-for="contents" class="text-danger"></span>
-                    </div>
-                </div>
-            </div>
-            @*<div class="col-12">
-                    <label asp-for="@Model.files" style="margin-left:-13px;">@L["ChooseFile"]</label>
-                    <input required type="file" asp-for="@Model.files" class="custom-file-input" multiple="@Model.proTheme">
-                    <label class="custom-file-label" style="margin-top: 25px;">@L["ChooseFile"]</label>
-                </div>*@
             <br />
             <abp-input asp-for="bannerSettingCreateModal.Active" />
         </abp-modal-body>
@@ -73,6 +49,25 @@
     </abp-modal>
 </form>
 
+<div id="form-element-wrapper" style="display:none;">
+    <div class="row border border-color-hover-light" id="form-element" style="margin-top:10px; padding-bottom:10px; padding-top:10px;">
+        <div class="col-12">
+            <label name="files">@L["ChooseFile"]</label>
+            <input required type="file" name="files" class="custom-file-input">
+            <label class="custom-file-label" style="margin:25px 10px 5px 10px;">@L["ChooseFile"]</label>
+        </div>
+        <div class="col-6" style="padding-top:5px;">
+            <label name="titles">@L["Title"]</label>
+            <input required name="titles" class="form-control" />
+            <span asp-validation-for="titles" class="text-danger"></span>
+        </div>
+        <div class="col-6" style="padding-top:5px;">
+            <label name="contents">@L["Content"]</label>
+            <input required name="contents" class="form-control" />
+            <span asp-validation-for="contents" class="text-danger"></span>
+        </div>
+    </div>
+</div>
 <script>
     var proTheme = "@Model.proTheme";
     $("#addContent").click(function () {

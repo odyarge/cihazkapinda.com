@@ -54,9 +54,8 @@ namespace ODY.Cihazkapinda.Web.Pages.Admin.BannerSettings
         {
             ValidateModel();
 
-            PagedAndSortedResultRequestDto dto = new PagedAndSortedResultRequestDto();
-            var controlList = await _bannerSettingAppService.GetListAsync(dto);
-            foreach (var item in controlList.Items)
+            var controlList = await _bannerSettingAppService.GetAllList();
+            foreach (var item in controlList)
             {
                 item.Active = false;
                 var updateActive = ObjectMapper.Map<BannerSettingDto, BannerSettingCreateUpdateDto>(item);

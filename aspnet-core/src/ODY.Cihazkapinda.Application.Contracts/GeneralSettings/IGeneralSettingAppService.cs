@@ -11,5 +11,6 @@ namespace ODY.Cihazkapinda.GeneralSettings
     {
         Task<string> GetAsyncTheme(Guid? input);
         Task<GeneralSettingDto> GetAsyncByTenant(Guid? input);
+        Task<List<GeneralSettingDto>> GetAllList();
     }
 }

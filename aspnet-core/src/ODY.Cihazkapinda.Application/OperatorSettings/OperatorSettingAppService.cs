@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Authorization;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,6 +19,13 @@ namespace ODY.Cihazkapinda.OperatorSettings
             CreatePolicyName = Permissions.CihazkapindaPermissions.OperatorSettings.Create;
             UpdatePolicyName = Permissions.CihazkapindaPermissions.OperatorSettings.Edit;
             DeletePolicyName = Permissions.CihazkapindaPermissions.OperatorSettings.Delete;
+        }
+
+        [Authorize(Permissions.CihazkapindaPermissions.OperatorSettings.List)]
+        public async Task<List<OperatorSettingDto>> GetAllList()
+        {
+            var list = await Repository.GetListAsync();
+            return ObjectMapper.Map<List<OperatorSetting>, List<OperatorSettingDto>>(list.OrderByDescending(x => x.CreationTime).ToList());
         }
     }
 }

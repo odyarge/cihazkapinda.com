@@ -11,5 +11,6 @@ namespace ODY.Cihazkapinda.BannerSettings
     {
         Task<long> GetAsyncBannerCount(Guid? tenantId);
         Task<BannerSettingDto> GetAsyncBannerWithImage(Guid Id);
+        Task<List<BannerSettingDto>> GetAllList();
     }
 }

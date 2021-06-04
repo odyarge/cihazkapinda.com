@@ -104,6 +104,20 @@ namespace ODY.Cihazkapinda.Permissions
             productPropertyTitlesGroup.AddChild(CihazkapindaPermissions.ProductPropertyTitles.Edit, L("Permission:ProductPropertyTitlesEdit"));
             productPropertyTitlesGroup.AddChild(CihazkapindaPermissions.ProductPropertyTitles.Delete, L("Permission:ProductPropertyTitlesDelete"));
 
+            var productPropertyTemplateGroup = ProductManagementGroup.AddPermission(CihazkapindaPermissions.ProductPropertyTemplate.ProductPropertyTemplateDefault, L("Permission:ProductPropertyTemplate"));
+            productPropertyTemplateGroup.AddChild(CihazkapindaPermissions.ProductPropertyTemplate.MenuList, L("Permission:ProductPropertyTemplateMenuList"));
+            productPropertyTemplateGroup.AddChild(CihazkapindaPermissions.ProductPropertyTemplate.List, L("Permission:ProductPropertyTemplateList"));
+            productPropertyTemplateGroup.AddChild(CihazkapindaPermissions.ProductPropertyTemplate.Create, L("Permission:ProductPropertyTemplateCreate"));
+            productPropertyTemplateGroup.AddChild(CihazkapindaPermissions.ProductPropertyTemplate.Edit, L("Permission:ProductPropertyTemplateEdit"));
+            productPropertyTemplateGroup.AddChild(CihazkapindaPermissions.ProductPropertyTemplate.Delete, L("Permission:ProductPropertyTemplateDelete"));
+
+            var productPropertySubTemplateGroup = ProductManagementGroup.AddPermission(CihazkapindaPermissions.ProductPropertySubTemplate.ProductPropertySubTemplateDefault, L("Permission:ProductPropertySubTemplate"));
+            productPropertySubTemplateGroup.AddChild(CihazkapindaPermissions.ProductPropertySubTemplate.MenuList, L("Permission:ProductPropertySubTemplateMenuList"));
+            productPropertySubTemplateGroup.AddChild(CihazkapindaPermissions.ProductPropertySubTemplate.List, L("Permission:ProductPropertySubTemplateList"));
+            productPropertySubTemplateGroup.AddChild(CihazkapindaPermissions.ProductPropertySubTemplate.Create, L("Permission:ProductPropertySubTemplateCreate"));
+            productPropertySubTemplateGroup.AddChild(CihazkapindaPermissions.ProductPropertySubTemplate.Edit, L("Permission:ProductPropertySubTemplateEdit"));
+            productPropertySubTemplateGroup.AddChild(CihazkapindaPermissions.ProductPropertySubTemplate.Delete, L("Permission:ProductPropertySubTemplateDelete"));
+
             //Define your own permissions here. Example:
             //myGroup.AddPermission(CihazkapindaPermissions.MyPermission1, L("Permission:MyPermission1"));
         }

@@ -69,7 +69,7 @@ namespace ODY.Cihazkapinda.Web.Pages.Admin.OperatorSettings
             operatorSettingEditModal.Image = ignoreWWW;
             var update = ObjectMapper.Map<OperatorSettingEditModal, OperatorSettingCreateUpdateDto>(operatorSettingEditModal);
             await _operatorSettingAppService.UpdateAsync(operatorSettingEditModal.Id, update);
-            return await Task.FromResult<IActionResult>(Page());
+            return NoContent();
         }
     }
 }

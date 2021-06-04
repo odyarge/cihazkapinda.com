@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Authorization;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -26,6 +27,12 @@ namespace ODY.Cihazkapinda.SiteSettings
             _dataFilter = dataFilter;
         }
 
+        [Authorize(Permissions.CihazkapindaPermissions.SiteSettings.List)]
+        public async Task<List<SiteSettingDto>> GetAllList()
+        {
+            var list = await Repository.GetListAsync();
+            return ObjectMapper.Map<List<SiteSetting>, List<SiteSettingDto>>(list.OrderByDescending(x => x.CreationTime).ToList());
+        }
         [RemoteService(false)]
         public async Task<SiteSettingDto> GetAsyncByTenantName(string input)
         {

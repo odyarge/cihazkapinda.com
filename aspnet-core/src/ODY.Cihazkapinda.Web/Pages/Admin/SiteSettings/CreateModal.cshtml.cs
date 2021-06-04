@@ -62,16 +62,15 @@ namespace ODY.Cihazkapinda.Web.Pages.Admin.SiteSettings
             siteSettingCreateModal.TenantId = CurrentTenant.Id;
             var create = ObjectMapper.Map<SiteSettingCreateModal, SiteSettingCreateUpdateDto>(siteSettingCreateModal);
             await _siteSettingAppService.CreateAsync(create);
-            return await Task.FromResult<IActionResult>(Page());
+            return NoContent();
         }
 
         public async Task GetOperators()
         {
-            PagedAndSortedResultRequestDto pagedAndSortedResultRequestDto = new PagedAndSortedResultRequestDto();
-            var list = await _operatorSettingAppService.GetListAsync(pagedAndSortedResultRequestDto);
+            var list = await _operatorSettingAppService.GetAllList();
 
             operatorList = new List<SelectListItem>();
-            foreach (var item in list.Items)
+            foreach (var item in list)
             {
                 SelectListItem option = new SelectListItem
                 {

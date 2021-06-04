@@ -153,6 +153,32 @@ namespace ODY.Cihazkapinda.EntityFrameworkCore
                 b.Property(x => x.Name).IsRequired();
             });
 
+            builder.Entity<ProductPropertyTemplate>(b =>
+            {
+                b.ToTable(CihazkapindaConsts.DbTablePrefix + "ProductPropertyTemplate", CihazkapindaConsts.DbSchema);
+                b.ConfigureByConvention();
+
+                b.Ignore(x => x.ExtraProperties);
+                b.Property(x => x.Title).IsRequired();
+
+                b.HasMany(x => x.ProductPropertySubTemplates)
+                    .WithOne(x => x.ProductPropertyTemplate)
+                    .HasForeignKey(x => x.ProductPropertyTemplateId)
+                    .OnDelete(DeleteBehavior.Cascade)
+                    .IsRequired();
+            });
+
+            builder.Entity<ProductPropertySubTemplate>(b =>
+            {
+                b.ToTable(CihazkapindaConsts.DbTablePrefix + "ProductPropertySubTemplate", CihazkapindaConsts.DbSchema);
+                b.ConfigureByConvention();
+
+                b.Ignore(x => x.ExtraProperties);
+                b.Property(x => x.KEY).IsRequired();
+                b.Property(x => x.VALUE).IsRequired();
+                b.Property(x => x.TITLE).IsRequired();
+            });
+
             builder.Entity<Category>(b =>
             {
                 b.ToTable(CihazkapindaConsts.DbTablePrefix + "Category", CihazkapindaConsts.DbSchema);

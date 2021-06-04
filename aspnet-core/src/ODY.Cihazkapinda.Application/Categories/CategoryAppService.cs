@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Authorization;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,11 +14,18 @@ namespace ODY.Cihazkapinda.Categories
     {
         public CategoryAppService(IRepository<Category, Guid> repository) : base(repository)
         {
-            GetPolicyName = Permissions.CihazkapindaPermissions.GeneralSettings.GeneralSettingDefault;
-            GetListPolicyName = Permissions.CihazkapindaPermissions.GeneralSettings.List;
-            CreatePolicyName = Permissions.CihazkapindaPermissions.GeneralSettings.Create;
-            UpdatePolicyName = Permissions.CihazkapindaPermissions.GeneralSettings.Edit;
-            DeletePolicyName = Permissions.CihazkapindaPermissions.GeneralSettings.Delete;
+            GetPolicyName = Permissions.CihazkapindaPermissions.Categories.CategoriesDefault;
+            GetListPolicyName = Permissions.CihazkapindaPermissions.Categories.List;
+            CreatePolicyName = Permissions.CihazkapindaPermissions.Categories.Create;
+            UpdatePolicyName = Permissions.CihazkapindaPermissions.Categories.Edit;
+            DeletePolicyName = Permissions.CihazkapindaPermissions.Categories.Delete;
+        }
+
+        [Authorize(Permissions.CihazkapindaPermissions.Categories.List)]
+        public async Task<List<CategoryDto>> GetAllList()
+        {
+            var list = await Repository.GetListAsync();
+            return ObjectMapper.Map<List<Category>, List<CategoryDto>>(list.OrderByDescending(x => x.CreationTime).ToList());
         }
     }
 }

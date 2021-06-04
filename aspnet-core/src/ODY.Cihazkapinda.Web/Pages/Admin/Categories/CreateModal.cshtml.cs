@@ -29,7 +29,7 @@ namespace ODY.Cihazkapinda.Web.Pages.Admin.Categories
         [Display(Name = "OwnerCategorySelect")]
         public string categorySelect { get; set; }
 
-        public PagedResultDto<CategoryDto> list { get; set; }
+        public List<CategoryDto> list { get; set; }
 
         StringBuilder cat_list = new StringBuilder();
 
@@ -76,10 +76,9 @@ namespace ODY.Cihazkapinda.Web.Pages.Admin.Categories
         }
         public async Task GetCategories()
         {
-            PagedAndSortedResultRequestDto dto = new PagedAndSortedResultRequestDto() { Sorting = "creationTime ASC" };
-            list = await _categoryAppService.GetListAsync(dto);
+            list = await _categoryAppService.GetAllList();
 
-            List<CategoryDto> mainCategories = list.Items.Where(w => w.SubCategory == null).ToList();
+            List<CategoryDto> mainCategories = list.Where(w => w.SubCategory == null).ToList();
 
             cat_list.AppendLine("<li style='margin-bottom:5px;'><span class='num'>A</span><a style='cursor:pointer;' class='main-category'>Ana Kategori</a>");
             cat_list.AppendLine("<input type='hidden' value='main' id='mainCategory'/>");
@@ -97,7 +96,7 @@ namespace ODY.Cihazkapinda.Web.Pages.Admin.Categories
         }
         public async Task GetCategoriesList(Guid? topCatID)
         {
-            List<CategoryDto> subCategories = list.Items.Where(w => w.SubCategory == topCatID).ToList();
+            List<CategoryDto> subCategories = list.Where(w => w.SubCategory == topCatID).ToList();
             if (subCategories.Count == 0)
                 return;
 

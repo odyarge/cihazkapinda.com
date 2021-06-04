@@ -26,6 +26,13 @@ namespace ODY.Cihazkapinda.BannerSettings
             _bannerImageRepository = bannerImageRepository;
         }
 
+
+        [Authorize(Permissions.CihazkapindaPermissions.BannerSettings.List)]
+        public async Task<List<BannerSettingDto>> GetAllList()
+        {
+            var list = await Repository.GetListAsync();
+            return ObjectMapper.Map<List<BannerSetting>, List<BannerSettingDto>>(list.OrderByDescending(x => x.CreationTime).ToList());
+        }
         public async override Task DeleteAsync(Guid id)
         {
             var images = await _bannerImageRepository.GetListAsync();
@@ -43,6 +50,7 @@ namespace ODY.Cihazkapinda.BannerSettings
             return item.Count;
         }
 
+        [Authorize(Permissions.CihazkapindaPermissions.BannerSettings.List)]
         public async Task<BannerSettingDto> GetAsyncBannerWithImage(Guid Id)
         {
             var item = await Repository.GetAsync(Id);

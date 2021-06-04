@@ -11,5 +11,6 @@ namespace ODY.Cihazkapinda.SiteSettings
     {
         Task<SiteSettingDto> GetAsyncByTenantName(string input);
         Task<bool> UpdateInstall(string license, string owner);
+        Task<List<SiteSettingDto>> GetAllList();
     }
 }

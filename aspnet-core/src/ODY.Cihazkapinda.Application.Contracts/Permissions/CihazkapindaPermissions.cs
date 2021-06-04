@@ -125,5 +125,23 @@
             public const string Edit = ProductPropertyTitlesDefault + ".Edit";
             public const string Delete = ProductPropertyTitlesDefault + ".Delete";
         }
+        public static class ProductPropertyTemplate
+        {
+            public const string ProductPropertyTemplateDefault = ProductManagementGroup + ".ProductPropertyTemplate";
+            public const string MenuList = ProductPropertyTemplateDefault + ".MenuList";
+            public const string List = ProductPropertyTemplateDefault + ".List";
+            public const string Create = ProductPropertyTemplateDefault + ".Create";
+            public const string Edit = ProductPropertyTemplateDefault + ".Edit";
+            public const string Delete = ProductPropertyTemplateDefault + ".Delete";
+        }
+        public static class ProductPropertySubTemplate
+        {
+            public const string ProductPropertySubTemplateDefault = ProductManagementGroup + ".ProductPropertySubTemplate";
+            public const string MenuList = ProductPropertySubTemplateDefault + ".MenuList";
+            public const string List = ProductPropertySubTemplateDefault + ".List";
+            public const string Create = ProductPropertySubTemplateDefault + ".Create";
+            public const string Edit = ProductPropertySubTemplateDefault + ".Edit";
+            public const string Delete = ProductPropertySubTemplateDefault + ".Delete";
+        }
     }
 }

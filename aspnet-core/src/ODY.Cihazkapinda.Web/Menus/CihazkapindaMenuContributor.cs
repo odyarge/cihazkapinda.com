@@ -67,6 +67,29 @@ namespace ODY.Cihazkapinda.Web.Menus
                 {
                     productManagement.AddItem(new ApplicationMenuItem(CihazkapindaMenus.ProductImages, l["Menu:ProductImages"], "/Admin/ProductManagement/ProductImages/"));
                 }
+
+
+                if (await context.IsGrantedAsync(CihazkapindaPermissions.ProductPropertyTitles.MenuList) && await context.IsGrantedAsync(TenantManagementPermissions.Tenants.Default))
+                {
+                    var productProperties = new ApplicationMenuItem(CihazkapindaMenus.ProductProperties, l["Menu:ProductProperties"], "");
+
+                    if (await context.IsGrantedAsync(CihazkapindaPermissions.ProductPropertyTitles.MenuList) && await context.IsGrantedAsync(TenantManagementPermissions.Tenants.Default))
+                    {
+                        productProperties.AddItem(new ApplicationMenuItem(CihazkapindaMenus.ProductPropertyTitle, l["Menu:ProductPropertyTitle"], "/Admin/ProductManagement/ProductPropertyTitles/"));
+                    }
+
+                    if (await context.IsGrantedAsync(CihazkapindaPermissions.ProductPropertyTemplate.MenuList) && await context.IsGrantedAsync(TenantManagementPermissions.Tenants.Default))
+                    {
+                        productProperties.AddItem(new ApplicationMenuItem(CihazkapindaMenus.ProductPropertyTemplate, l["Menu:ProductPropertyTemplate"], "/Admin/ProductManagement/ProductPropertyTemplate/"));
+                    }
+
+                    if (await context.IsGrantedAsync(CihazkapindaPermissions.ProductPropertySubTemplate.MenuList) && await context.IsGrantedAsync(TenantManagementPermissions.Tenants.Default))
+                    {
+                        productProperties.AddItem(new ApplicationMenuItem(CihazkapindaMenus.ProductPropertySubTemplate, l["Menu:ProductPropertySubTemplate"], "/Admin/ProductManagement/ProductPropertySubTemplate/"));
+                    }
+                    productManagement.AddItem(productProperties);
+                }
+
                 componentsMenu.AddItem(productManagement);
             }
             #endregion COMPONENTS_SUB_MENUS

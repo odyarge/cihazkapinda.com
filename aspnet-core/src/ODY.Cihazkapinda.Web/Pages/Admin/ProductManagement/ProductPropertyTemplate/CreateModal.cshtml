@@ -1,0 +1,80 @@
+﻿@page
+@using Volo.Abp.AspNetCore.Mvc.UI.Bootstrap.TagHelpers.Modal
+@using Microsoft.AspNetCore.Mvc.Localization
+@using ODY.Cihazkapinda.Localization
+@model ODY.Cihazkapinda.Web.Pages.Admin.ProductManagement.ProductPropertyTemplate.CreateModalModel
+@inject IHtmlLocalizer<CihazkapindaResource> L
+@{
+    Layout = null;
+}
+
+<form asp-page="/Admin/ProductManagement/ProductPropertyTemplate/CreateModal">
+    <abp-modal size="Default">
+        <abp-modal-header title="@L["ProductPropertyTemplate"].Value"></abp-modal-header>
+        <abp-modal-body>
+            <abp-input asp-for="productPropertyTemplateCreateModal.Title" />
+            <div class="row">
+                <div class="col-6" style="padding-top:10px;">
+                    <h5>Alt Özellikler</h5>
+                </div>
+            </div>
+            <div class="form-group" id="product-property-wrapper" style="margin:0 10px 0 10px;">
+                <div class="row border border-color-hover-light" style="margin-top:10px; padding-bottom:10px; padding-top:10px;">
+                    <div class="col-12" style="padding-top:5px;">
+                        <label name="titles">@L["PropertyTitle"]</label>
+                        <select name="titles" asp-items="Model.SelectPropTitle" class="form-control"></select>
+                        <span asp-validation-for="titles" class="text-danger"></span>
+                    </div>
+                    <div class="col-4" style="padding-top:5px;">
+                        <abp-input asp-for="keys" />
+                    </div>
+                    <div class="col-4" style="padding-top:5px;">
+                        <abp-input asp-for="values" />
+                    </div>
+                    <div class="col-2" style="text-align:end; margin-top:30px;">
+                        <input type="button" class="btn btn-success add-prop" value="Ekle" />
+                    </div>
+                    <div class="col-2" style="text-align:end; margin-top:30px;">
+                        <input type="button" class="btn btn-danger disabled" value="Sil" />
+                    </div>
+                </div>
+            </div>
+            <br />
+        </abp-modal-body>
+        <abp-modal-footer buttons="@(AbpModalButtons.Cancel|AbpModalButtons.Save)"></abp-modal-footer>
+    </abp-modal>
+</form>
+<div id="product-property-wrapper-add" style="display:none;">
+    <div class="row border border-color-hover-light" id="product-property" style="margin-top:10px; padding-bottom:10px; padding-top:10px;">
+        <div class="col-12" style="padding-top:5px;">
+            <label name="titles">@L["PropertyTitle"]</label>
+            <select name="titles" asp-items="Model.SelectPropTitle" class="form-control"></select>
+            <span asp-validation-for="titles" class="text-danger"></span>
+        </div>
+        <div class="col-4" style="padding-top:5px;">
+            <abp-input asp-for="keys" />
+        </div>
+        <div class="col-4" style="padding-top:5px;">
+            <abp-input asp-for="values" />
+        </div>
+        <div class="col-2" style="text-align:end; margin-top:30px;">
+            <input type="button" class="btn btn-success add-prop" value="Ekle" />
+        </div>
+        <div class="col-2" style="text-align:end; margin-top:30px;">
+            <input type="button" class="btn btn-danger disabled" value="Sil" />
+        </div>
+    </div>
+</div>
+<script>
+
+    $(".add-prop").click(function () {
+        var clone = $('#product-property-wrapper-add').clone('#product-property');
+        clone[0].style = "display:block;"
+        $('#product-property-wrapper').append(clone);
+    });
+
+    $(".delete-prop").click(function () {
+        $(this)
+            .parents("#product-property-wrapper-add").remove();
+    });
+</script>

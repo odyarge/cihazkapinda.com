@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Authorization;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,6 +19,13 @@ namespace ODY.Cihazkapinda.ProductManagement
             CreatePolicyName = Permissions.CihazkapindaPermissions.ProductProperties.Create;
             UpdatePolicyName = Permissions.CihazkapindaPermissions.ProductProperties.Edit;
             DeletePolicyName = Permissions.CihazkapindaPermissions.ProductProperties.Delete;
+        }
+
+        [Authorize(Permissions.CihazkapindaPermissions.ProductProperties.List)]
+        public async Task<List<ProductPropertyDto>> GetAllList()
+        {
+            var list = await Repository.GetListAsync();
+            return ObjectMapper.Map<List<ProductProperty>, List<ProductPropertyDto>>(list.OrderByDescending(x => x.CreationTime).ToList());
         }
     }
 }

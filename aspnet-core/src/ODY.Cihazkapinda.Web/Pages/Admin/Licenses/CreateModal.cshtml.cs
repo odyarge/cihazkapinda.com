@@ -53,7 +53,7 @@ namespace ODY.Cihazkapinda.Web.Pages.Admin.Licenses
             licenseCreateModal.TenantId = CurrentTenant.Id;
             var create = ObjectMapper.Map<LicenseCreateModal, LicenseCreateUpdateDto>(licenseCreateModal);
             await _licenseAppService.CreateAsync(create);
-            return await Task.FromResult<IActionResult>(Page());
+            return NoContent();
         }
 
         public async Task GetTenants()

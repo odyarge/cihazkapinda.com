@@ -79,7 +79,7 @@ namespace ODY.Cihazkapinda.Web.Pages.Admin.ThemeSettings
             themeSettingEditModal.THEME_PATH = ignoreWWW;
             var update = ObjectMapper.Map<ThemeSettingEditModal, ThemeSettingCreateUpdateDto>(themeSettingEditModal);
             await _themeSettingAppService.UpdateAsync(themeSettingEditModal.Id, update);
-            return await Task.FromResult<IActionResult>(Page());
+            return NoContent();
         }
     }
 }
