@@ -117,6 +117,13 @@ namespace ODY.Cihazkapinda.Permissions
             productPropertySubTemplateGroup.AddChild(CihazkapindaPermissions.ProductPropertySubTemplate.Create, L("Permission:ProductPropertySubTemplateCreate"));
             productPropertySubTemplateGroup.AddChild(CihazkapindaPermissions.ProductPropertySubTemplate.Edit, L("Permission:ProductPropertySubTemplateEdit"));
             productPropertySubTemplateGroup.AddChild(CihazkapindaPermissions.ProductPropertySubTemplate.Delete, L("Permission:ProductPropertySubTemplateDelete"));
+            
+            var productInfoTemplateGroup = ProductManagementGroup.AddPermission(CihazkapindaPermissions.ProductInfoTemplate.ProductInfoTemplateDefault, L("Permission:ProductInfoTemplate"));
+            productInfoTemplateGroup.AddChild(CihazkapindaPermissions.ProductInfoTemplate.MenuList, L("Permission:ProductInfoTemplateMenuList"));
+            productInfoTemplateGroup.AddChild(CihazkapindaPermissions.ProductInfoTemplate.List, L("Permission:ProductInfoTemplateList"));
+            productInfoTemplateGroup.AddChild(CihazkapindaPermissions.ProductInfoTemplate.Create, L("Permission:ProductInfoTemplateCreate"));
+            productInfoTemplateGroup.AddChild(CihazkapindaPermissions.ProductInfoTemplate.Edit, L("Permission:ProductInfoTemplateEdit"));
+            productInfoTemplateGroup.AddChild(CihazkapindaPermissions.ProductInfoTemplate.Delete, L("Permission:ProductInfoTemplateDelete"));
 
             //Define your own permissions here. Example:
             //myGroup.AddPermission(CihazkapindaPermissions.MyPermission1, L("Permission:MyPermission1"));

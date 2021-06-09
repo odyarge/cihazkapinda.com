@@ -118,10 +118,17 @@ namespace ODY.Cihazkapinda.EntityFrameworkCore
                     .OnDelete(DeleteBehavior.Cascade)
                     .IsRequired();
 
-                b.HasOne(x => x.ProductProperty)
+                b.HasMany(x => x.ProductProperty)
                     .WithOne(x => x.Product)
-                    .HasForeignKey<ProductProperty>(x => x.ProductId)
-                    .OnDelete(DeleteBehavior.Cascade);
+                    .HasForeignKey(x => x.ProductId)
+                    .OnDelete(DeleteBehavior.Cascade)
+                    .IsRequired();
+
+                b.HasMany(x => x.ProductInfo)
+                    .WithOne(x => x.Product)
+                    .HasForeignKey(x => x.ProductId)
+                    .OnDelete(DeleteBehavior.Cascade)
+                    .IsRequired();
             });
 
             builder.Entity<ProductImage>(b =>
@@ -177,6 +184,25 @@ namespace ODY.Cihazkapinda.EntityFrameworkCore
                 b.Property(x => x.KEY).IsRequired();
                 b.Property(x => x.VALUE).IsRequired();
                 b.Property(x => x.TITLE).IsRequired();
+            });
+
+            builder.Entity<ProductInfo>(b =>
+            {
+                b.ToTable(CihazkapindaConsts.DbTablePrefix + "ProductInfo", CihazkapindaConsts.DbSchema);
+                b.ConfigureByConvention();
+
+                b.Ignore(x => x.ExtraProperties);
+            });
+
+            builder.Entity<ProductInfoTemplate>(b =>
+            {
+                b.ToTable(CihazkapindaConsts.DbTablePrefix + "ProductInfoTemplate", CihazkapindaConsts.DbSchema);
+                b.ConfigureByConvention();
+
+                b.Ignore(x => x.ExtraProperties);
+                b.Property(x => x.Image).IsRequired();
+                b.Property(x => x.Title).IsRequired();
+                b.Property(x => x.Description).IsRequired();
             });
 
             builder.Entity<Category>(b =>

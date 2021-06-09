@@ -79,6 +79,7 @@ namespace ODY.Cihazkapinda.Web
             CreateMap<ProductPropertyDto, ProductPropertyEditModal>();
             CreateMap<ProductPropertyEditModal, ProductPropertyCreateUpdateDto>();
             CreateMap<ProductPropertyCreateModal, ProductPropertyCreateUpdateDto>();
+            CreateMap<ProductPropertyDto, ProductPropertyCreateUpdateDto>();
             //
             CreateMap<ProductPropertyTitleDto, ProductPropertyTitleEditModal>();
             CreateMap<ProductPropertyTitleEditModal, ProductPropertyTitleCreateUpdateDto>();
@@ -91,6 +92,15 @@ namespace ODY.Cihazkapinda.Web
             CreateMap<ProductPropertySubTemplateDto, ProductPropertySubTemplateEditModal>();
             CreateMap<ProductPropertySubTemplateEditModal, ProductPropertySubTemplateCreateUpdateDto>();
             CreateMap<ProductPropertySubTemplateCreateModal, ProductPropertySubTemplateCreateUpdateDto>();
+            //
+            CreateMap<ProductInfoDto, ProductInfoEditModal>();
+            CreateMap<ProductInfoDto, ProductInfoCreateUpdateDto>();
+            CreateMap<ProductInfoEditModal, ProductInfoCreateUpdateDto>();
+            CreateMap<ProductInfoCreateModal, ProductInfoCreateUpdateDto>();
+            //
+            CreateMap<ProductInfoTemplateDto, ProductInfoTemplateEditModal>();
+            CreateMap<ProductInfoTemplateEditModal, ProductInfoTemplateCreateUpdateDto>();
+            CreateMap<ProductInfoTemplateCreateModal, ProductInfoTemplateCreateUpdateDto>();
         }
     }
 }

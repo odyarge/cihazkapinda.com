@@ -10,5 +10,6 @@ namespace ODY.Cihazkapinda.Categories
     public interface ICategoryAppService : ICrudAppService<CategoryDto, Guid, PagedAndSortedResultRequestDto, CategoryCreateUpdateDto, CategoryCreateUpdateDto>
     {
         Task<List<CategoryDto>> GetAllList();
+        Task<CategoryDto> GetAllListWithDetail(Guid id);
     }
 }

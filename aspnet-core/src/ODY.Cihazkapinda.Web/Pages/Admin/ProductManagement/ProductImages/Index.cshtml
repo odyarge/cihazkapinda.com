@@ -26,12 +26,6 @@
             <abp-column size-md="_6">
                 <abp-card-title>@L["ProductImages"]</abp-card-title>
             </abp-column>
-            <abp-column size-md="_6" class="text-right">
-                @if (await AuthorizationService.IsGrantedAsync(CihazkapindaPermissions.ProductImages.Create))
-                {
-                    <button type="button" class="btn btn-primary waves-effect waves-light" name="CreateNewProductImages">@L["CreateNewProductImages"]</button>
-                }
-            </abp-column>
         </abp-row>
     </abp-card-header>
     <abp-card-body>

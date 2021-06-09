@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ODY.Cihazkapinda.ProductColorTypes;
+using ODY.Cihazkapinda.ProductTypes;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -15,6 +17,8 @@ namespace ODY.Cihazkapinda.ProductManagement
         public int Installment { get; set; }
         public bool Discount { get; set; }
         public bool Active { get; set; }
+        public ProductColorType ProductColor { get; set; }
+        public ProductType ProductType { get; set; }
         public Guid CategoryId { get; set; }
     }
 }

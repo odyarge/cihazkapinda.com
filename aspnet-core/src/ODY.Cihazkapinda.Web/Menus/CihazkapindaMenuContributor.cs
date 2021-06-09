@@ -68,6 +68,11 @@ namespace ODY.Cihazkapinda.Web.Menus
                     productManagement.AddItem(new ApplicationMenuItem(CihazkapindaMenus.ProductImages, l["Menu:ProductImages"], "/Admin/ProductManagement/ProductImages/"));
                 }
 
+                if (await context.IsGrantedAsync(CihazkapindaPermissions.ProductInfoTemplate.MenuList))
+                {
+                    productManagement.AddItem(new ApplicationMenuItem(CihazkapindaMenus.ProductInfoTemplate, l["Menu:ProductInfoTemplate"], "/Admin/ProductManagement/ProductInfoTemplate/"));
+                }
+
 
                 if (await context.IsGrantedAsync(CihazkapindaPermissions.ProductPropertyTitles.MenuList) && await context.IsGrantedAsync(TenantManagementPermissions.Tenants.Default))
                 {

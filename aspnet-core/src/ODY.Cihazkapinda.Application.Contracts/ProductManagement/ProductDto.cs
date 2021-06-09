@@ -1,4 +1,6 @@
 ﻿using ODY.Cihazkapinda.Categories;
+using ODY.Cihazkapinda.ProductColorTypes;
+using ODY.Cihazkapinda.ProductTypes;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -18,15 +20,18 @@ namespace ODY.Cihazkapinda.ProductManagement
         public int Installment { get; set; }
         public bool Discount { get; set; }
         public bool Active { get; set; }
-        public ICollection<ProductImageDto> Images { get; set; }
-        public ProductPropertyDto ProductProperty { get; set; }
-        public CategoryDto Category { get; set; }
+        public ProductColorType ProductColor { get; set; }
+        public ProductType ProductType { get; set; }
+        public IList<ProductImageDto> Images { get; set; }
+        public IList<ProductPropertyDto> ProductProperty { get; set; }
+        public IList<ProductInfoDto> ProductInfo { get; set; }
+        public Guid CategoryId { get; set; }
 
         public ProductDto()
         {
             Images = new Collection<ProductImageDto>();
-            ProductProperty = new ProductPropertyDto();
-            Category = new CategoryDto();
+            ProductProperty = new Collection<ProductPropertyDto>();
+            ProductInfo = new Collection<ProductInfoDto>();
         }
     }
 }

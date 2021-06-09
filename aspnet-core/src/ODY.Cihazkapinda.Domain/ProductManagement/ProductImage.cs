@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Volo.Abp;
 using Volo.Abp.Domain.Entities.Auditing;
 using Volo.Abp.MultiTenancy;
 
@@ -26,7 +27,7 @@ namespace ODY.Cihazkapinda.ProductManagement
             Guid _productId)
         {
             TenantId = tenantId;
-            Image = _image;
+            Image = Check.NotNullOrWhiteSpace(_image, nameof(_image));
             ProductId = _productId;
         }
     }

@@ -70,6 +70,15 @@ namespace ODY.Cihazkapinda
             CreateMap<ProductPropertySubTemplate, ProductPropertySubTemplateDto>();
             CreateMap<ProductPropertySubTemplateDto, ProductPropertySubTemplateCreateUpdateDto>();
             CreateMap<ProductPropertySubTemplateCreateUpdateDto, ProductPropertySubTemplate>();
+
+            CreateMap<ProductInfo, ProductInfoDto>();
+            CreateMap<ProductInfoDto, ProductInfo>();
+            CreateMap<ProductInfoDto, ProductInfoCreateUpdateDto>();
+            CreateMap<ProductInfoCreateUpdateDto, ProductInfo>();
+
+            CreateMap<ProductInfoTemplate, ProductInfoTemplateDto>();
+            CreateMap<ProductInfoTemplateDto, ProductInfoTemplateCreateUpdateDto>();
+            CreateMap<ProductInfoTemplateCreateUpdateDto, ProductInfoTemplate>();
         }
     }
 }

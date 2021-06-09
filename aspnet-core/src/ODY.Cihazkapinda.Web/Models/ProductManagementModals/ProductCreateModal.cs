@@ -1,9 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using ODY.Cihazkapinda.ProductColorTypes;
+using ODY.Cihazkapinda.ProductTypes;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using Volo.Abp.AspNetCore.Mvc.UI.Bootstrap.TagHelpers.Form;
 
 namespace ODY.Cihazkapinda.Web.Models.ProductManagementModals
 {
@@ -21,6 +24,7 @@ namespace ODY.Cihazkapinda.Web.Models.ProductManagementModals
 
         [Required]
         [Display(Name = "Description")]
+        [TextArea(Rows = 4)]
         public string Description { get; set; }
 
         [Required]
@@ -38,6 +42,12 @@ namespace ODY.Cihazkapinda.Web.Models.ProductManagementModals
 
         [Display(Name = "Active")]
         public bool Active { get; set; }
+
+        [Display(Name = "ProductColor")]
+        public ProductColorType ProductColor { get; set; } = ProductColorType.Yok;
+
+        [Display(Name = "ProductType")]
+        public ProductType ProductType { get; set; } = ProductType.Telefon;
 
         [Required]
         [HiddenInput]

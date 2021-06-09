@@ -12,68 +12,135 @@
     <abp-script src="/Pages/Index.js" />
 }
 @{ var layout = Model.theme;
-                Layout = "~/" + layout; }
+    Layout = "~/" + layout;
+    ViewBag.Title = Model.setting.Title;
+    }
+<style>
+    .mylink:hover {
+        color: #e60000 !important;
+    }
 
+    #header .header-nav-main.header-nav-main-dropdown-arrow nav > ul > li.dropdown > .dropdown-item:before {
+        border-bottom: 7px solid #e60000 !important;
+    }
 
-<div class="loading-overlay">
-    <div class="bounce-loader">
-        <div class="bounce1"></div>
-        <div class="bounce2"></div>
-        <div class="bounce3"></div>
-    </div>
-</div>
+    #header .header-nav.header-nav-links nav > ul:not(:hover) > li > a.active {
+        color: #e60000 !important;
+    }
 
+    .product-thumb-info .product-thumb-info-content {
+        padding: 0px !important;
+        padding-bottom: 15px !important;
+    }
+
+    .card-body {
+        padding: 15px !important;
+    }
+</style>
 <div class="body">
-    <header id="header" style="z-index: 100001;" class="header-transparent header-transparent-not-fixed header-no-min-height" data-plugin-options="{'stickyEnabled': true, 'stickyEnableOnBoxed': true, 'stickyEnableOnMobile': true, 'stickyStartAt': 52, 'stickySetTop': '0'}">
-        <div class="header-body border-top-0 header-body-bottom-border">
-            <div class="header-container container container-lg">
-                <div class="header-row">
+    <header id="header" data-plugin-options="{'stickyEnabled': true, 'stickyEnableOnBoxed': true, 'stickyEnableOnMobile': true, 'stickyStartAt': 135, 'stickySetTop': '-135px', 'stickyChangeLogo': true}">
+        <div class="header-body border-color-primary border-bottom-0 box-shadow-none" style="border-top:none !important; position:fixed !important;" data-sticky-header-style="{'minResolution': 0}" data-sticky-header-style-active="{'background-color': '#f7f7f7'}" data-sticky-header-style-deactive="{'background-color': '#FFF'}">
+            <div class="header-container container">
+                <div class="header-row py-2">
                     <div class="header-column">
                         <div class="header-row">
                             <div class="header-logo">
-                                <a href="index.html">
-                                    <img alt="Porto" width="90" src="~/frontend/img/logo.png">
+                                <a href="index.html" style="color:rgb(230, 0, 0) !important;">
+                                    <svg style="height: 13em;width: 9em;stroke: currentColor;stroke-width: 7px;max-height: 50px" width="47" height="47" viewBox="0 0 312 312" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <g clip-path="url(#clip0)">
+                                            <path d="M155.91 311.82c86.107 0 155.91-69.803 155.91-155.91S242.017 0 155.91 0 0 69.803 0 155.91s69.803 155.91 155.91 155.91z" fill="#E60000" />
+                                            <path d="M157.134 242.307c-42.57.14-86.87-36.19-87.06-94.54-.12-38.59 20.69-75.77 47.3-97.77 26-21.49 61.51-35.28 93.76-35.39 4.15 0 8.49.33 11.15 1.23-28.2 5.85-50.64 32.09-50.54 61.86-.003.843.061 1.686.19 2.52 47.18 11.49 68.6 40 68.73 79.35.13 39.35-30.97 82.56-83.53 82.74z" fill="#fff" />
+                                        </g>
+                                        <defs>
+                                            <clipPath id="clip0">
+                                                <path fill="#fff" d="M0 0h311.81v311.81H0z" />
+                                            </clipPath>
+                                        </defs>
+                                    </svg>
                                 </a>
                             </div>
+                            <span style="font-size:18px; font-weight:bold;">
+                                @Model.setting.Title
+                            </span>
                         </div>
                     </div>
                     <div class="header-column justify-content-end">
                         <div class="header-row">
-                            <div class="header-nav header-nav-line header-nav-top-line header-nav-top-line-with-border order-2 order-lg-1">
-                                <div class="header-nav-main header-nav-main-square header-nav-main-effect-2 header-nav-main-sub-effect-1">
-                                    <nav class="collapse">
-                                        <ul class="nav nav-pills" id="mainNav">
-                                            <li>
-                                                <a class="dropdown-item dropdown-toggle active" href="~/">
-                                                    @L["MainMenu:Home"]
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a class="dropdown-item dropdown-toggle" href="/Account/Login">
-                                                    @L["MainMenu:Login"]
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </nav>
-                                </div>
-                                <button class="btn header-btn-collapse-nav" data-toggle="collapse" data-target=".header-nav-main nav">
-                                    <i class="fas fa-bars"></i>
-                                </button>
-                            </div>
-                            <div class="header-nav-features header-nav-features-no-border header-nav-features-lg-show-border order-1 order-lg-2">
-                                <div class="header-nav-feature header-nav-features-search d-inline-flex">
-                                    <a href="#" class="header-nav-features-toggle" data-focus="headerSearch"><i class="fas fa-search header-nav-top-icon"></i></a>
-                                    <div class="header-nav-features-dropdown" id="headerTopSearchDropdown">
-                                        <form role="search" action="page-search-results.html" method="get">
-                                            <div class="simple-search input-group">
-                                                <input class="form-control text-1" id="headerSearch" name="q" type="search" value="" placeholder="Search...">
-                                                <span class="input-group-append">
-                                                    <button class="btn" type="submit">
-                                                        <i class="fa fa-search header-nav-top-icon"></i>
-                                                    </button>
-                                                </span>
-                                            </div>
-                                        </form>
+                            <ul class="header-extra-info d-flex align-items-center mr-3">
+                                <li class="d-none d-sm-inline-flex">
+                                    <div class="header-extra-info-text">
+                                        <label>Mail Adresimiz</label>
+                                        <strong><a href="mailto:@(Model.setting.Email)" class="text-uppercase">@Model.setting.Email</a></strong>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="header-extra-info-text">
+                                        <label>Telefon Numaramız</label>
+                                        <strong><a href="tel:@Model.setting.Email">@Model.setting.Phone</a></strong>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container-fluid bg-color-light-scale-1" style="border-bottom:1px solid #979797;border-top:1px solid #979797;">
+                <div class="container">
+                    <div class="header-nav-bar bg-color-light-scale-1">
+                        <div class="header-row">
+                            <div class="header-column">
+                                <div class="header-row justify-content-end">
+                                    <div class="header-nav header-nav-links justify-content-center" data-sticky-header-style="{'minResolution': 991}" data-sticky-header-style-active="{'margin-top': '35px'}" data-sticky-header-style-deactive="{'margin-top': '0'}">
+                                        <div class="header-nav-main header-nav-main-square header-nav-main-dropdown-no-borders header-nav-main-dropdown-arrow header-nav-main-effect-3 header-nav-main-sub-effect-1">
+                                            <nav class="collapse">
+                                                <ul class="nav nav-pills" id="mainNav">
+                                                    <li class="dropdown">
+                                                        <a style="cursor:pointer;" class="dropdown-item dropdown-toggle mylink active">
+                                                            <input type="hidden" value="0" />
+                                                            <img src="~/frontend/img/phone-big.png" style="margin-right:10px;" />
+                                                            Telefonlar
+                                                        </a>
+                                                    </li>
+                                                    <li class="dropdown">
+                                                        <a style="cursor:pointer;" class="dropdown-item dropdown-toggle mylink">
+                                                            <input type="hidden" value="1" />
+                                                            <img src="~/frontend/img/tablet-big.png" style="margin-right:10px;" />
+                                                            Tabletler & Bilgisayarlar
+                                                        </a>
+                                                    </li>
+                                                    <li class="dropdown">
+                                                        <a style="cursor:pointer;" class="dropdown-item dropdown-toggle mylink">
+                                                            <input type="hidden" value="2" />
+                                                            <img src="~/frontend/img/accessories-big.png" style="margin-right:10px;" />
+                                                            Aksesuarlar
+                                                        </a>
+                                                    </li>
+                                                    <li class="dropdown">
+                                                        <a style="cursor:pointer;" class="dropdown-item dropdown-toggle mylink">
+                                                            <input type="hidden" value="3" />
+                                                            <img src="~/frontend/img/IoT-big.png" style="margin-right:10px;" />
+                                                            Akıllı Ev Ürünleri
+                                                        </a>
+                                                    </li>
+                                                    <li class="dropdown">
+                                                        <a style="cursor:pointer;" class="dropdown-item dropdown-toggle mylink">
+                                                            <input type="hidden" value="4" />
+                                                            <img src="~/frontend/img/IoT-big.png" style="margin-right:10px;" />
+                                                            Dijital Servisler
+                                                        </a>
+                                                    </li>
+                                                    <li class="dropdown">
+                                                        <a class="dropdown-item dropdown-toggle mylink" href="#">
+                                                            <img src="~/frontend/img/footer1.png" style="margin-right:10px;" />
+                                                            Tarifeler
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </nav>
+                                        </div>
+                                        <button class="btn header-btn-collapse-nav" data-toggle="collapse" data-target=".header-nav-main nav">
+                                            <i class="fas fa-bars"></i>
+                                        </button>
                                     </div>
                                 </div>
                             </div>
@@ -84,156 +151,329 @@
         </div>
     </header>
 
-    <div role="main" class="main">
-        <section class="section my-0">
-            <div class="container py-5 my-5">
-                <div class="row justify-content-center mt-5 py-4">
-                    <div class="col-12 col-sm-auto text-center text-sm-left mt-5">
-                        <span class="d-block font-weight-light negative-ls-1 text-5 ml-2 mb-1 appear-animation" data-appear-animation="fadeInUp"><em class="opacity-8">Get to meet simply</em></span>
-                        <h1 class="font-weight-extra-bold text-color-dark negative-ls-3 text-10 mb-2 appear-animation" data-appear-animation="fadeInUp" data-appear-animation-delay="200"><em>THE BEST HTML SITE TEMPLATE</em></h1>
-                        <span class="d-block text-sm-right alternative-font text-color-primay ml-2 ml-sm-0 appear-animation" data-appear-animation="fadeInUp" data-appear-animation-delay="400">since 2013</span>
-                    </div>
-                </div>
-                <div class="row justify-content-center">
-                    <div class="col-10 text-center">
-                        <p class="lead lead-2 mb-5 appear-animation" data-appear-animation="fadeInUp" data-appear-animation-delay="600">Porto is simply the best choice for your new website. The theme is several years among the most popular in the world, being constantly improved and following the trends of design and best practices of code. Your search for the best solution is over, get your own copy and join thousands of happy customers.</p>
-                        <a href="#demos" data-hash data-hash-offset="125" class="btn btn-primary btn-rounded btn-xl font-weight-semibold text-2 px-5 py-3 box-shadow-2 appear-animation" data-appear-animation="fadeInUp" data-appear-animation-delay="800">VIEW ALL DEMOS</a>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <section class="section pt-0 my-0 pb-0 min-height-screen border-0 bg-color-dark-scale-3" id="demos">
-            <div class="container-fluid">
-                <div class="row justify-content-center py-4 py-sm-0 bg-color-dark-scale-2">
-                    <div class="col-auto col-sm-12 col-md-auto">
-                        <ul class="nav nav-light nav-active-style-1 sort-source justify-content-center flex-column flex-sm-row" data-sort-id="portfolio" data-option-key="filter">
-                            <li class="nav-item" data-option-value="*"><a class="nav-link font-weight-semibold text-2 active" href="#">SHOW ALL</a></li>
-                            <li class="nav-item" data-option-value=".creative"><a class="nav-link font-weight-semibold text-2" href="#">CREATIVE</a></li>
-                            <li class="nav-item" data-option-value=".onepage"><a class="nav-link font-weight-semibold text-2" href="#">ONE PAGE</a></li>
-                            <li class="nav-item" data-option-value=".business"><a class="nav-link font-weight-semibold text-2" href="#">BUSINESS</a></li>
-                            <li class="nav-item" data-option-value=".portfolio"><a class="nav-link font-weight-semibold text-2" href="#">PORTFOLIO</a></li>
-                            <li class="nav-item" data-option-value=".blog"><a class="nav-link font-weight-semibold text-2" href="#">BLOG</a></li>
-                            <li class="nav-item" data-option-value=".shop"><a class="nav-link font-weight-semibold text-2" href="#">SHOP</a></li>
-                            <li class="nav-item" data-option-value=".classic"><a class="nav-link font-weight-semibold text-2" href="#">CLASSIC</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="row min-height-screen">
-                    <div class="col min-height-screen">
-                        <div class="sort-destination-loader min-height-screen mt-5 pt-2 px-4">
-                            <div class="row portfolio-list sort-destination overflow-visible" data-sort-id="portfolio">
-                                <div class="col-12 col-sm-6 col-lg-4 col-xl-3 isotope-item classic px-4">
-                                    <div class="appear-animation" data-appear-animation="fadeInUp" data-plugin-options="{'accY': -150}" data-appear-animation-delay="">
-                                        <div class="portfolio-item hover-effect-1">
-                                            <a href="index-classic.html">
-                                                <span class="thumb-info thumb-info-no-zoom thumb-info-no-overlay thumb-info-no-bg border-0 border-radius-0">
-                                                    <span class="thumb-info-wrapper thumb-info-wrapper-demos m-0 border-radius-0">
-                                                        <img src="~/frontend/img/previews/preview-classic.jpg" class="img-fluid border-radius-0" alt="">
-                                                    </span>
-                                                </span>
-                                            </a>
-                                            <h2 class="font-weight-semibold text-3 text-center"><a href="index-classic.html" class="text-color-light text-decoration-none text-1 text-uppercase">Classic</a></h2>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row my-4 bg-color-dark-scale-3 pb-5 p-relative z-index-1">
-                    <div class="col text-center mt-3 mb-5">
-                        <p>Sure! <strong class="text-color-light">All demos are included</strong>, choose one and start right now to build your website.</p>
-                        <a href="index-classic.html" class="btn btn-light-2 btn-outline btn-rounded btn-xl font-weight-semibold text-2 px-5 py-3 box-shadow-2 appear-animation" data-appear-animation="fadeInUp" data-appear-animation-delay="800">VIEW MAIN DEMO</a>
-                    </div>
-                </div>
-            </div>
-        </section>
+    <div role="main" class="main shop py-4">
 
-        <section class="section section-height-3 border-0 my-0">
-            <div class="container container-lg">
-                <div class="row align-items-center">
-                    <div class="col-lg-6">
-                        <div class="pr-5">
-                            <span class="d-block font-weight-light negative-ls-1 text-5 mb-1 appear-animation" data-appear-animation="fadeInUp"><em class="text-2 opacity-8">Porto comes with</em></span>
-                            <h1 class="font-weight-extra-bold text-color-dark negative-ls-3 line-height-1 text-7 mb-3 appear-animation" data-appear-animation="fadeInUp" data-appear-animation-delay="200"><em>AMAZING FEATURES</em></h1>
-                            <span class="d-block alternative-font text-color-primay text-5 mb-4 pb-2 appear-animation" data-appear-animation="fadeInUp" data-appear-animation-delay="400">Enjoy the power</span>
-                            <p class="lead mb-4 pb-2 appear-animation" data-appear-animation="fadeInUp" data-appear-animation-delay="600">You can build almost any kind of website using Porto as base. The theme has several layouts options that you can easily modify.</p>
-                            <div class="row appear-animation" data-appear-animation="fadeInUp" data-appear-animation-delay="800">
-                                <div class="col-md-6">
-                                    <ul class="list list-icons list-style-none text-4 pl-none mb-2 pb-2 pr-3">
-                                        <li class="text-1 text-color-primary mb-3"><i class="fa fa-check text-primary text-4 mr-1"></i> HTML5+JS+CSS+SCSS</li>
-                                        <li class="text-1 text-color-primary mb-3"><i class="fa fa-check text-primary text-4 mr-1"></i> Wide &amp; Boxed</li>
-                                        <li class="text-1 text-color-primary mb-3"><i class="fa fa-check text-primary text-4 mr-1"></i> Dark &amp; Light</li>
-                                        <li class="text-1 text-color-primary mb-0 mb-md-3"><i class="fa fa-check text-primary text-4 mr-1"></i> RTL Support</li>
-                                    </ul>
-                                </div>
-                                <div class="col-md-6">
-                                    <ul class="list list-icons list-style-none text-4 pl-none mb-2 pb-2 pr-3">
-                                        <li class="text-1 text-color-primary mb-3"><i class="fa fa-check text-primary text-4 mr-1"></i> Bootstrap 4+</li>
-                                        <li class="text-1 text-color-primary mb-3"><i class="fa fa-check text-primary text-4 mr-1"></i> SEO Optimized</li>
-                                        <li class="text-1 text-color-primary mb-3"><i class="fa fa-check text-primary text-4 mr-1"></i> Blog Pages</li>
-                                        <li class="text-1 text-color-primary mb-3"><i class="fa fa-check text-primary text-4 mr-1"></i> Shop Pages</li>
-                                    </ul>
-                                </div>
+        <div class="container">
+
+            <div class="row">
+                <div class="col-lg-3">
+                    <aside class="sidebar">
+                        <div class="input-group mb-3 pb-1">
+                            <input class="form-control text-1" placeholder="Ara..." name="s" id="s" type="text">
+                            <span class="input-group-append">
+                                <button type="button" class="btn btn-dark text-1 p-2"><i class="fas fa-search m-2"></i></button>
+                            </span>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <h5 class="font-weight-bold p-2">Filtrele</h5>
+                            </div>
+                            <div class="col-6">
+                                <span class="input-group-append">
+                                    <button type="button" style="background-color:#e60000; color:white;" class="btn text-1 p-2 filterReset">Filtreleri Temizle</button>
+                                </span>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-lg-6 fluid-col-lg-6" style="min-height: 35vw;">
-                        <div class="fluid-col">
-                            <div id="carouselSync" class="owl-carousel owl-theme d-none d-sm-block mb-0" data-plugin-options="{'items': 1, 'loop': true, 'nav': false, 'dots': false, 'mouseDrag': false, 'touchDrag': false, 'animateIn': 'fadeIn', 'animateOut': 'fadeOut'}" style="z-index: 0;">
-                                <div>
-                                    <img src="~/frontend/img/porto-admin-preview-1.jpg" class="img-fluid" alt="" />
+                        <div id="accordion">
+                            <div class="card mb-1 shadow-none">
+                                <div class="card-header" id="headingOne">
+                                    <h6 class="m-0">
+                                        <a href="#categoryFilter" class="text-dark" data-toggle="collapse"
+                                           aria-expanded="true"
+                                           aria-controls="collapseOne">
+                                            Kategori
+                                        </a>
+                                    </h6>
+                                </div>
+
+                                <div id="categoryFilter" class="collapse show"
+                                     aria-labelledby="headingOne" data-parent="#accordion">
+                                    <div class="card-body" id="categories">
+
+                                    </div>
                                 </div>
                             </div>
-                            <div class="owl-carousel owl-theme carousel-sync-style-1 nav-bottom-inside nav-style-1 mb-0 px-3 px-sm-0" data-plugin-options="{'items': 1, 'loop': true, 'nav': false, 'dots': false, 'mouseDrag': false, 'touchDrag': false}" data-sync="#carouselSync">
-                                <div>
-                                    <div class="card border-0">
-                                        <div class="card-body text-center" style="padding: 3.5rem 2rem 1rem;">
-                                            <span class="font-weight-light mb-1"><em>Check also...</em></span>
-                                            <h2 class="text-color-primary font-weight-extra-bold line-height-1 text-6 mb-2"><em class="text-2">PORTO ADMIN</em></h2>
-                                            <p class="text-2">Porto Admin is a perfect solution to create an administration system for your site.</p>
-                                            <a href="https://themeforest.net/item/porto-admin-responsive-html5-template/8539472" class="btn btn-dark btn-rounded btn-xl font-weight-semibold box-shadow-2 text-2 px-5 mb-3">VIEW PORTO ADMIN - $24</a>
-                                            <p class="text-muted text-1 mb-5">* NOT INCLUDED ON PORTO FRONT END</p>
+                            <div class="card mb-1 shadow-none">
+                                <div class="card-header" id="headingTwo">
+                                    <h6 class="m-0">
+                                        <a href="#installmentFilter" class="text-dark collapsed" data-toggle="collapse"
+                                           aria-expanded="false"
+                                           aria-controls="collapseTwo">
+                                            Taksit Sayısı
+                                        </a>
+                                    </h6>
+                                </div>
+                                <div id="installmentFilter" class="collapse" aria-labelledby="headingTwo"
+                                     data-parent="#accordion">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <button value="3" class="btn btn-link text-dark installmentSelect">
+                                                    <i class="fa fa-arrow-right"></i>
+                                                    3
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <button value="6" class="btn btn-link text-dark installmentSelect">
+                                                    <i class="fa fa-arrow-right"></i>
+                                                    6
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <button value="12" class="btn btn-link text-dark installmentSelect">
+                                                    <i class="fa fa-arrow-right"></i>
+                                                    12
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card mb-0 shadow-none">
+                                <div class="card-header" id="headingThree">
+                                    <h6 class="m-0">
+                                        <a href="#totalPrice" class="text-dark collapsed" data-toggle="collapse"
+                                           aria-expanded="false"
+                                           aria-controls="collapseThree">
+                                            Toplam Fiyat
+                                        </a>
+                                    </h6>
+                                </div>
+                                <div id="totalPrice" class="collapse"
+                                     aria-labelledby="headingThree" data-parent="#accordion">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <button value="0" class="btn btn-link text-dark priceSelect">
+                                                    <i class="fa fa-arrow-right"></i>
+                                                    0-2999
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <button value="1" class="btn btn-link text-dark priceSelect">
+                                                    <i class="fa fa-arrow-right"></i>
+                                                    3000-4999
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <button value="2" class="btn btn-link text-dark priceSelect">
+                                                    <i class="fa fa-arrow-right"></i>
+                                                    5000-7499
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <button value="3" class="btn btn-link text-dark priceSelect">
+                                                    <i class="fa fa-arrow-right"></i>
+                                                    7500-9999
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <button value="4" class="btn btn-link text-dark priceSelect">
+                                                    <i class="fa fa-arrow-right"></i>
+                                                    10000+
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card mb-0 shadow-none">
+                                <div class="card-header" id="headingThree">
+                                    <h6 class="m-0">
+                                        <a href="#productColor" class="text-dark collapsed" data-toggle="collapse"
+                                           aria-expanded="false"
+                                           aria-controls="collapseThree">
+                                            Renk
+                                        </a>
+                                    </h6>
+                                </div>
+                                <div id="productColor" class="collapse"
+                                     aria-labelledby="headingThree" data-parent="#accordion">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <button value="0" class="btn btn-link text-dark productColorSelect">
+                                                    <i class="fa fa-arrow-right"></i>
+                                                    @L["Enum:ProductColorType:0"]
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <button value="1" class="btn btn-link text-dark productColorSelect">
+                                                    <i class="fa fa-arrow-right"></i>
+                                                    @L["Enum:ProductColorType:1"]
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <button value="2" class="btn btn-link text-dark productColorSelect">
+                                                    <i class="fa fa-arrow-right"></i>
+                                                    @L["Enum:ProductColorType:2"]
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <button value="3" class="btn btn-link text-dark productColorSelect">
+                                                    <i class="fa fa-arrow-right"></i>
+                                                    @L["Enum:ProductColorType:3"]
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <button value="4" class="btn btn-link text-dark productColorSelect">
+                                                    <i class="fa fa-arrow-right"></i>
+                                                    @L["Enum:ProductColorType:4"]
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <button value="5" class="btn btn-link text-dark productColorSelect">
+                                                    <i class="fa fa-arrow-right"></i>
+                                                    @L["Enum:ProductColorType:5"]
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <button value="6" class="btn btn-link text-dark productColorSelect">
+                                                    <i class="fa fa-arrow-right"></i>
+                                                    @L["Enum:ProductColorType:6"]
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <button value="7" class="btn btn-link text-dark productColorSelect">
+                                                    <i class="fa fa-arrow-right"></i>
+                                                    @L["Enum:ProductColorType:7"]
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <button value="8" class="btn btn-link text-dark productColorSelect">
+                                                    <i class="fa fa-arrow-right"></i>
+                                                    @L["Enum:ProductColorType:8"]
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <button value="9" class="btn btn-link text-dark productColorSelect">
+                                                    <i class="fa fa-arrow-right"></i>
+                                                    @L["Enum:ProductColorType:9"]
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <button value="10" class="btn btn-link text-dark productColorSelect">
+                                                    <i class="fa fa-arrow-right"></i>
+                                                    @L["Enum:ProductColorType:10"]
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <button value="11" class="btn btn-link text-dark productColorSelect">
+                                                    <i class="fa fa-arrow-right"></i>
+                                                    @L["Enum:ProductColorType:11"]
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <button value="12" class="btn btn-link text-dark productColorSelect">
+                                                    <i class="fa fa-arrow-right"></i>
+                                                    @L["Enum:ProductColorType:12"]
+                                                </button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                        <h5 class="font-weight-bold pt-5">Etiketler</h5>
+                        <div class="mb-3 pb-1">
+                            <a href="#"><span class="badge badge-dark badge-sm badge-pill text-uppercase px-2 py-1 mr-1">Nike</span></a>
+                        </div>
+                    </aside>
                 </div>
-            </div>
-        </section>
-        <section class="section section-height-4 bg-color-primary border-0 my-0">
-            <div class="container-fluid">
-                <div class="row justify-content-center pb-4 mb-5">
-                    <div class="col-12 col-sm-auto text-center mt-5">
-                        <span class="d-block font-weight-light text-left text-color-light negative-ls-1 text-5 ml-2 appear-animation" data-appear-animation="fadeInUp"><em class="opacity-8">Start right now!</em></span>
-                        <h1 class="font-weight-extra-bold text-color-light text-10 mb-2 appear-animation" data-appear-animation="fadeInUp" data-appear-animation-delay="200"><em>THE BEST HTML THEME EVER!</em></h1>
-                        <span class="d-block text-sm-right alternative-font text-color-light text-6 appear-animation" data-appear-animation="fadeInUp" data-appear-animation-delay="400">Join The 30,000+ Happy Customers :)</span>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col text-center">
-                        <p class="text-color-light text-4 font-weight-light mb-1 appear-animation" data-appear-animation="fadeInUp" data-appear-animation-delay="600">Porto Admin Integration<span class="text-1">*</span> - 100% Fully Responsive - Retina Ready - Google Fonts - Super Fast</p>
-                        <p class="text-color-light text-4 font-weight-light pb-3 mb-4 appear-animation" data-appear-animation="fadeInUp" data-appear-animation-delay="800">Top-Level Support - Customizable - RTL Support - SEO Friendly</p>
-                        <a href="https://themeforest.net/item/porto-responsive-html5-template/4106987" class="btn btn-dark btn-rounded btn-xl font-weight-semibold text-2 px-5 py-3 mb-5 box-shadow-2 appear-animation" data-appear-animation="fadeInUp" data-appear-animation-delay="800">PURCHASE PORTO</a>
-                        <div class="appear-animation" data-appear-animation="fadeInUp" data-appear-animation-delay="1200">
-                            <p class="text-color-light opacity-9">* LEARN MORE ABOUT <a href="http://www.okler.net/forums/topic/how-to-integrate-porto-admin-extension-on-porto/" target="_blank" class="d-inline-block text-color-light"><strong><u>PORTO ADMIN INTEGRATION</u></strong></a></p>
+                <div class="col-lg-9">
+
+                    <div>
+                        <div id="productWrapper" class="row products product-thumb-info-list">
+
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <ul class="pagination float-right">
+                                    <li class="page-item prev-page"><a class="page-link"><i class="fas fa-angle-left"></i></a></li>
+                                    <li class="page-item next-page"><a class="page-link"><i class="fas fa-angle-right"></i></a></li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
+
     </div>
-    <footer id="footer" class="mt-0 border-0 bg-color-light">
-        <div class="footer-copyright bg-color-light">
+    <partial name="~/Views/_SharedFront/_chat.cshtml" />
+    <footer id="footer">
+        <div class="footer-copyright">
             <div class="container py-2">
                 <div class="row py-4">
                     <div class="col d-flex align-items-center justify-content-center">
-                        <p><strong>PORTO TEMPLATE</strong> - © Copyright 2019. All Rights Reserved.</p>
+                        <p class="text-white"><strong>Cihazkapinda</strong> - © Copyright 2021. Tüm hakları saklıdır.</p>
                     </div>
                 </div>
             </div>
         </div>
     </footer>
+</div>
+
+<div id="productElement" style="display:none;" class="col-sm-6 col-lg-4 product">
+    <span id="element" class="product-thumb-info border-0" style="box-shadow:0 2px 8px 0 rgb(0 0 0 / 16%); background-color:white; border-radius:5px;">
+        <a href="#">
+            <span class="product-thumb-info-image">
+                <img alt="" class="product-image" style="object-fit:contain;" width="209" height="400" src="~/frontend/img/products/product-grey-2.jpg">
+            </span>
+        </a>
+        <span class="product-thumb-info-content product-thumb-info-content pl-0 bg-color-light">
+            <a href="#">
+                <h4 class="text-4 text-dark text-center product-title mb-4">Golf Bag</h4>
+                <span class="price text-center">
+                    <del class="product-discount-amount-visible"><span class="amount product-discount-amount">$325</span></del>
+                    <span class="amount font-weight-semibold product-amount text-4" style="color:#e60000;">$72 </span><span class="installment ml-1 text-dark">x3 Ay</span>
+                </span>
+            </a>
+        </span>
+    </span>
+</div>
+<div id="categoryElement" style="display:none;">
+    <div class="row" id="category-element">
+        <div class="col-12">
+            <button class="btn btn-link text-dark category">
+                <i class="fa fa-arrow-right"></i><span class="category-name">TEST</span>
+            </button>
+        </div>
+    </div>
 </div>

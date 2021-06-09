@@ -10,7 +10,8 @@
             return actionList.addManyTail(
                 [
                     {
-                        text: l("Edit"),
+                        text: '<span style="cursor:pointer;" class="form-control border-0">' + l("Edit") + '</span>',
+                        displayNameHtml: true,
                         visible: abp.auth.isGranted(
                             'ProductManagement.Products.Edit'
                         ),
@@ -90,12 +91,30 @@
                         data: 'title',
                     },
                     {
-                        title: l('Description'),
-                        data: 'description',
+                        title: l('SubTitle'),
+                        data: 'subTitle',
                     },
                     {
                         title: l('Price'),
                         data: 'price',
+                    },
+                    {
+                        title: l('DiscountPrice'),
+                        data: 'discountPrice',
+                    },
+                    {
+                        title: l('ProductType'),
+                        data: "productType",
+                        render: function (data) {
+                            return l('Enum:ProductType:' + data);
+                        }
+                    },
+                    {
+                        title: l('ProductColor'),
+                        data: "productColor",
+                        render: function (data) {
+                            return l('Enum:ProductColorType:' + data);
+                        }
                     },
                     {
                         title: l('CreationTime'),

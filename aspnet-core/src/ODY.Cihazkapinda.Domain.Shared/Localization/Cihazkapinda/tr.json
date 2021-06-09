@@ -27,6 +27,7 @@
     "Menu:ProductPropertyTitle": "Özellik Başlıkları",
     "Menu:ProductPropertyTemplate": "Özellik Şablonu",
     "Menu:ProductPropertySubTemplate": "Şablon Alt Özellik",
+    "Menu:ProductInfoTemplate": "Kampanya Şablonları",
     //TOPBAR MENU
     "TopBar:Profile": "Profil",
     "TopBar:Logout": "Çıkış Yap",
@@ -143,6 +144,13 @@
     "Permission:ProductPropertySubTemplateEdit": "Düzenle",
     "Permission:ProductPropertySubTemplateDelete": "Sil",
 
+    "Permission:ProductInfoTemplate": "Kampanya Şablonları",
+    "Permission:ProductInfoTemplateMenuList": "Menüde Göster",
+    "Permission:ProductInfoTemplateList": "Listele",
+    "Permission:ProductInfoTemplateCreate": "Oluştur",
+    "Permission:ProductInfoTemplateEdit": "Düzenle",
+    "Permission:ProductInfoTemplateDelete": "Sil",
+
     //GENERAL
     "Welcome": "Hoşgeldiniz",
     "LongWelcomeMessage": "Uygulamaya hoşgeldiniz. Bu, ABP framework'ü üzerine bina edilmiş bir başlangıç projesidir. Daha fazla bilgi için abp.io adresini ziyaret edebilirsiniz.",
@@ -210,13 +218,43 @@
     "Key": "Anahtar",
     "Value": "Değer",
     "Username": "Kullanıcı Adı",
-    "ProductPropertyTemplate": "Özellik Şablonları",
+    "ProductImages": "Ürün Resimleri",
+    "Products": "Ürünler",
+    "CreateNewProduct": "Yeni Ürün Ekle",
     "TermOfUse": "Kullanıcı sözleşmesi",
     "CreateRole": "Rol Oluştur",
     "CreateUser": "Kullanıcı Oluştur",
     "SideBar:Setting": "Mod Ayarları",
     "SideBar:LayoutChange": "Mod Seç",
     "SideBar:LightMode": "Aydınlık Mod",
-    "SideBar:DarkMode": "Karanlık Mod"
-  }
-}
+    "SideBar:DarkMode": "Karanlık Mod",
+    "ProductType": "Türü",
+    "ProductColor": "Renk",
+    "ProductInfoTemplate": "Kampanya Özellik Şablonları",
+    "CreateProductInfoTemplate": "Yeni Özellik",
+
+    //ENUMS
+    "Enum:ProductColorType:0": "Tümü",
+    "Enum:ProductColorType:1": "Siyah",
+    "Enum:ProductColorType:2": "Altın",
+    "Enum:ProductColorType:3": "Gri",
+    "Enum:ProductColorType:4": "Mor",
+    "Enum:ProductColorType:5": "Mavi",
+    "Enum:ProductColorType:6": "Pembe",
+    "Enum:ProductColorType:7": "Gümüş",
+    "Enum:ProductColorType:8": "Kırmızı",
+    "Enum:ProductColorType:9": "Beyaz",
+    "Enum:ProductColorType:10": "Turuncu",
+    "Enum:ProductColorType:11": "Sarı",
+    "Enum:ProductColorType:12": "Yeşil",
+
+    "Enum:ProductType:0": "Telefon",
+    "Enum:ProductType:1": "Tablet & Bilgisayar",
+    "Enum:ProductType:2": "Aksesuar",
+    "Enum:ProductType:3": "Akıllı Ev Ürünleri",
+    "Enum:ProductType:4": "Dijital Servis",
+    "Enum:ProductType:5": "2. El"
+  }                             
+}                               
+                                
+                                

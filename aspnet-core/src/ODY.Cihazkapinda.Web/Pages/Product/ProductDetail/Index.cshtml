@@ -1,0 +1,319 @@
+﻿@page
+@using Microsoft.AspNetCore.Mvc.Localization
+@using ODY.Cihazkapinda.Localization
+@using Volo.Abp.Users
+@model ODY.Cihazkapinda.Web.Pages.Product.ProductDetail.IndexModel
+@inject IHtmlLocalizer<CihazkapindaResource> L
+@inject ICurrentUser CurrentUser
+
+@{ var layout = Model.theme;
+    Layout = "~/" + layout;
+
+    ViewBag.Title = Model.setting.Title + " | " + Model.Product.Title;
+    }
+
+
+@section scripts {
+    <abp-script-bundle name="@typeof(ODY.Cihazkapinda.Web.Pages.Product.ProductDetail.IndexModel).FullName">
+        <abp-script src="/Pages/Product/ProductDetail/Index.js" />
+    </abp-script-bundle>
+}
+<style>
+    .page-header {
+        padding: 0 !important;
+        margin: 0 !important;
+        padding-top: 18px !important;
+        padding-bottom: 18px !important;
+    }
+
+    .productInfoItem {
+        box-shadow: 0 2px 8px 0 rgb(0 0 0 / 16%);
+        background-color: white;
+        border-radius: 5px;
+    }
+</style>
+
+<div class="body">
+    <input type="hidden" value="@Model.Product.CategoryId" id="categoryId" />
+    <header id="header" data-plugin-options="{'stickyEnabled': true, 'stickyEnableOnBoxed': true, 'stickyEnableOnMobile': true, 'stickyStartAt': 135, 'stickySetTop': '-135px', 'stickyChangeLogo': true}">
+        <div class="header-body border-color-primary border-bottom-0 box-shadow-none" style="border-top:none !important; position:fixed !important;" data-sticky-header-style="{'minResolution': 0}" data-sticky-header-style-active="{'margin-top': '35px'}" data-sticky-header-style-deactive="{'margin-top': '0px'}">
+            <div class="header-container container">
+                <div class="header-row py-2">
+                    <div class="header-column">
+                        <div class="header-row">
+                            <div class="header-logo">
+                                <a href="index.html" style="color:rgb(230, 0, 0) !important;">
+                                    <svg style="height: 13em;width: 9em;stroke: currentColor;stroke-width: 7px;max-height: 50px" width="47" height="47" viewBox="0 0 312 312" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <g clip-path="url(#clip0)">
+                                            <path d="M155.91 311.82c86.107 0 155.91-69.803 155.91-155.91S242.017 0 155.91 0 0 69.803 0 155.91s69.803 155.91 155.91 155.91z" fill="#E60000" />
+                                            <path d="M157.134 242.307c-42.57.14-86.87-36.19-87.06-94.54-.12-38.59 20.69-75.77 47.3-97.77 26-21.49 61.51-35.28 93.76-35.39 4.15 0 8.49.33 11.15 1.23-28.2 5.85-50.64 32.09-50.54 61.86-.003.843.061 1.686.19 2.52 47.18 11.49 68.6 40 68.73 79.35.13 39.35-30.97 82.56-83.53 82.74z" fill="#fff" />
+                                        </g>
+                                        <defs>
+                                            <clipPath id="clip0">
+                                                <path fill="#fff" d="M0 0h311.81v311.81H0z" />
+                                            </clipPath>
+                                        </defs>
+                                    </svg>
+                                </a>
+                            </div>
+                            <span style="font-size:18px; font-weight:bold;">
+                                @Model.setting.Title
+                            </span>
+                        </div>
+                    </div>
+                    <div class="header-column justify-content-end">
+                        <div class="header-row">
+                            <ul class="header-extra-info d-flex align-items-center mr-3">
+                                <li class="d-none d-sm-inline-flex">
+                                    <div class="header-extra-info-text">
+                                        <label>Mail Adresimiz</label>
+                                        <strong><a href="mailto:@(@Model.setting.Email)" class="text-uppercase">@Model.setting.Email</a></strong>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="header-extra-info-text">
+                                        <label>Telefon Numaramız</label>
+                                        <strong><a href="tel:@Model.setting.Phone">@Model.setting.Phone</a></strong>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container-fluid bg-color-light-scale-1" style="border-bottom:1px solid #979797;border-top:1px solid #979797;">
+                <section class="page-header page-header-modern bg-color-light-scale-1 page-header-background-sm">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-12 align-self-start order-1">
+                                <ul class="breadcrumb d-block">
+                                    <li><a href="/" style="font-size:16px; color:gray;">Cihazlar</a></li>
+                                    <li class="active" style="font-size:16px; color:#e60000;">@Model.Product.Title</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </header>
+
+    <div role="main" class="main shop py-4">
+
+        <div class="container">
+
+            <div class="row">
+                <div class="col-lg-6">
+
+                    <div class="owl-carousel owl-theme" data-plugin-options="{'items': 1}">
+                        @foreach (var item in Model.Product.Images)
+                        {
+                            <div>
+                                <img alt="@item.Image" style="object-fit: contain;" width="555" height="555" src="@item.Image">
+                            </div>
+                            <div>
+                                <img alt="@item.Image" style="object-fit: contain;" width="555" height="555" src="@item.Image">
+                            </div>
+                            <div>
+                                <img alt="@item.Image" style="object-fit: contain;" width="555" height="555" src="@item.Image">
+                            </div>
+                        }
+                    </div>
+
+                </div>
+
+                <div class="col-lg-6">
+
+                    <div class="summary entry-summary">
+
+                        <h1 class="mb-0 font-weight-bold text-7">@Model.Product.Title</h1>
+
+                        <p class="price">
+                            <span class="amount">₺@Model.Product.Price</span>
+                        </p>
+
+                        <p class="mb-4">@Model.Product.SubTitle</p>
+
+                        <div class="row pt-4 pb-2 productInfoItem">
+                            <div class="col-3">
+                                <h4 class="card-title ml-1">Tür:</h4>
+                            </div>
+                            <div class="col-9">
+                                <h4 class="card-title">@Model.Product.ProductType</h4>
+                            </div>
+                        </div>
+                        <div class="row pt-4 pb-2 mt-4 productInfoItem">
+                            <div class="col-3">
+                                <h4 class="card-title ml-1">Renk:</h4>
+                            </div>
+                            <div class="col-9">
+                                <h4 class="card-title">@Model.Product.ProductColor</h4>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                </div>
+            </div>
+            <div class="row p-4 productInfoItem mb-3">
+                <div class="col-lg-2 col-sm-4 mt-3">
+                    <img src="~/host/product-info/dijitalkoruma.png" class="img-fluid" width="90" height="90" />
+                </div>
+                <div class="col-lg-10 col-sm-8">
+                    <div class="row mt-3">
+                        <div class="col-12">
+                            <h4 class="card-title">Dijital Koruma Hediye</h4>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <p class="card-title-desc">İnternetteki zararlı içeriklerden ve virüslerden korunup, güvenle internette gezinin diye Dijital Koruma ilk 2 ay hediye!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row p-4 productInfoItem mb-3">
+                <div class="col-lg-2 col-sm-4 mt-3">
+                    <img src="~/host/product-info/hizli_kurye_90x90.jpg" class="img-fluid" width="90" height="90" />
+                </div>
+                <div class="col-lg-10 col-sm-8">
+                    <div class="row mt-3">
+                        <div class="col-12">
+                            <h4 class="card-title">Ücretsiz Teslimat</h4>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <p class="card-title-desc">Tüm illerde 3-6 iş günü içinde ücretsiz teslimat.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row p-4 productInfoItem">
+                <div class="col-lg-2 col-sm-4 mt-3">
+                    <img src="~/host/product-info/GUVENLI-DEPO-KIRMIZI.png" class="img-fluid" width="90" height="90" />
+                </div>
+                <div class="col-lg-10 col-sm-8">
+                    <div class="row mt-3">
+                        <div class="col-12">
+                            <h4 class="card-title">
+                                Güvenli Depo Hediye
+                            </h4>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <p class="card-title-desc">Telefonunuzdaki tüm dosyalarınızı internetinizden yemeden güvenle saklayın diye Güvenli Depo ilk 2 ay hediye!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="tabs tabs-product mb-2">
+                        <ul class="nav nav-tabs">
+                            <li class="nav-item active"><a class="nav-link py-3 px-4" href="#productDescription" data-toggle="tab">Açıklama</a></li>
+                            <li class="nav-item"><a class="nav-link py-3 px-4" href="#productInfo" data-toggle="tab">Teknik Özellik</a></li>
+                        </ul>
+                        <div class="tab-content p-0">
+                            <div class="tab-pane p-4 active" id="productDescription">
+                                @Html.Raw(Model.Product.Description)
+                            </div>
+                            <div class="tab-pane p-4" id="productInfo">
+                                <div class="row">
+                                    @{ var list = Model.Product.ProductProperty.GroupBy(x => x.TITLE).ToList(); }
+                                    <div class="col-6">
+                                        @for (int i = 0; i < list.Count() / 2; i++)
+                                        {
+                                            var group = list.Find(x => x.Key == list[i].Key).ToList();
+
+                                            <div class="col-12">
+                                                <div class="row border pt-3 pl-3">
+                                                    <div class="col-12">
+                                                        <h5 class="card-title font-weight-bold">@list[i].Key</h5>
+                                                    </div>
+                                                </div>
+                                                @for (int j = 0; j < group.Count; j++)
+                                                {
+                                                    <div class="row pt-2 pb-2 pl-3 border-top-0 border">
+                                                        <div class="col-6"><span>@group[j].KEY</span></div>
+                                                        <div class="col-6"><span class="text-dark font-weight-bold">@group[j].VALUE</span></div>
+                                                    </div>
+                                                }
+                                            </div>
+                                        }
+                                    </div>
+                                    <div class="col-6">
+                                        @for (int i = (list.Count / 2); i < list.Count(); i++)
+                                        {
+                                            var group = list.Find(x => x.Key == list[i].Key).ToList();
+
+                                            <div class="col-12">
+                                                <div class="row border pt-3 pl-3">
+                                                    <div class="col-12">
+                                                        <h5 class="card-title font-weight-bold">@list[i].Key</h5>
+                                                    </div>
+                                                </div>
+                                                @for (int j = 0; j < group.Count; j++)
+                                                {
+                                                    <div class="row pt-2 pb-2 pl-3 border-top-0 border">
+                                                        <div class="col-6"><span>@group[j].KEY</span></div>
+                                                        <div class="col-6"><span class="text-dark font-weight-bold">@group[j].VALUE</span></div>
+                                                    </div>
+                                                }
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <hr class="solid my-5">
+                    <h4 class="mb-3">Benzer <strong>Ürünler</strong></h4>
+                    <div class="row products product-thumb-info-list mt-3" id="productWrapper">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <partial name="~/Views/_SharedFront/_chat.cshtml" />
+    <footer id="footer">
+        <div class="footer-copyright">
+            <div class="container py-2">
+                <div class="row py-4">
+                    <div class="col d-flex align-items-center justify-content-center">
+                        <p class="text-white"><strong>Cihazkapinda</strong> - © Copyright 2021. Tüm hakları saklıdır.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+</div>
+
+<div class="col-12 col-sm-6 col-lg-3 product" id="productElement" style="display:none;">
+    <span class="product-thumb-info border-0" id="element">
+        <a href="#">
+            <span class="product-thumb-info-image">
+                <img alt="" class="product-image" style="object-fit:contain;" width="209" height="400" src="~/frontend/img/products/product-grey-2.jpg">
+            </span>
+        </a>
+        <span class="product-thumb-info-content product-thumb-info-content pl-0 bg-color-light">
+            <a href="#">
+                <h4 class="text-4 text-primary product-title">Photo Camera</h4>
+                <span class="price">
+                    <del class="product-discount-amount-visible"><span class="amount product-discount-amount">$325</span></del>
+                    <span class="amount font-weight-semibold product-amount text-4" style="color:#e60000;">$72 </span><span class="installment ml-1 text-dark">x3 Ay</span>
+                </span>
+            </a>
+        </span>
+    </span>
+</div>

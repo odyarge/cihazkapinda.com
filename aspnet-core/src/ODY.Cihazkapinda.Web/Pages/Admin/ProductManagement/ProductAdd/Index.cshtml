@@ -5,6 +5,8 @@
 @model ODY.Cihazkapinda.Web.Pages.Admin.ProductManagement.ProductAdd.IndexModel
 @inject IHtmlLocalizer<CihazkapindaResource> L
 @inject ICurrentUser CurrentUser
+
+
 <style>
     * {
         -webkit-box-sizing: border-box;
@@ -115,6 +117,26 @@
             height: 1px;
             background-color: #939393;
         }
+
+    .productInfoItem {
+        box-shadow: 0 2px 8px 0 rgb(0 0 0 / 16%);
+        background-color: white;
+        border-radius: 5px;
+    }
+
+        .productInfoItem:hover {
+            box-shadow: 0 2px 8px 0 rgb(230 0 0 / 38%);
+            background-color: white;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+    .productInfoItemActive {
+        box-shadow: 0 2px 8px 0 rgb(230 0 0 / 38%);
+        background-color: white;
+        border-radius: 5px;
+        cursor: pointer;
+    }
 </style>
 <!-- start page title -->
 <div class="row">
@@ -126,342 +148,956 @@
 </div>
 <!-- end page title -->
 
-<form asp-page="/ProductManagement/ProductAdd" enctype="multipart/form-data">
-    <div class="row">
-        <div class="col-12">
-            <div class="card">
-                <div class="card-body">
+<form action="/Admin/ProductManagement/ProductAdd" method="post" enctype="multipart/form-data">
+    @Html.AntiForgeryToken()
+    @if (Model.Id == null)
+    {
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
 
-                    <h4 class="card-title">Genel Özellikler</h4>
-                    <p class="card-title-desc">Genel özellikleri doldurunuz.</p>
-
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <abp-input asp-for="productAllCreateModal.productCreateModal.Title" />
-                            </div>
-                            <div class="form-group">
-                                <abp-input asp-for="productAllCreateModal.productCreateModal.SubTitle" />
-                            </div>
-                            <div class="form-group">
-                                <abp-input asp-for="productAllCreateModal.productCreateModal.Price" />
-                            </div>
-                            <div class="form-group" id="discountPrice" style="display:none;">
-                                <abp-input asp-for="productAllCreateModal.productCreateModal.DiscountPrice" />
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <div class="row">
-                                    <div class="col-12">
-                                        <label for="selectedCategoryShow">Kategori Seç</label>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-12">
-                                        <button type="button" id="selectedCategoryShow" class="btn btn-primary waves-effect waves-light form-control" data-toggle="modal" data-target=".bs-example-modal-lg">Kategori Seç</button>
-                                    </div>
-                                </div>
-                                <abp-input asp-for="productAllCreateModal.productCreateModal.CategoryId" />
-                            </div>
-
-                            <div class="form-group">
-                                <abp-input asp-for="productAllCreateModal.productCreateModal.Installment" />
-                            </div>
-
-                            <div class="form-group">
-                                <div class="row">
-                                    <div class="col-sm-6" style="margin-top:30px;">
-                                        <div class="custom-control custom-switch custom-switch-lg mb-3" dir="ltr">
-                                            <abp-input asp-for="productAllCreateModal.productCreateModal.Discount" class="custom-control-input" />
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6" style="margin-top:30px;">
-                                        <div class="custom-control custom-switch custom-switch-lg mb-3" dir="ltr">
-                                            <abp-input asp-for="productAllCreateModal.productCreateModal.Active" class="custom-control-input" />
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="form-group">
-                                <abp-input asp-for="productAllCreateModal.productCreateModal.Description" />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="card">
-                <div class="card-body">
-                    <h4 class="card-title mb-3">Ürün Resimleri</h4>
-                    <p class="card-title-desc">Maksimum <span class="text-danger font-weight-bold">5</span> resim yükleyebilirsiniz. İlk seçilen 5 resim hariç diğer resimler eklenmeyecektir.</p>
-                    <div class="dropzone" action="#">
-                        <div class="fallback">
-                            <input name="file" type="file" multiple="multiple">
-                        </div>
-                        <div class="dz-message needsclick">
-                            <div class="mb-3">
-                                <i class="display-4 text-muted bx bxs-cloud-upload"></i>
-                            </div>
-
-                            <h4>Resimleri sürükleyin veya tıklayıp seçin.</h4>
-                        </div>
-                    </div>
-                </div>
-
-            </div> <!-- end card-->
-            <div class="card">
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-10">
-                            <h4 class="card-title">Detay</h4>
-                            <p class="card-title-desc">Ürün ile ilgili detaylı bilgileri doldurunuz.</p>
-                        </div>
-                        <div class="col-2">
-                            <label name="propTitle">@L["ProductPropertyTemplate"]</label>
-                            <select id="selectProductPropertyTemplate" style="color:white;" class="form-control bg-success border-success">
-                                <option value="choise">Seçiniz.</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div id="product-property-wrapper">
+                        <h4 class="card-title">Genel Özellikler</h4>
+                        <p class="card-title-desc">Genel özellikleri doldurunuz.</p>
                         <div class="row">
-                            <div class="col-sm-3">
+                            <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label name="propKey">@L["Key"]</label>
-                                    <input required name="propKey" class="form-control" />
-                                    <span asp-validation-for="PropKey" class="text-danger"></span>
+                                    <abp-input asp-for="productAllCreateModal.productCreateModal.Title" />
                                 </div>
-                            </div>
-                            <div class="col-sm-3">
                                 <div class="form-group">
-                                    <label name="propValue">@L["Value"]</label>
-                                    <input required name="propValue" class="form-control" />
-                                    <span asp-validation-for="PropValue" class="text-danger"></span>
+                                    <abp-input asp-for="productAllCreateModal.productCreateModal.SubTitle" />
                                 </div>
-                            </div>
-                            <div class="col-sm-4">
                                 <div class="form-group">
-                                    <label name="propTitle">@L["PropertyTitle"]</label>
-                                    <select name="propTitle" asp-items="Model.SelectPropTitle" class="form-control"></select>
-                                    <span asp-validation-for="PropTitle" class="text-danger"></span>
+                                    <abp-input asp-for="strToDecimal.Price" />
+                                </div>
+                                <div class="form-group" id="discountPrice" style="display:none;">
+                                    <abp-input asp-for="strToDecimal.DiscountPrice" />
+                                </div>
+
+                                <div class="form-group">
+                                    <abp-select asp-for="productAllCreateModal.productCreateModal.ProductType" asp-items="Model.ProductTypeSelect" />
                                 </div>
                             </div>
-                            <div class="col-sm-1">
-                                <div class="form-group" style="margin-top:25px;">
-                                    <button type="button" class="btn btn-success waves-effect waves-light form-control add-prop">Ekle</button>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <label for="selectedCategoryShow">Kategori Seç</label>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <button type="button" id="selectedCategoryShow" class="btn btn-primary waves-effect waves-light form-control" data-toggle="modal" data-target=".bs-example-modal-lg">Kategori Seç</button>
+                                        </div>
+                                    </div>
+                                    <abp-input asp-for="productAllCreateModal.productCreateModal.CategoryId" />
+                                </div>
+
+                                <div class="form-group">
+                                    <abp-input asp-for="productAllCreateModal.productCreateModal.Installment" />
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-sm-6" style="margin-top:30px;">
+                                            <div class="custom-control custom-switch custom-switch-lg " dir="ltr">
+                                                <abp-input asp-for="productAllCreateModal.productCreateModal.Discount" class="custom-control-input" />
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6" style="margin-top:30px;">
+                                            <div class="custom-control custom-switch custom-switch-lg " dir="ltr">
+                                                <abp-input asp-for="productAllCreateModal.productCreateModal.Active" class="custom-control-input" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group">
+                                    <abp-select asp-for="productAllCreateModal.productCreateModal.ProductColor" asp-items="Model.ProductColorSelect" />
                                 </div>
                             </div>
-                            <div class="col-sm-1">
-                                <div class="form-group" style="margin-top:25px;">
-                                    <button type="button" class="btn btn-danger waves-effect waves-light form-control delete-prop">Sil</button>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <abp-input asp-for="productAllCreateModal.productCreateModal.Description" />
                                 </div>
                             </div>
                         </div>
                     </div>
-
                 </div>
-            </div>
-            <div class="card">
-                <div class="card-body">
-                    <h4 class="card-title">Tamamla</h4>
-                    <p class="card-title-desc">Girdiğiniz değerleri kontrol edip kaydediniz.</p>
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="form-group">
-                                <button type="submit" class="btn btn-primary mr-1 waves-effect waves-light">Kaydet</button>
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title mb-3">Ürün Resimleri</h4>
+                        <p class="card-title-desc">Maksimum <span class="text-danger font-weight-bold">5</span> resim yükleyebilirsiniz. İlk seçilen 5 resim hariç diğer resimler eklenmeyecektir.</p>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-12">
+                                    <label name="files">@L["ChooseFile"]</label>
+                                    <input required type="file" name="files" id="file-upload" multiple class="custom-file-input">
+                                    <label class="custom-file-label" style="margin:25px 10px 5px 10px;">@L["ChooseFile"]</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div id="preview" class="row">
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div> <!-- end card-->
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-12">
+                                <h4 class="card-title">Kampanya Özellikleri</h4>
+                                <p class="card-title-desc">Ürün ile ilgili hangi kampanya özellikleri olacağını seçiniz.</p>
+                            </div>
+                        </div>
+                        @foreach (var item in Model.productInfoTemplates)
+                        {
+                            <div class="row p-4 m-4 productInfoItem">
+                                <input type="checkbox" hidden name="activeInfo" value="@item.Id" />
+                                <div class="col-1">
+                                    <img src="@item.Image" class="img-fluid" width="90" height="90" />
+                                </div>
+                                <div class="col-11">
+                                    <div class="row mt-3">
+                                        <div class="col-12">
+                                            <h4 class="card-title">@item.Title</h4>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <p class="card-title-desc">@item.Description</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-10">
+                                <h4 class="card-title">Detay</h4>
+                                <p class="card-title-desc">Ürün ile ilgili detaylı bilgileri doldurunuz.</p>
+                            </div>
+                            <div class="col-2">
+                                <label name="propTitle">@L["ProductPropertyTemplate"]</label>
+                                <select id="selectProductPropertyTemplate" style="color:white;" class="form-control bg-success border-success">
+                                    <option value="choise">Seçiniz.</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div id="product-property-wrapper">
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <label name="propKey">@L["Key"]</label>
+                                        <input required name="propKey" class="form-control" />
+                                        <span asp-validation-for="PropKey" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <label name="propValue">@L["Value"]</label>
+                                        <input required name="propValue" class="form-control" />
+                                        <span asp-validation-for="PropValue" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label name="propTitle">@L["PropertyTitle"]</label>
+                                        <select name="propTitle" asp-items="Model.SelectPropTitle" class="form-control"></select>
+                                        <span asp-validation-for="PropTitle" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-sm-1">
+                                    <div class="form-group" style="margin-top:25px;">
+                                        <button type="button" class="btn btn-success waves-effect waves-light form-control add-prop">Ekle</button>
+                                    </div>
+                                </div>
+                                <div class="col-sm-1">
+                                    <div class="form-group" style="margin-top:25px;">
+                                        <button type="button" class="btn btn-danger waves-effect waves-light form-control delete-prop">Sil</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Tamamla</h4>
+                        <p class="card-title-desc">Girdiğiniz değerleri kontrol edip kaydediniz.</p>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-primary mr-1 waves-effect waves-light">Kaydet</button>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</form>
-<div id="product-property-wrapper-add" style="display:none;">
-    <div class="row" id="product-property">
-        <div class="col-sm-3">
-            <div class="form-group">
-                <label name="propKey">@L["Key"]</label>
-                <input required name="propKey" class="form-control" />
-                <span asp-validation-for="PropKey" class="text-danger"></span>
-            </div>
-        </div>
-        <div class="col-sm-3">
-            <div class="form-group">
-                <label name="propValue">@L["Value"]</label>
-                <input required name="propValue" class="form-control" />
-                <span asp-validation-for="PropValue" class="text-danger"></span>
-            </div>
-        </div>
-        <div class="col-sm-4">
-            <div class="form-group">
-                <label name="propTitle">@L["PropertyTitle"]</label>
-                <select name="propTitle" asp-items="Model.SelectPropTitle" class="form-control"></select>
-                <span asp-validation-for="PropTitle" class="text-danger"></span>
-            </div>
-        </div>
-        <div class="col-sm-1">
-            <div class="form-group" style="margin-top:25px;">
-                <button type="button" class="btn btn-success waves-effect waves-light form-control add-prop">Ekle</button>
-            </div>
-        </div>
-        <div class="col-sm-1">
-            <div class="form-group" style="margin-top:25px;">
-                <button type="button" class="btn btn-danger waves-effect waves-light form-control delete-prop">Sil</button>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title mt-0" id="myLargeModalLabel">Kategoriler</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-md-12">
-                        <ol class="tree-structure">
-                            @Html.Raw(Model.cat_list_text)
-                        </ol>
+
+        <div id="product-property-wrapper-add" style="display:none;">
+            <div class="row" id="product-property">
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label name="propKey">@L["Key"]</label>
+                        <input required name="propKey" class="form-control" />
+                        <span asp-validation-for="PropKey" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label name="propValue">@L["Value"]</label>
+                        <input required name="propValue" class="form-control" />
+                        <span asp-validation-for="PropValue" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label name="propTitle">@L["PropertyTitle"]</label>
+                        <select name="propTitle" asp-items="Model.SelectPropTitle" class="form-control"></select>
+                        <span asp-validation-for="PropTitle" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-sm-1">
+                    <div class="form-group" style="margin-top:25px;">
+                        <button type="button" class="btn btn-success waves-effect waves-light form-control add-prop">Ekle</button>
+                    </div>
+                </div>
+                <div class="col-sm-1">
+                    <div class="form-group" style="margin-top:25px;">
+                        <button type="button" class="btn btn-danger waves-effect waves-light form-control delete-prop">Sil</button>
                     </div>
                 </div>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary waves-effect waves-light" data-dismiss="modal" aria-label="Close">Tamam</button>
-            </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
-<!-- end row -->
-@section scripts {
-    <script>
+        </div>
+        <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title mt-0" id="myLargeModalLabel">Kategoriler</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <ol class="tree-structure">
+                                    @Html.Raw(Model.cat_list_text)
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary waves-effect waves-light" data-dismiss="modal" aria-label="Close">Tamam</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+        <!-- end row -->
+        @section scripts {
+            <!-- Summernote js -->
+            <script src="~/assets/libs/tinymce/tinymce.min.js"></script>
+            <script>
+                $(document).ready(function () { 0 < $("#productAllCreateModal_productCreateModal_Description").length && tinymce.init({ selector: "textarea#productAllCreateModal_productCreateModal_Description", height: 300, plugins: ["advlist autolink link image lists charmap print preview hr anchor pagebreak spellchecker", "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking", "save table contextmenu directionality emoticons template paste textcolor"], toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | l      ink image | print preview media fullpage | forecolor backcolor emoticons", style_formats: [{ title: "Bold text", inline: "b" }, { title: "Red text", inline: "span", styles: { color: "#ff0000" } }, { title: "Red header", block: "h1", styles: { color: "#ff0000" } }, { title: "Example 1", inline: "span", classes: "example1" }, { title: "Example 2", inline: "span", classes: "example2" }, { title: "Table styles" }, { title: "Table row 1", selector: "tr", classes: "tablerow1" }] }) });
+                var fileUpload = document.getElementById("file-upload");
+                fileUpload.onchange = function () {
+                    var dvPreview = document.getElementById("preview");
+                    if (fileUpload.files.length > 5 - dvPreview.childElementCount || dvPreview.childElementCount === 5) {
+                        abp.message.error(
+                            'En fazla 5 resim yükleyebilirsiniz',
+                            'Dosya aşımı!'
+                        );
+                    }
+                    else {
+                        if (typeof (FileReader) != "undefined") {
+                            var regex = /^([a-zA-Z0-9\s_\\.\-:])+(.jpg|.jpeg|.gif|.png|.bmp)$/;
+                            for (var i = 0; i < fileUpload.files.length; i++) {
+                                var file = fileUpload.files[i];
+                                if (regex.test(file.name.toLowerCase())) {
+                                    var reader = new FileReader();
+                                    reader.onload = function (e) {
+                                        var img = document.createElement("IMG");
+                                        img.className = "rounded avatar-lg";
+                                        img.style = "background-color:#e5e5e5;"
+                                        img.src = e.target.result;
 
-        abp.ajax({
-            type: 'GET',
-            url: "/api/app/product-property-template/list",
-        }).then(function (result) {
-            $.each(result, function (index, value) {
-                $('#selectProductPropertyTemplate').append(
-                    '<option value="' + value.id + '">' + value.title + '</option>'
-                );
-                //$("#yearPolicies > tr:eq(" + index + ") > td > span ").html(value.count);
-                //$("#yearPolicies > tr:eq(" + index + ")").append(
-                //    '<td class="mt-0 mb-4 text-white">' + value.premium + '</td>'
-                //);
-            });
-        }).catch(function () {
-            alert("request failed :(");
-        });
+                                        var col = document.createElement("div");
+                                        col.className = "col-2";
+                                        col.appendChild(img);
+                                        dvPreview.appendChild(col);
+                                    }
+                                    reader.readAsDataURL(file);
+                                } else {
+                                    alert(file.name + " is not a valid image file.");
+                                    dvPreview.innerHTML = "";
+                                    return false;
+                                }
+                            }
+                        } else {
+                            alert("This browser does not support HTML5 FileReader.");
+                        }
+                    }
+                }
 
-        $('#selectProductPropertyTemplate').change(function (e) {
-            $('#product-property-wrapper > div').remove();
-            let target = e.target;
-            if (target.value !== "choise") {
+                $("#strToDecimal_Price").change(function (e) {
+                    let target = e.target;
+                    let cryptoPriceStr = target.value.toString();
+                    let cryptoCommaPrice = cryptoPriceStr.replace('.', ',');
+                    document.getElementById("strToDecimal_Price").value = cryptoCommaPrice;
+                });
+
+                $("#strToDecimal_DiscountPrice").change(function (e) {
+                    let target = e.target;
+                    let cryptoPriceStr = target.value.toString();
+                    let cryptoCommaPrice = cryptoPriceStr.replace('.', ',');
+                    document.getElementById("strToDecimal_DiscountPrice").value = cryptoCommaPrice;
+                });
+
                 abp.ajax({
                     type: 'GET',
-                    url: "/api/app/product-property-template/async-product-template-with-sub/" + target.value,
+                    url: "/api/app/product-property-template/list",
                 }).then(function (result) {
-                    $.each(result.productPropertySubTemplates, function (index, value) {
-                        var clone = $('#product-property-wrapper-add').clone('#product-property');
-                        clone[0].style = "display:block;"
-                        clone[0].querySelector('input[name="propKey"]').value = value.key;
-                        clone[0].querySelector('input[name="propValue"]').value = value.value;
-                        var select = clone[0].querySelector('select[name="propTitle"]');
-                        select.value = value.title;
-                        select.dispatchEvent(new Event("change"));
-                        $('#product-property-wrapper').append(clone);
+                    $.each(result, function (index, value) {
+                        $('#selectProductPropertyTemplate').append(
+                            '<option value="' + value.id + '">' + value.title + '</option>'
+                        );
+                        //$("#yearPolicies > tr:eq(" + index + ") > td > span ").html(value.count);
+                        //$("#yearPolicies > tr:eq(" + index + ")").append(
+                        //    '<td class="mt-0 mb-4 text-white">' + value.premium + '</td>'
+                        //);
                     });
                 }).catch(function () {
                     alert("request failed :(");
                 });
-            } else {
-                var clone = $('#product-property-wrapper-add').clone('#product-property');
-                clone[0].style = "display:block;"
-                $('#product-property-wrapper').append(clone);
-            }
 
-        });
+                $('#selectProductPropertyTemplate').change(function (e) {
+                    $('#product-property-wrapper > div').remove();
+                    let target = e.target;
+                    if (target.value !== "choise") {
+                        abp.ajax({
+                            type: 'GET',
+                            url: "/api/app/product-property-template/async-product-template-with-sub/" + target.value,
+                        }).then(function (result) {
+                            $.each(result.productPropertySubTemplates, function (index, value) {
+                                var clone = $('#product-property-wrapper-add').clone('#product-property');
+                                clone[0].style = "display:block;"
+                                clone[0].querySelector('input[name="propKey"]').value = value.key;
+                                clone[0].querySelector('input[name="propValue"]').value = value.value;
+                                var select = clone[0].querySelector('select[name="propTitle"]');
+                                select.value = value.title;
+                                select.dispatchEvent(new Event("change"));
+                                $('#product-property-wrapper').append(clone);
+                            });
+                        }).catch(function () {
+                            alert("request failed :(");
+                        });
+                    } else {
+                        var clone = $('#product-property-wrapper-add').clone('#product-property');
+                        clone[0].style = "display:block;"
+                        $('#product-property-wrapper').append(clone);
+                    }
 
-        Dropzone.autoDiscover = false;
-        Dropzone.maxFiles = 5;
-        var myDropzone = new Dropzone(".dropzone", {
-            addRemoveLinks: true,
-            autoProcessQueue: false,
-            parallelUploads: 1,
-            maxFilesize: 5,
-            maxFiles: 5,
-        });
+                });
 
-        $(".add-prop").click(function () {
-            var clone = $('#product-property-wrapper-add').clone('#product-property');
-            clone[0].style = "display:block;"
-            $('#product-property-wrapper').append(clone);
-        });
+                $(".productInfoItem").click(function () {
+                    if ($(this).children('input[name="activeInfo"]').is(':checked')) {
+                        $(this).children('input[name="activeInfo"]').prop('checked', false);
+                        $(this).attr('class', 'row p-4 m-4 productInfoItem');
+                    }
+                    else {
+                        $(this).children('input[name="activeInfo"]').prop('checked', true);
+                        $(this).attr('class', 'row p-4 m-4 productInfoItem productInfoItemActive');
+                    }
+                });
 
-        $(".delete-prop").click(function () {
-            if ($('#product-property-wrapper').children().length !== 1) {
-                $(this)
-                    .parents("#product-property-wrapper-add").remove();
-            }
-        });
+                $(".add-prop").click(function () {
+                    var clone = $('#product-property-wrapper-add').clone('#product-property');
+                    clone[0].style = "display:block;"
+                    $('#product-property-wrapper').append(clone);
+                });
 
-        $('#productAllCreateModal_productCreateModal_Discount').on("click", function (e) {
-            let target = e.target;
-            if ($("#productAllCreateModal_productCreateModal_Discount").is(":checked") == true) {
-                document.getElementById("discountPrice").style = "display:block;";
-                document.getElementById("productAllCreateModal_productCreateModal_DiscountPrice").setAttribute("required", "required");
-            }
-            else {
-                document.getElementById("discountPrice").style = "display:none;";
-                document.getElementById("productAllCreateModal_productCreateModal_DiscountPrice").removeAttribute("required");
-            }
-        });
-        var selectedCategory = "";
-        $('.main-category').click(function () {
-            $('.sub-main-category').css("color", "black");
-            $('.sub-main-category').css("font-weight", "normal");
-            $('.main-category').css("color", "black");
-            $('.main-category').css("font-weight", "normal");
-            $(this).css("color", "red");
-            $(this).css("font-weight", "bold");
+                $(".delete-prop").click(function () {
+                    if ($('#product-property-wrapper').children().length !== 1) {
+                        $(this)
+                            .parents("#product-property-wrapper-add").remove();
+                    }
+                });
 
-
-            if ($(this).parent().children('ol.sub-category').css("display") === "block") {
-                $(this).parent().children('ol.sub-category').css("display", "none");
-            }
-            else {
-                $(this).parent().children('ol.sub-category').css("display", "block");
-            }
-            selectedCategory = $(this).parent().children('input[type="hidden"]').val();
-            $('#productAllCreateModal_productCreateModal_CategoryId').val(selectedCategory);
-            $('#selectedCategoryShow').html($(this).html());
-        });
-        $('.sub-main-category').click(function () {
-            $('.sub-main-category').css("color", "black");
-            $('.sub-main-category').css("font-weight", "normal");
-            $('.main-category').css("color", "black");
-            $('.main-category').css("font-weight", "normal");
-            $(this).css("color", "red");
-            $(this).css("font-weight", "bold");
+                $('#productAllCreateModal_productCreateModal_Discount').on("click", function (e) {
+                    let target = e.target;
+                    if ($("#productAllCreateModal_productCreateModal_Discount").is(":checked") == true) {
+                        document.getElementById("discountPrice").style = "display:block;";
+                        document.getElementById("productAllCreateModal_productCreateModal_DiscountPrice").setAttribute("required", "required");
+                    }
+                    else {
+                        document.getElementById("discountPrice").style = "display:none;";
+                        document.getElementById("productAllCreateModal_productCreateModal_DiscountPrice").removeAttribute("required");
+                    }
+                });
+                var selectedCategory = "";
+                $('.main-category').click(function () {
+                    $('.sub-main-category').css("color", "black");
+                    $('.sub-main-category').css("font-weight", "normal");
+                    $('.main-category').css("color", "black");
+                    $('.main-category').css("font-weight", "normal");
+                    $(this).css("color", "red");
+                    $(this).css("font-weight", "bold");
 
 
-            if ($(this).parent().children('ol.sub-category').css("display") === "block") {
-                $(this).parent().children('ol.sub-category').css("display", "none");
-            }
-            else {
-                $(this).parent().children('ol.sub-category').css("display", "block");
-            }
-            selectedCategory = $(this).parent().children('input[type="hidden"]').val();
-            $('#productAllCreateModal_productCreateModal_CategoryId').val(selectedCategory);
-            $('#selectedCategoryShow').html($(this).html());
-        });
-    </script>
-}
+                    if ($(this).parent().children('ol.sub-category').css("display") === "block") {
+                        $(this).parent().children('ol.sub-category').css("display", "none");
+                    }
+                    else {
+                        $(this).parent().children('ol.sub-category').css("display", "block");
+                    }
+                    selectedCategory = $(this).parent().children('input[type="hidden"]').val();
+                    $('#productAllCreateModal_productCreateModal_CategoryId').val(selectedCategory);
+                    $('#selectedCategoryShow').html($(this).html());
+                });
+                $('.sub-main-category').click(function () {
+                    $('.sub-main-category').css("color", "black");
+                    $('.sub-main-category').css("font-weight", "normal");
+                    $('.main-category').css("color", "black");
+                    $('.main-category').css("font-weight", "normal");
+                    $(this).css("color", "red");
+                    $(this).css("font-weight", "bold");
+
+
+                    if ($(this).parent().children('ol.sub-category').css("display") === "block") {
+                        $(this).parent().children('ol.sub-category').css("display", "none");
+                    }
+                    else {
+                        $(this).parent().children('ol.sub-category').css("display", "block");
+                    }
+                    selectedCategory = $(this).parent().children('input[type="hidden"]').val();
+                    $('#productAllCreateModal_productCreateModal_CategoryId').val(selectedCategory);
+                    $('#selectedCategoryShow').html($(this).html());
+                });
+            </script>
+        }
+    }
+    else
+    {
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+
+                        <h4 class="card-title">Genel Özellikler</h4>
+                        <p class="card-title-desc">Genel özellikleri doldurunuz.</p>
+                        <input type="hidden" value="empty" name="productCreateModal.Title" />
+                        <input type="hidden" value="empty" name="productCreateModal.Description" />
+                        <abp-input asp-for="productAllEditModal.productEditModal.Id" />
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <abp-input asp-for="productAllEditModal.productEditModal.Title" />
+                                </div>
+                                <div class="form-group">
+                                    <abp-input asp-for="productAllEditModal.productEditModal.SubTitle" />
+                                </div>
+                                <div class="form-group">
+                                    <abp-input asp-for="strToDecimal.Price" />
+                                </div>
+                                <div class="form-group" id="discountPrice" style="@(Model.productAllEditModal.productEditModal.Discount == true ? "display:block;" : "display:none;")">
+                                    <abp-input asp-for="strToDecimal.DiscountPrice" />
+                                </div>
+                                <div class="form-group">
+                                    <abp-select asp-for="productAllEditModal.productEditModal.ProductType" asp-items="Model.ProductTypeSelect" />
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <label for="selectedCategoryShow">Kategori Seç</label>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <button type="button" id="selectedCategoryShow" class="btn btn-primary waves-effect waves-light form-control" data-toggle="modal" data-target=".bs-example-modal-lg">Kategori Seç</button>
+                                        </div>
+                                    </div>
+                                    <abp-input asp-for="productAllEditModal.productEditModal.CategoryId" />
+                                </div>
+
+                                <div class="form-group">
+                                    <abp-input asp-for="productAllEditModal.productEditModal.Installment" />
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-sm-6" style="margin-top:30px;">
+                                            <div class="custom-control custom-switch custom-switch-lg" dir="ltr">
+                                                <abp-input asp-for="productAllEditModal.productEditModal.Discount" class="custom-control-input" />
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6" style="margin-top:30px;">
+                                            <div class="custom-control custom-switch custom-switch-lg" dir="ltr">
+                                                <abp-input asp-for="productAllEditModal.productEditModal.Active" class="custom-control-input" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <abp-select asp-for="productAllEditModal.productEditModal.ProductColor" asp-items="Model.ProductColorSelect" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <abp-input asp-for="productAllEditModal.productEditModal.Description" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title mb-3">Ürün Resimleri</h4>
+                        <p class="card-title-desc">Maksimum <span class="text-danger font-weight-bold">5</span> resim yükleyebilirsiniz. İlk seçilen 5 resim hariç diğer resimler eklenmeyecektir.</p>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-12">
+                                    <label name="files">@L["ChooseFile"]</label>
+                                    <input type="file" name="files" id="file-upload" multiple class="custom-file-input">
+                                    <label class="custom-file-label" style="margin:25px 10px 5px 10px;">@L["ChooseFile"]</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div id="preview" class="row">
+                                @foreach (var item in Model.productAllEditModal.productEditModal.Images)
+                                {
+                                    <div class="col-2" id="@item.Id">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <img src="@item.Image" style="background-color: #e5e5e5;" class="rounded avatar-lg" />
+                                            </div>
+                                        </div>
+                                        <div class="row mt-1">
+                                            <div class="col-12">
+                                                <button type="button" value="@item.Id" style="height:35px;" class="btn btn-danger waves-effect waves-light form-control avatar-lg delete-image">Sil</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div> <!-- end card-->
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-12">
+                                <h4 class="card-title">Kampanya Özellikleri</h4>
+                                <p class="card-title-desc">Ürün ile ilgili hangi kampanya özellikleri olacağını seçiniz.</p>
+                            </div>
+                        </div>
+                        @foreach (var item in Model.productInfoTemplates)
+                        {
+                            bool active = false;
+                            foreach (var info in Model.productAllEditModal.productEditModal.ProductInfo)
+                            {
+                                if (item.Id == info.ProductInfoTemplateId)
+                                {
+                                    active = true;
+                                }
+                            }
+
+                            <div class="row p-4 m-4 productInfoItem @(active == true ? "productInfoItemActive" : null)">
+                                <input type="checkbox" hidden name="activeInfo" @(active == true ? "checked" : null) value="@item.Id" />
+                                <div class="col-1">
+                                    <img src="@item.Image" class="img-fluid" width="90" height="90" />
+                                </div>
+                                <div class="col-11">
+                                    <div class="row mt-3">
+                                        <div class="col-12">
+                                            <h4 class="card-title">@item.Title</h4>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <p class="card-title-desc">@item.Description</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-10">
+                                <h4 class="card-title">Detay</h4>
+                                <p class="card-title-desc">Ürün ile ilgili detaylı bilgileri doldurunuz.</p>
+                            </div>
+                            <div class="col-2">
+                                <label name="propTitle">@L["ProductPropertyTemplate"]</label>
+                                <select id="selectProductPropertyTemplate" style="color:white;" class="form-control bg-success border-success">
+                                    <option value="choise">Seçiniz.</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div id="product-property-wrapper">
+                            @foreach (var item in Model.productAllEditModal.productEditModal.ProductProperty)
+                            {
+                                <div class="row" id="@item.Id">
+                                    <input hidden value="@item.Id" name="propId" class="form-control" />
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label name="propKey">@L["Key"]</label>
+                                            <input required value="@item.KEY" name="propKey" class="form-control" />
+                                            <span asp-validation-for="PropKey" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label name="propValue">@L["Value"]</label>
+                                            <input required value="@item.VALUE" name="propValue" class="form-control" />
+                                            <span asp-validation-for="PropValue" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label name="propTitle">@L["PropertyTitle"]</label>
+                                            <select name="propTitle" class="form-control">
+                                                @foreach (var option in Model.SelectPropTitle)
+                                                {
+                                                    if (item.TITLE == option.Value)
+                                                    {
+                                                        <option value="@option.Value" selected>@option.Text</option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="@option.Value">@option.Text</option>
+                                                    }
+                                                }
+                                            </select>
+                                            <span asp-validation-for="PropTitle" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-1">
+                                        <div class="form-group" style="margin-top:25px;">
+                                            <button type="button" class="btn btn-success waves-effect waves-light form-control add-prop">Ekle</button>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-1">
+                                        <div class="form-group" style="margin-top:25px;">
+                                            <button type="button" class="btn btn-danger waves-effect waves-light form-control delete-prop">Sil</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Tamamla</h4>
+                        <p class="card-title-desc">Girdiğiniz değerleri kontrol edip kaydediniz.</p>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-primary mr-1 waves-effect waves-light">Kaydet</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="product-property-wrapper-add" style="display:none;">
+            <div class="row" id="product-property">
+                <input hidden name="propId" class="form-control" />
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label name="propKey">@L["Key"]</label>
+                        <input required name="propKey" class="form-control" />
+                        <span asp-validation-for="PropKey" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label name="propValue">@L["Value"]</label>
+                        <input required name="propValue" class="form-control" />
+                        <span asp-validation-for="PropValue" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label name="propTitle">@L["PropertyTitle"]</label>
+                        <select name="propTitle" asp-items="Model.SelectPropTitle" class="form-control"></select>
+                        <span asp-validation-for="PropTitle" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-sm-1">
+                    <div class="form-group" style="margin-top:25px;">
+                        <button type="button" class="btn btn-success waves-effect waves-light form-control add-prop">Ekle</button>
+                    </div>
+                </div>
+                <div class="col-sm-1">
+                    <div class="form-group" style="margin-top:25px;">
+                        <button type="button" class="btn btn-danger waves-effect waves-light form-control delete-prop">Sil</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title mt-0" id="myLargeModalLabel">Kategoriler</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <ol class="tree-structure">
+                                    @Html.Raw(Model.cat_list_text)
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary waves-effect waves-light" data-dismiss="modal" aria-label="Close">Tamam</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+        <!-- end row -->
+        @section scripts {
+            <script src="~/assets/libs/tinymce/tinymce.min.js"></script>
+
+            <script>
+                $(document).ready(function () { 0 < $("#productAllEditModal_productEditModal_Description").length && tinymce.init({ selector: "textarea#productAllEditModal_productEditModal_Description", height: 300, plugins: ["advlist autolink link image lists charmap print preview hr anchor pagebreak spellchecker", "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking", "save table contextmenu directionality emoticons template paste textcolor"], toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | l      ink image | print preview media fullpage | forecolor backcolor emoticons", style_formats: [{ title: "Bold text", inline: "b" }, { title: "Red text", inline: "span", styles: { color: "#ff0000" } }, { title: "Red header", block: "h1", styles: { color: "#ff0000" } }, { title: "Example 1", inline: "span", classes: "example1" }, { title: "Example 2", inline: "span", classes: "example2" }, { title: "Table styles" }, { title: "Table row 1", selector: "tr", classes: "tablerow1" }] }) });
+                $(function () {
+                    $(".selected")
+                        .parents("ol.sub-category")
+                        .css("display", "block");
+
+                    $(".selected").css("color", "red");
+                    $(".selected").css("font-weight", "bold");
+                    $('#selectedCategoryShow').html($(".selected").html());
+
+                });
+                var _productImagesAppService = oDY.cihazkapinda.productManagement.productImage;
+                var fileUpload = document.getElementById("file-upload");
+                fileUpload.onchange = function () {
+                    var dvPreview = document.getElementById("preview");
+                    if (fileUpload.files.length > 5 - dvPreview.childElementCount || dvPreview.childElementCount === 5) {
+                        abp.message.error(
+                            'En fazla 5 resim yükleyebilirsiniz',
+                            'Dosya aşımı!'
+                        );
+                    }
+                    else {
+                        if (typeof (FileReader) != "undefined") {
+                            var regex = /^([a-zA-Z0-9\s_\\.\-:])+(.jpg|.jpeg|.gif|.png|.bmp)$/;
+                            for (var i = 0; i < fileUpload.files.length; i++) {
+                                var file = fileUpload.files[i];
+                                if (regex.test(file.name.toLowerCase())) {
+                                    var reader = new FileReader();
+                                    reader.onload = function (e) {
+                                        var img = document.createElement("IMG");
+                                        img.className = "rounded avatar-lg";
+                                        img.style = "background-color:#e5e5e5;"
+                                        img.src = e.target.result;
+
+                                        var col = document.createElement("div");
+                                        col.className = "col-2";
+                                        col.appendChild(img);
+                                        dvPreview.appendChild(col);
+                                    }
+                                    reader.readAsDataURL(file);
+                                } else {
+                                    alert(file.name + " is not a valid image file.");
+                                    dvPreview.innerHTML = "";
+                                    return false;
+                                }
+                            }
+                        } else {
+                            alert("This browser does not support HTML5 FileReader.");
+                        }
+                    }
+                }
+
+                $("#strToDecimal_Price").change(function (e) {
+                    let target = e.target;
+                    let cryptoPriceStr = target.value.toString();
+                    let cryptoCommaPrice = cryptoPriceStr.replace('.', ',');
+                    document.getElementById("strToDecimal_Price").value = cryptoCommaPrice;
+                });
+
+                $("#strToDecimal_DiscountPrice").change(function (e) {
+                    let target = e.target;
+                    let cryptoPriceStr = target.value.toString();
+                    let cryptoCommaPrice = cryptoPriceStr.replace('.', ',');
+                    document.getElementById("strToDecimal_DiscountPrice").value = cryptoCommaPrice;
+                });
+
+                abp.ajax({
+                    type: 'GET',
+                    url: "/api/app/product-property-template/list",
+                }).then(function (result) {
+                    $.each(result, function (index, value) {
+                        $('#selectProductPropertyTemplate').append(
+                            '<option value="' + value.id + '">' + value.title + '</option>'
+                        );
+                        //$("#yearPolicies > tr:eq(" + index + ") > td > span ").html(value.count);
+                        //$("#yearPolicies > tr:eq(" + index + ")").append(
+                        //    '<td class="mt-0 mb-4 text-white">' + value.premium + '</td>'
+                        //);
+                    });
+                }).catch(function () {
+                    alert("request failed :(");
+                });
+
+                $('#selectProductPropertyTemplate').change(function (e) {
+                    $('#product-property-wrapper > div').remove();
+                    let target = e.target;
+                    if (target.value !== "choise") {
+                        abp.ajax({
+                            type: 'GET',
+                            url: "/api/app/product-property-template/async-product-template-with-sub/" + target.value,
+                        }).then(function (result) {
+                            $.each(result.productPropertySubTemplates, function (index, value) {
+                                var clone = $('#product-property-wrapper-add').clone('#product-property');
+                                clone[0].style = "display:block;"
+                                clone[0].querySelector('input[name="propKey"]').value = value.key;
+                                clone[0].querySelector('input[name="propValue"]').value = value.value;
+                                var select = clone[0].querySelector('select[name="propTitle"]');
+                                select.value = value.title;
+                                select.dispatchEvent(new Event("change"));
+                                $('#product-property-wrapper').append(clone);
+                            });
+                        }).catch(function () {
+                            alert("request failed :(");
+                        });
+                    } else {
+                        var clone = $('#product-property-wrapper-add').clone('#product-property');
+                        clone[0].style = "display:block;"
+                        $('#product-property-wrapper').append(clone);
+                    }
+
+                });
+
+                $(".productInfoItem").click(function () {
+                    if ($(this).children('input[name="activeInfo"]').is(':checked')) {
+                        $(this).children('input[name="activeInfo"]').prop('checked', false);
+                        $(this).attr('class', 'row p-4 m-4 productInfoItem');
+                    }
+                    else {
+                        $(this).children('input[name="activeInfo"]').prop('checked', true);
+                        $(this).attr('class', 'row p-4 m-4 productInfoItem productInfoItemActive');
+                    }
+                });
+
+                $(".add-prop").click(function () {
+                    var clone = $('#product-property-wrapper-add').clone('#product-property');
+                    clone[0].style = "display:block;"
+                    $('#product-property-wrapper').append(clone);
+                });
+
+                $(".delete-prop").click(function () {
+                    if ($('#product-property-wrapper').children().length !== 1) {
+                        $(this)
+                            .parents("#product-property-wrapper-add").remove();
+                    }
+                });
+
+                $(".delete-image").click(function () {
+                    var element = this;
+                    abp.message.confirm(
+                        'Ürün resmi siliniyor.',
+                        'Emin misiniz?',
+                        function (isConfirmed) {
+                            if (isConfirmed) {
+                                _productImagesAppService
+                                    .delete(element.value)
+                                    .then(function (result) {
+                                        $('#preview > div[id="' + element.value + '"]').remove();
+                                    })
+                                    .catch(function (err) {
+                                        console.log(err);
+                                    });
+                            }
+                        }
+                    );
+                });
+
+                $('#productAllEditModal_productEditModal_Discount').on("click", function (e) {
+                    let target = e.target;
+                    if ($("#productAllEditModal_productEditModal_Discount").is(":checked") == true) {
+                        document.getElementById("discountPrice").style = "display:block;";
+                        document.getElementById("productAllEditModal_productEditModal_DiscountPrice").setAttribute("required", "required");
+                    }
+                    else {
+                        document.getElementById("discountPrice").style = "display:none;";
+                        document.getElementById("productAllEditModal_productEditModal_DiscountPrice").removeAttribute("required");
+                    }
+                });
+                var selectedCategory = "";
+                $('.main-category').click(function () {
+                    $('.sub-main-category').css("color", "black");
+                    $('.sub-main-category').css("font-weight", "normal");
+                    $('.main-category').css("color", "black");
+                    $('.main-category').css("font-weight", "normal");
+                    $(this).css("color", "red");
+                    $(this).css("font-weight", "bold");
+
+
+                    if ($(this).parent().children('ol.sub-category').css("display") === "block") {
+                        $(this).parent().children('ol.sub-category').css("display", "none");
+                    }
+                    else {
+                        $(this).parent().children('ol.sub-category').css("display", "block");
+                    }
+                    selectedCategory = $(this).parent().children('input[type="hidden"]').val();
+                    $('#productAllEditModal_productEditModal_CategoryId').val(selectedCategory);
+                    $('#selectedCategoryShow').html($(this).html());
+                });
+                $('.sub-main-category').click(function () {
+                    $('.sub-main-category').css("color", "black");
+                    $('.sub-main-category').css("font-weight", "normal");
+                    $('.main-category').css("color", "black");
+                    $('.main-category').css("font-weight", "normal");
+                    $(this).css("color", "red");
+                    $(this).css("font-weight", "bold");
+
+
+                    if ($(this).parent().children('ol.sub-category').css("display") === "block") {
+                        $(this).parent().children('ol.sub-category').css("display", "none");
+                    }
+                    else {
+                        $(this).parent().children('ol.sub-category').css("display", "block");
+                    }
+                    selectedCategory = $(this).parent().children('input[type="hidden"]').val();
+                    $('#productAllEditModal_productEditModal_CategoryId').val(selectedCategory);
+                    $('#selectedCategoryShow').html($(this).html());
+                });
+            </script>
+        }
+    }
+</form>
+

@@ -17,7 +17,9 @@
             return actionList.addManyTail(
                 [
                     {
-                        text: l("Edit"),
+
+                        text: '<span style="cursor:pointer;" class="form-control border-0">' + l("Edit") + '</span>',
+                        displayNameHtml: true,
                         visible: abp.auth.isGranted(
                             'ProductManagement.ProductImages.Edit'
                         ),

@@ -27,5 +27,8 @@ namespace ODY.Cihazkapinda.Web.Models.GeneralSettingModals
         public string WorkTime { get; set; }
         [Display(Name = "SiteTheme")]
         public string SiteTheme { get; set; }
+        [Display(Name = "City")]
+        [Required]
+        public string City { get; set; }
     }
 }

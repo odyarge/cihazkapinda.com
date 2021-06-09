@@ -31,6 +31,7 @@
         public const string ProductPropertyTitle = ProductProperties + ".ProductPropertyTitles";
         public const string ProductPropertyTemplate = ProductProperties + ".ProductPropertyTemplate";
         public const string ProductPropertySubTemplate = ProductProperties + ".ProductPropertySubTemplate";
+        public const string ProductInfoTemplate = ProductManagement + ".ProductInfoTemplate";
         #endregion PRODUCTMANAGEMENT
 
         //Add your menu items here...

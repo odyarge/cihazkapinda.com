@@ -143,5 +143,14 @@
             public const string Edit = ProductPropertySubTemplateDefault + ".Edit";
             public const string Delete = ProductPropertySubTemplateDefault + ".Delete";
         }
+        public static class ProductInfoTemplate
+        {
+            public const string ProductInfoTemplateDefault = ProductManagementGroup + ".ProductInfoTemplate";
+            public const string MenuList = ProductInfoTemplateDefault + ".MenuList";
+            public const string List = ProductInfoTemplateDefault + ".List";
+            public const string Create = ProductInfoTemplateDefault + ".Create";
+            public const string Edit = ProductInfoTemplateDefault + ".Edit";
+            public const string Delete = ProductInfoTemplateDefault + ".Delete";
+        }
     }
 }

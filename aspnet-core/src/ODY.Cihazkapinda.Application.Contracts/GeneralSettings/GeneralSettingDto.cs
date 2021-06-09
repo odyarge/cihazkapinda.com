@@ -15,5 +15,6 @@ namespace ODY.Cihazkapinda.GeneralSettings
         public string Phone { get; set; }
         public string WorkTime { get; set; }
         public string SiteTheme { get; set; }
+        public string City { get; set; }
     }
 }
