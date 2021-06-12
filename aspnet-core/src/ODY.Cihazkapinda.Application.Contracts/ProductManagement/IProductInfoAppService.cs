@@ -9,11 +9,8 @@ namespace ODY.Cihazkapinda.ProductManagement
 {
     public interface IProductInfoAppService : ICrudAppService<ProductInfoDto, Guid, PagedAndSortedResultRequestDto, ProductInfoCreateUpdateDto, ProductInfoCreateUpdateDto>
     {
-        Task<List<ProductInfoDto>> GetAllList();
-        Task<List<ProductInfoDto>> GetAllListWithDetail();
-        Task<ProductInfoDto> GetAsyncProductInfoWithDetail(Guid id);
-        Task<bool> GetAsyncProductInfoControl(Guid id);
-        Task<ProductInfoDto> GetAsyncProductInfoByTemplateId(Guid id);
-        Task AllProductInfoPassive(Guid id);
+        Task<List<ProductInfoDto>> GetAllList(); 
+        Task<List<ProductInfoDto>> GetAllListWithDetail(Guid id);
+        Task<bool> GetControl(Guid id);
     }
 }

@@ -99,6 +99,7 @@ namespace ODY.Cihazkapinda.Web
             CreateMap<ProductInfoCreateModal, ProductInfoCreateUpdateDto>();
             //
             CreateMap<ProductInfoTemplateDto, ProductInfoTemplateEditModal>();
+            CreateMap<ProductInfoTemplateDto, ProductInfoTemplateSelectModal>();
             CreateMap<ProductInfoTemplateEditModal, ProductInfoTemplateCreateUpdateDto>();
             CreateMap<ProductInfoTemplateCreateModal, ProductInfoTemplateCreateUpdateDto>();
         }

@@ -10,7 +10,7 @@
     Layout = "~/" + layout;
 
     ViewBag.Title = Model.setting.Title + " | " + Model.Product.Title;
-    }
+}
 
 
 @section scripts {
@@ -156,59 +156,26 @@
 
                 </div>
             </div>
-            <div class="row p-4 productInfoItem mb-3">
-                <div class="col-lg-2 col-sm-4 mt-3">
-                    <img src="~/host/product-info/dijitalkoruma.png" class="img-fluid" width="90" height="90" />
-                </div>
-                <div class="col-lg-10 col-sm-8">
-                    <div class="row mt-3">
-                        <div class="col-12">
-                            <h4 class="card-title">Dijital Koruma Hediye</h4>
+            @foreach (var item in Model.Product.ProductInfo)
+            {
+                    <div class="row p-4 productInfoItem mb-3">
+                        <div class="col-lg-2 col-sm-4 mt-3">
+                            <img src="@item.productInfoTemplate.Image" class="img-fluid" width="90" height="90" />
+                        </div>
+                        <div class="col-lg-10 col-sm-8">
+                            <div class="row mt-3">
+                                <div class="col-12">
+                                    <h4 class="card-title">@item.productInfoTemplate.Title</h4>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <p class="card-title-desc">@item.productInfoTemplate.Description</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-12">
-                            <p class="card-title-desc">İnternetteki zararlı içeriklerden ve virüslerden korunup, güvenle internette gezinin diye Dijital Koruma ilk 2 ay hediye!</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row p-4 productInfoItem mb-3">
-                <div class="col-lg-2 col-sm-4 mt-3">
-                    <img src="~/host/product-info/hizli_kurye_90x90.jpg" class="img-fluid" width="90" height="90" />
-                </div>
-                <div class="col-lg-10 col-sm-8">
-                    <div class="row mt-3">
-                        <div class="col-12">
-                            <h4 class="card-title">Ücretsiz Teslimat</h4>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-12">
-                            <p class="card-title-desc">Tüm illerde 3-6 iş günü içinde ücretsiz teslimat.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row p-4 productInfoItem">
-                <div class="col-lg-2 col-sm-4 mt-3">
-                    <img src="~/host/product-info/GUVENLI-DEPO-KIRMIZI.png" class="img-fluid" width="90" height="90" />
-                </div>
-                <div class="col-lg-10 col-sm-8">
-                    <div class="row mt-3">
-                        <div class="col-12">
-                            <h4 class="card-title">
-                                Güvenli Depo Hediye
-                            </h4>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-12">
-                            <p class="card-title-desc">Telefonunuzdaki tüm dosyalarınızı internetinizden yemeden güvenle saklayın diye Güvenli Depo ilk 2 ay hediye!</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            }
             <div class="row">
                 <div class="col">
                     <div class="tabs tabs-product mb-2">

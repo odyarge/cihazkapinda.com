@@ -9,6 +9,6 @@ namespace ODY.Cihazkapinda.Web.Models.ProductManagementModals
     public class ProductInfoEditModal : ProductInfoCreateModal
     {
         [HiddenInput]
-        public Guid? Id { get; set; }
+        public Guid Id { get; set; }
     }
 }

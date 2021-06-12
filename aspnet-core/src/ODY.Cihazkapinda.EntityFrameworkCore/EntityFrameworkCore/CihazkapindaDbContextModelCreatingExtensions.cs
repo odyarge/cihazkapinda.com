@@ -123,12 +123,6 @@ namespace ODY.Cihazkapinda.EntityFrameworkCore
                     .HasForeignKey(x => x.ProductId)
                     .OnDelete(DeleteBehavior.Cascade)
                     .IsRequired();
-
-                b.HasMany(x => x.ProductInfo)
-                    .WithOne(x => x.Product)
-                    .HasForeignKey(x => x.ProductId)
-                    .OnDelete(DeleteBehavior.Cascade)
-                    .IsRequired();
             });
 
             builder.Entity<ProductImage>(b =>

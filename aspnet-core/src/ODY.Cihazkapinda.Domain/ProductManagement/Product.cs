@@ -29,7 +29,6 @@ namespace ODY.Cihazkapinda.ProductManagement
         public ProductType ProductType { get; set; }
         public ICollection<ProductImage> Images { get; set; }
         public ICollection<ProductProperty> ProductProperty { get; set; }
-        public ICollection<ProductInfo> ProductInfo { get; set; }
         public Category Category { get; set; }
         public Guid CategoryId { get; set; }
 
@@ -64,7 +63,6 @@ namespace ODY.Cihazkapinda.ProductManagement
             CategoryId = _categoryId;
             Images = new Collection<ProductImage>();
             ProductProperty = new Collection<ProductProperty>();
-            ProductInfo = new Collection<ProductInfo>();
         }
     }
 }

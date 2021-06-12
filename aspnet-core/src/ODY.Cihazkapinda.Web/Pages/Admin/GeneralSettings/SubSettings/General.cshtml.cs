@@ -50,7 +50,14 @@ namespace ODY.Cihazkapinda.Web.Pages.Admin.GeneralSettings.SubSettings
             generalSettingEditModal = ObjectMapper.Map<GeneralSettingDto, GeneralSettingEditModal>(
                 await _generalSettingAppService.GetAsyncByTenant(CurrentTenant.Id)
                 );
-            await GetThemes(generalSettingEditModal.SiteTheme);
+            if (generalSettingEditModal.SiteTheme != null)
+            {
+                await GetThemes(generalSettingEditModal.SiteTheme);
+            }
+            else
+            {
+                await GetThemes(null);
+            }
             return await Task.FromResult<IActionResult>(Page());
         }
 
@@ -63,7 +70,7 @@ namespace ODY.Cihazkapinda.Web.Pages.Admin.GeneralSettings.SubSettings
             string tenantPath = string.Empty;
             string oldFilePath = string.Empty;
             string filePath = string.Empty;
-            if(file != null)
+            if (file != null)
             {
                 if (file.Length > 0)
                 {
@@ -96,7 +103,7 @@ namespace ODY.Cihazkapinda.Web.Pages.Admin.GeneralSettings.SubSettings
                     }
                 }
             }
-            
+
             generalSettingEditModal.TenantId = CurrentTenant.Id;
             generalSettingEditModal.Logo = ignoreWWW;
             var update = ObjectMapper.Map<GeneralSettingEditModal, GeneralSettingCreateUpdateDto>(generalSettingEditModal);
@@ -111,31 +118,46 @@ namespace ODY.Cihazkapinda.Web.Pages.Admin.GeneralSettings.SubSettings
         {
 
             var list = await _themeSettingAppService.GetListAsyncAllThemes();
-
             themeList = new List<SelectListItem>();
-            foreach (var item in list)
+            if (selected == null)
             {
-                SelectListItem option;
-                if (item.THEME_NAME == selected)
+                foreach (var item in list)
                 {
-                    option = new SelectListItem
-                    {
-                        Text = item.THEME_NAME,
-                        Value = item.THEME_NAME,
-                        Selected = true
-                    };
-                }
-                else
-                {
-                    option = new SelectListItem
+                    SelectListItem option = new SelectListItem
                     {
                         Text = item.THEME_NAME,
                         Value = item.THEME_NAME
                     };
+                    themeList.Add(option);
                 }
-
-                themeList.Add(option);
             }
+            else
+            {
+                foreach (var item in list)
+                {
+                    SelectListItem option;
+                    if (item.THEME_NAME == selected)
+                    {
+                        option = new SelectListItem
+                        {
+                            Text = item.THEME_NAME,
+                            Value = item.THEME_NAME,
+                            Selected = true
+                        };
+                    }
+                    else
+                    {
+                        option = new SelectListItem
+                        {
+                            Text = item.THEME_NAME,
+                            Value = item.THEME_NAME
+                        };
+                    }
+
+                    themeList.Add(option);
+                }
+            }
+
         }
     }
 }

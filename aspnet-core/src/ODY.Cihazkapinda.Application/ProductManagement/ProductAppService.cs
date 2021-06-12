@@ -46,15 +46,15 @@ namespace ODY.Cihazkapinda.ProductManagement
             var product = await Repository.GetAsync(id);
             var images = await _productImageAppService.GetListAsync();
             var properties = await _productPropertyAppService.GetListAsync();
-            var info = await _productInfoAppService.GetAllListWithDetail();
-
-            var infoList = ObjectMapper.Map<List<ProductInfoDto>, List<ProductInfo>>(info);
+            var info = await _productInfoAppService.GetAllListWithDetail(id);
 
             product.Images = images.FindAll(x => x.ProductId == id);
             product.ProductProperty = properties.FindAll(x => x.ProductId == id);
-            product.ProductInfo = infoList.FindAll(x => x.ProductId == id);
 
-            return ObjectMapper.Map<Product, ProductDto>(product);
+            var map = ObjectMapper.Map<Product, ProductDto>(product);
+            map.ProductInfo = info.FindAll(x => x.ProductId == id);
+
+            return map;
         }
 
         public async Task<PagedResultDto<ProductDto>> GetAsyncProductWithImageList(ProductSearchDto input)

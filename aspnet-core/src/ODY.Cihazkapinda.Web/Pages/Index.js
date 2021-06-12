@@ -51,6 +51,8 @@
         installmentSelect = null;
         priceFromSelect = null;
         priceToSelect = null;
+        productColor = null;
+        productType = 0;
         getData(0, search, categorySelect, installmentSelect, priceFromSelect, priceToSelect, productType, productColor);
     });
 
@@ -73,7 +75,7 @@
         }
         if ($(this).val() === "4") {
             priceFromSelect = 10000;
-            priceToSelect = null;
+            priceToSelect = 99999;
         }
         getData(0, search, categorySelect, installmentSelect, priceFromSelect, priceToSelect, productType, productColor);
     });
@@ -102,7 +104,6 @@
         productColor = null;
 
         productType = $(this).children('input[type="hidden"]').val();
-        console.log(productType);
         getData(0, search, categorySelect, installmentSelect, priceFromSelect, priceToSelect, productType, productColor);
     });
 
@@ -126,6 +127,16 @@
 });
 
 function getData(_skipCount, _filter, _categoryId, _installment, _priceFrom, _priceTo, _productType, _productColor) {
+    var _filters = [
+        _categoryId,
+        _installment,
+        _priceFrom,
+        _priceTo,
+        _productType,
+        _productColor
+    ];
+
+    filterCount(_filters);
     $('#productWrapper > div').remove();
     abp.ajax({
         type: 'GET',
@@ -188,4 +199,18 @@ function getData(_skipCount, _filter, _categoryId, _installment, _priceFrom, _pr
     }).catch(function () {
         alert("request failed :(");
     });
+}
+
+function filterCount(_filters) {
+
+    var count = 0;
+    for (var i = 0; i < _filters.length; i++) {
+        if (_filters[i] != null && _filters[i] !== 0) {
+            count++;
+            $('.filterReset').html("Filtre Temizle (" + count + ")");
+        }
+        if (count === 0) {
+            $('.filterReset').html("Filtre Temizle");
+        }
+    }
 }

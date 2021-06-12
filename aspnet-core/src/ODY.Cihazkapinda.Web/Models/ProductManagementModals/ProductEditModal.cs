@@ -18,7 +18,9 @@ namespace ODY.Cihazkapinda.Web.Models.ProductManagementModals
 
         [NotMapped]
         public ICollection<ProductPropertyDto> ProductProperty { get; set; }
+
         [NotMapped]
+        [BindProperty]
         public ICollection<ProductInfoDto> ProductInfo { get; set; }
 
     }

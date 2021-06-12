@@ -13,6 +13,7 @@ namespace ODY.Cihazkapinda.Web
         public void Configure(IApplicationBuilder app)
         {
             app.InitializeApplication();
+            
         }
     }
 }

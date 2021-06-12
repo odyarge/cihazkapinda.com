@@ -37,6 +37,7 @@
 
   <ItemGroup>
     <PackageReference Include="Lsw.Abp.AspNetCore.Mvc.UI.Theme.Stisla" Version="1.7.0" />
+    <PackageReference Include="Microsoft.AspNetCore.SignalR" Version="1.1.0" />
     <PackageReference Include="Serilog.AspNetCore" Version="3.2.0" />
     <PackageReference Include="Serilog.Sinks.Async" Version="1.4.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.*" />

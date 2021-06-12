@@ -7,15 +7,20 @@ using System.Threading.Tasks;
 
 namespace ODY.Cihazkapinda.Web.Models.ProductManagementModals
 {
-    public class ProductInfoCreateModal
+    public class ProductInfoTemplateSelectModal
     {
         [HiddenInput]
-        public Guid? TenantId { get; set; }
+        public Guid Id { get; set; }
 
-        [HiddenInput]
-        public Guid ProductId { get; set; }
+        [Display(Name = "Image")]
         public string Image { get; set; }
+        [Required]
+        [Display(Name = "Title")]
         public string Title { get; set; }
+        [Required]
+        [Display(Name = "Description")]
         public string Description { get; set; }
+        public bool Selected { get; set; }
+
     }
 }

@@ -39,6 +39,7 @@ using Volo.Abp.VirtualFileSystem;
 using Lsw.Abp.AspNetCore.Mvc.UI.Theme.Stisla;
 using Lsw.Abp.AspNetCore.Mvc.UI.Theme.Stisla.Bundling;
 using Volo.Abp.MultiTenancy;
+using ODY.Cihazkapinda.Web.Hubs;
 
 namespace ODY.Cihazkapinda.Web
 {
@@ -91,6 +92,7 @@ namespace ODY.Cihazkapinda.Web
             ConfigureNavigationServices();
             ConfigureAutoApiControllers();
             ConfigureSwaggerServices(context.Services);
+            ConfigureSignalRServices(context.Services);
         }
 
         private void ConfigureUrls(IConfiguration configuration)
@@ -185,6 +187,12 @@ namespace ODY.Cihazkapinda.Web
             );
         }
 
+
+        private void ConfigureSignalRServices(IServiceCollection services)
+        {
+            services.AddSignalR();
+        }
+
         public override void OnApplicationInitialization(ApplicationInitializationContext context)
         {
             var app = context.GetApplicationBuilder();
@@ -224,6 +232,11 @@ namespace ODY.Cihazkapinda.Web
             app.UseAuditing();
             app.UseAbpSerilogEnrichers();
             app.UseConfiguredEndpoints();
+
+            app.UseEndpoints(endpoints => {
+                endpoints.MapRazorPages();
+                endpoints.MapHub<SignalRHub>("/chatHub");
+            });
         }
     }
 }

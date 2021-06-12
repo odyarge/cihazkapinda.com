@@ -63,10 +63,13 @@ namespace ODY.Cihazkapinda.Web.Pages.Admin.ProductManagement.ProductAdd
         public List<SelectListItem> ProductColorSelect { get; set; }
 
         [BindProperty]
-        public List<ProductInfoTemplateDto> productInfoTemplates { get; set; }
+        public List<ProductInfoTemplateSelectModal> productInfoTemplateSelectModal { get; set; }
 
         [BindProperty]
-        public List<Guid> activeInfo { get; set; }
+        public List<Guid> InfoId { get; set; }
+
+        [BindProperty]
+        public List<string> InfoSelected { get; set; }
 
         public Guid? Id { get; set; }
         #endregion PROPS
@@ -108,6 +111,7 @@ namespace ODY.Cihazkapinda.Web.Pages.Admin.ProductManagement.ProductAdd
                 Fill(0, 0);
                 await GetPropTitles();
                 await GetCategories(null);
+                await GetAllTemplates(null);
             }
             else
             {
@@ -128,9 +132,9 @@ namespace ODY.Cihazkapinda.Web.Pages.Admin.ProductManagement.ProductAdd
                 Fill(typeIndex, colorIndex);
                 await GetPropTitles();
                 await GetCategories(productAllEditModal.productEditModal.CategoryId);
+                await GetAllTemplates(productAllEditModal.productEditModal.ProductInfo);
             }
             Id = id;
-            productInfoTemplates = await _productInfoTemplateAppService.GetAllList();
             return await Task.FromResult<IActionResult>(Page());
         }
 
@@ -184,7 +188,7 @@ namespace ODY.Cihazkapinda.Web.Pages.Admin.ProductManagement.ProductAdd
 
                 if (productResult != null)
                 {
-                    for (int i = 0; i < PropKey.Count; i++)
+                    for (int i = 0; i < PropKey.Count - 1; i++)
                     {
                         ProductPropertyCreateUpdateDto prop = new ProductPropertyCreateUpdateDto
                         {
@@ -210,17 +214,19 @@ namespace ODY.Cihazkapinda.Web.Pages.Admin.ProductManagement.ProductAdd
                         await _productImageAppService.CreateAsync(image);
                     }
 
-                    for (int i = 0; i < activeInfo.Count; i++)
+                    for (int i = 0; i < InfoId.Count; i++)
                     {
-                        ProductInfoCreateUpdateDto info = new ProductInfoCreateUpdateDto
+                        if (InfoSelected[i] == "Yes")
                         {
-                            Active = true,
-                            ProductId = productResult.Id,
-                            ProductInfoTemplateId = activeInfo[i],
-                            TenantId = CurrentTenant.Id
-                        };
+                            ProductInfoCreateUpdateDto info = new ProductInfoCreateUpdateDto
+                            {
+                                ProductInfoTemplateId = InfoId[i],
+                                ProductId = productResult.Id,
+                                TenantId = CurrentTenant.Id
+                            };
 
-                        await _productInfoAppService.CreateAsync(info);
+                            await _productInfoAppService.CreateAsync(info);
+                        }
                     }
                 }
 
@@ -228,7 +234,7 @@ namespace ODY.Cihazkapinda.Web.Pages.Admin.ProductManagement.ProductAdd
                    text: "Güncelleme iþleminiz baþarýyla gerçekleþtirilmiþtir.",
                    title: "Baþarýlý"
                );
-                return await Task.FromResult<IActionResult>(Page());
+                return RedirectSafely("/Admin/ProductManagement/Products/");
             }
             else
             {
@@ -320,30 +326,50 @@ namespace ODY.Cihazkapinda.Web.Pages.Admin.ProductManagement.ProductAdd
                             await _productImageAppService.CreateAsync(image);
                         }
                     }
-
-                    await _productInfoAppService.AllProductInfoPassive(productResult.Id);
-                    for (int i = 0; i < activeInfo.Count; i++)
+                    productAllEditModal.productEditModal.ProductInfo = await _productInfoAppService.GetAllListWithDetail(productResult.Id);
+                    for (int i = 0; i < InfoId.Count; i++)
                     {
-                        var control = await _productInfoAppService.GetAsyncProductInfoControl(activeInfo[i]);
-                        if (control == false)
+                        if (productAllEditModal.productEditModal.ProductInfo.Count > 0)
                         {
-                            ProductInfoCreateUpdateDto info = new ProductInfoCreateUpdateDto
+                            if (InfoSelected[i] == "No")
                             {
-                                Active = true,
-                                ProductId = productResult.Id,
-                                ProductInfoTemplateId = activeInfo[i],
-                                TenantId = CurrentTenant.Id
-                            };
+                                var control = productAllEditModal.productEditModal.ProductInfo.SingleOrDefault(x => x.ProductInfoTemplateId == InfoId[i]);
+                                if (control != null)
+                                {
+                                    await _productInfoAppService.DeleteAsync(control.Id);
+                                }
+                            }
 
-                            await _productInfoAppService.CreateAsync(info);
+                            if (InfoSelected[i] == "Yes")
+                            {
+                                var control = productAllEditModal.productEditModal.ProductInfo.SingleOrDefault(x => x.ProductInfoTemplateId == InfoId[i]);
+                                if (control == null)
+                                {
+                                    ProductInfoCreateUpdateDto info = new ProductInfoCreateUpdateDto
+                                    {
+                                        ProductId = productResult.Id,
+                                        ProductInfoTemplateId = InfoId[i],
+                                        TenantId = CurrentTenant.Id
+                                    };
+
+                                    await _productInfoAppService.CreateAsync(info);
+                                }
+                            }
                         }
                         else
                         {
-                            var info = await _productInfoAppService.GetAsyncProductInfoByTemplateId(activeInfo[i]);
-                            info.Active = true;
+                            if (InfoSelected[i] == "Yes")
+                            {
+                                ProductInfoCreateUpdateDto info = new ProductInfoCreateUpdateDto
+                                {
+                                    ProductInfoTemplateId = InfoId[i],
+                                    ProductId = productResult.Id,
+                                    TenantId = CurrentTenant.Id
+                                };
 
-                            var update = ObjectMapper.Map<ProductInfoDto, ProductInfoCreateUpdateDto>(info);
-                            await _productInfoAppService.UpdateAsync(info.Id, update);
+                                await _productInfoAppService.CreateAsync(info);
+                            }
+
                         }
                     }
                 }
@@ -502,16 +528,22 @@ namespace ODY.Cihazkapinda.Web.Pages.Admin.ProductManagement.ProductAdd
             ProductColorSelect[color].Selected = true;
         }
 
-        public async Task AllProductInfoUpdated(Guid id)
+        public async Task GetAllTemplates(ICollection<ProductInfoDto> selectList)
         {
-            var list = await _productInfoAppService.GetAllList();
-            var filterList = list.FindAll(x => x.ProductId == id);
-            foreach (var item in filterList)
-            {
-                item.Active = false;
-                var update = ObjectMapper.Map<ProductInfoDto, ProductInfoCreateUpdateDto>(item);
+            productInfoTemplateSelectModal = ObjectMapper.Map<List<ProductInfoTemplateDto>, List<ProductInfoTemplateSelectModal>>(await _productInfoTemplateAppService.GetAllList());
 
-                await _productInfoAppService.UpdateAsync(item.Id, update);
+            if (selectList != null)
+            {
+                for (int i = 0; i < productInfoTemplateSelectModal.Count; i++)
+                {
+                    foreach (var item in selectList)
+                    {
+                        if (item.ProductInfoTemplateId == productInfoTemplateSelectModal[i].Id)
+                        {
+                            productInfoTemplateSelectModal[i].Selected = true;
+                        }
+                    }
+                }
             }
         }
     }

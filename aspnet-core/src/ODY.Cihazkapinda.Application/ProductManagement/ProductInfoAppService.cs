@@ -13,8 +13,8 @@ namespace ODY.Cihazkapinda.ProductManagement
 {
     public class ProductInfoAppService : CrudAppService<ProductInfo, ProductInfoDto, Guid, PagedAndSortedResultRequestDto, ProductInfoCreateUpdateDto, ProductInfoCreateUpdateDto>, IProductInfoAppService
     {
-        private readonly IRepository<ProductInfoTemplate, Guid> _productInfoTemplateAppService;
-        public ProductInfoAppService(IRepository<ProductInfo, Guid> repository, IRepository<ProductInfoTemplate, Guid> productInfoTemplateAppService) : base(repository)
+        private readonly IRepository<ProductInfoTemplate, Guid> _productInfoTemplateRepository;
+        public ProductInfoAppService(IRepository<ProductInfo, Guid> repository, IRepository<ProductInfoTemplate, Guid> productInfoTemplateRepository) : base(repository)
         {
             GetPolicyName = Permissions.CihazkapindaPermissions.Products.ProductsDefault;
             GetListPolicyName = Permissions.CihazkapindaPermissions.Products.List;
@@ -22,7 +22,7 @@ namespace ODY.Cihazkapinda.ProductManagement
             UpdatePolicyName = Permissions.CihazkapindaPermissions.Products.Edit;
             DeletePolicyName = Permissions.CihazkapindaPermissions.Products.Delete;
 
-            _productInfoTemplateAppService = productInfoTemplateAppService;
+            _productInfoTemplateRepository = productInfoTemplateRepository;
         }
 
         [Authorize(Permissions.CihazkapindaPermissions.Products.List)]
@@ -33,53 +33,23 @@ namespace ODY.Cihazkapinda.ProductManagement
         }
 
         [Authorize(Permissions.CihazkapindaPermissions.Products.List)]
-        public async Task<List<ProductInfoDto>> GetAllListWithDetail()
+        public async Task<List<ProductInfoDto>> GetAllListWithDetail(Guid id)
         {
             var list = await Repository.GetListAsync();
-            foreach (var item in list)
+            var filterList = list.FindAll(x => x.ProductId == id);
+            
+            foreach (var item in filterList)
             {
-                item.ProductInfoTemplate = await _productInfoTemplateAppService.GetAsync(item.ProductInfoTemplateId);
+                item.productInfoTemplate = await _productInfoTemplateRepository.SingleOrDefaultAsync(x => x.Id == item.ProductInfoTemplateId);
             }
-            return ObjectMapper.Map<List<ProductInfo>, List<ProductInfoDto>>(list.OrderByDescending(x => x.CreationTime).ToList());
+            return ObjectMapper.Map<List<ProductInfo>, List<ProductInfoDto>>(filterList.OrderByDescending(x => x.CreationTime).ToList());
         }
 
-        [Authorize(Permissions.CihazkapindaPermissions.Products.ProductsDefault)]
-        public async Task<ProductInfoDto> GetAsyncProductInfoWithDetail(Guid id)
+        [Authorize(Permissions.CihazkapindaPermissions.Products.List)]
+        public async Task<bool> GetControl(Guid id)
         {
-            var entity = await Repository.GetAsync(id);
-            entity.ProductInfoTemplate = await _productInfoTemplateAppService.GetAsync(entity.ProductInfoTemplateId);
-
-            return ObjectMapper.Map<ProductInfo, ProductInfoDto>(entity);
-        }
-
-        [Authorize(Permissions.CihazkapindaPermissions.Products.ProductsDefault)]
-        public async Task<ProductInfoDto> GetAsyncProductInfoByTemplateId(Guid id)
-        {
-            var entity = await Repository.SingleOrDefaultAsync(x => x.ProductInfoTemplateId == id);
-            return ObjectMapper.Map<ProductInfo, ProductInfoDto>(entity);
-        }
-
-        [Authorize(Permissions.CihazkapindaPermissions.Products.ProductsDefault)]
-        public async Task<bool> GetAsyncProductInfoControl(Guid id)
-        {
-            var check = await Repository.SingleOrDefaultAsync(x => x.ProductInfoTemplateId == id);
+            var check = await Repository.SingleOrDefaultAsync(x => x.Id == id);
             return check != null ? true : false;
-        }
-
-        [Authorize(Permissions.CihazkapindaPermissions.Products.ProductsDefault)]
-        public async Task AllProductInfoPassive(Guid id)
-        {
-            var list = await Repository.GetListAsync();
-            var infoList = list.FindAll(x => x.ProductId == id);
-            if (infoList.Count > 0)
-            {
-                foreach (var item in infoList)
-                {
-                    item.Active = false;
-                    //var update = ObjectMapper.Map<ProductInfoDto, ProductInfoCreateUpdateDto>(item);
-                    await Repository.UpdateAsync(item, true);
-                }
-            }
         }
     }
 }

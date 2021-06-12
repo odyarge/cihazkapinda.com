@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ODY.Cihazkapinda.EntityFrameworkCore;
 using Volo.Abp.EntityFrameworkCore;
@@ -10,9 +11,10 @@ using Volo.Abp.EntityFrameworkCore;
 namespace ODY.Cihazkapinda.Migrations
 {
     [DbContext(typeof(CihazkapindaMigrationsDbContext))]
-    partial class CihazkapindaMigrationsDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210610233236_ProductInfo_ProductInfoTemplate_ForeignKey_Added")]
+    partial class ProductInfo_ProductInfoTemplate_ForeignKey_Added
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -608,8 +610,6 @@ namespace ODY.Cihazkapinda.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ProductInfoTemplateId");
-
                     b.ToTable("AppProductInfo");
                 });
 
@@ -663,6 +663,9 @@ namespace ODY.Cihazkapinda.Migrations
                         .HasColumnType("uniqueidentifier")
                         .HasColumnName("LastModifierId");
 
+                    b.Property<Guid?>("ProductInfoId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<Guid?>("TenantId")
                         .HasColumnType("uniqueidentifier")
                         .HasColumnName("TenantId");
@@ -672,6 +675,8 @@ namespace ODY.Cihazkapinda.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ProductInfoId");
 
                     b.ToTable("AppProductInfoTemplate");
                 });
@@ -3015,15 +3020,11 @@ namespace ODY.Cihazkapinda.Migrations
                     b.Navigation("Product");
                 });
 
-            modelBuilder.Entity("ODY.Cihazkapinda.ProductManagement.ProductInfo", b =>
+            modelBuilder.Entity("ODY.Cihazkapinda.ProductManagement.ProductInfoTemplate", b =>
                 {
-                    b.HasOne("ODY.Cihazkapinda.ProductManagement.ProductInfoTemplate", "productInfoTemplate")
-                        .WithMany()
-                        .HasForeignKey("ProductInfoTemplateId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("productInfoTemplate");
+                    b.HasOne("ODY.Cihazkapinda.ProductManagement.ProductInfo", null)
+                        .WithMany("productInfoTemplates")
+                        .HasForeignKey("ProductInfoId");
                 });
 
             modelBuilder.Entity("ODY.Cihazkapinda.ProductManagement.ProductProperty", b =>
@@ -3340,6 +3341,11 @@ namespace ODY.Cihazkapinda.Migrations
                     b.Navigation("Images");
 
                     b.Navigation("ProductProperty");
+                });
+
+            modelBuilder.Entity("ODY.Cihazkapinda.ProductManagement.ProductInfo", b =>
+                {
+                    b.Navigation("productInfoTemplates");
                 });
 
             modelBuilder.Entity("ODY.Cihazkapinda.ProductManagement.ProductPropertyTemplate", b =>

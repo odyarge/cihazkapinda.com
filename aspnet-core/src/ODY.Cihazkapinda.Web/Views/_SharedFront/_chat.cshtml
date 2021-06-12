@@ -1,4 +1,5 @@
 ﻿<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/aspnet-signalr/1.1.4/signalr.js"></script>
 <!------ Include the above in your HEAD tag ---------->
 
 <style>
@@ -417,7 +418,8 @@
         </button>
     </div>
     <div class="chatbox__body">
-        <div class="chatbox__body__message chatbox__body__message--left">
+        <div id="messagesList"></div>
+        @*<div class="chatbox__body__message chatbox__body__message--left">
 
             <div class="chatbox_timing">
                 <ul>
@@ -452,7 +454,7 @@
                 </ul>
             </div>
 
-        </div>
+        </div>*@
     </div>
     <div class="panel-footer">
         <div class="input-group">
@@ -476,7 +478,6 @@
                 $chatboxCredentials = $('.chatbox__credentials');
             $chatboxTitle.on('click', function () {
                 $chatbox.toggleClass('chatbox--tray');
-                console.log("asdasdasd");
             });
             $chatboxTitleClose.on('click', function (e) {
                 e.stopPropagation();
@@ -491,3 +492,26 @@
 </script>
 <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script>
+    var connection = new signalR.HubConnectionBuilder().withUrl("/chatHub").build();
+
+    document.getElementById("btn-chat").disabled = true;
+
+    connection.start().then(function () {
+        console.log("Bağlantı sağlandı.");
+    }).catch(function (err) {
+        console.log("Hata oluştu:" + err);
+    });
+
+    connection.on("BroadcastMessage", function (user, message) {
+        var li = document.createElement("li");
+        document.getElementById("messagesList").appendChild(li);
+        // We can assign user-supplied strings to an element's textContent because it
+        // is not interpreted as markup. If you're assigning in any other way, you 
+        // should be aware of possible script injection concerns.
+        li.textContent = `${user} says ${message}`;
+    });
+
+    connection.invoke('BroadcastMessage', 'test','Merhaba SignalR');
+
+</script>

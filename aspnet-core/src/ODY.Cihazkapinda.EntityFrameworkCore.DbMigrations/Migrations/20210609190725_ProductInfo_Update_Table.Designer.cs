@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ODY.Cihazkapinda.EntityFrameworkCore;
 using Volo.Abp.EntityFrameworkCore;
@@ -10,9 +11,10 @@ using Volo.Abp.EntityFrameworkCore;
 namespace ODY.Cihazkapinda.Migrations
 {
     [DbContext(typeof(CihazkapindaMigrationsDbContext))]
-    partial class CihazkapindaMigrationsDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210609190725_ProductInfo_Update_Table")]
+    partial class ProductInfo_Update_Table
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -582,6 +584,14 @@ namespace ODY.Cihazkapinda.Migrations
                         .HasColumnType("datetime2")
                         .HasColumnName("DeletionTime");
 
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Image")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<bool>("IsDeleted")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
@@ -599,16 +609,17 @@ namespace ODY.Cihazkapinda.Migrations
                     b.Property<Guid>("ProductId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("ProductInfoTemplateId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<Guid?>("TenantId")
                         .HasColumnType("uniqueidentifier")
                         .HasColumnName("TenantId");
 
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("ProductInfoTemplateId");
+                    b.HasIndex("ProductId");
 
                     b.ToTable("AppProductInfo");
                 });
@@ -3017,13 +3028,13 @@ namespace ODY.Cihazkapinda.Migrations
 
             modelBuilder.Entity("ODY.Cihazkapinda.ProductManagement.ProductInfo", b =>
                 {
-                    b.HasOne("ODY.Cihazkapinda.ProductManagement.ProductInfoTemplate", "productInfoTemplate")
-                        .WithMany()
-                        .HasForeignKey("ProductInfoTemplateId")
+                    b.HasOne("ODY.Cihazkapinda.ProductManagement.Product", "Product")
+                        .WithMany("ProductInfo")
+                        .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("productInfoTemplate");
+                    b.Navigation("Product");
                 });
 
             modelBuilder.Entity("ODY.Cihazkapinda.ProductManagement.ProductProperty", b =>
@@ -3338,6 +3349,8 @@ namespace ODY.Cihazkapinda.Migrations
             modelBuilder.Entity("ODY.Cihazkapinda.ProductManagement.Product", b =>
                 {
                     b.Navigation("Images");
+
+                    b.Navigation("ProductInfo");
 
                     b.Navigation("ProductProperty");
                 });

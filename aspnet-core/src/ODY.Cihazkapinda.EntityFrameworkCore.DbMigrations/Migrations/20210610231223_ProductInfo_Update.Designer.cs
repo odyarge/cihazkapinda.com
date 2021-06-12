@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ODY.Cihazkapinda.EntityFrameworkCore;
 using Volo.Abp.EntityFrameworkCore;
@@ -10,9 +11,10 @@ using Volo.Abp.EntityFrameworkCore;
 namespace ODY.Cihazkapinda.Migrations
 {
     [DbContext(typeof(CihazkapindaMigrationsDbContext))]
-    partial class CihazkapindaMigrationsDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210610231223_ProductInfo_Update")]
+    partial class ProductInfo_Update
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -607,8 +609,6 @@ namespace ODY.Cihazkapinda.Migrations
                         .HasColumnName("TenantId");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ProductInfoTemplateId");
 
                     b.ToTable("AppProductInfo");
                 });
@@ -3013,17 +3013,6 @@ namespace ODY.Cihazkapinda.Migrations
                         .IsRequired();
 
                     b.Navigation("Product");
-                });
-
-            modelBuilder.Entity("ODY.Cihazkapinda.ProductManagement.ProductInfo", b =>
-                {
-                    b.HasOne("ODY.Cihazkapinda.ProductManagement.ProductInfoTemplate", "productInfoTemplate")
-                        .WithMany()
-                        .HasForeignKey("ProductInfoTemplateId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("productInfoTemplate");
                 });
 
             modelBuilder.Entity("ODY.Cihazkapinda.ProductManagement.ProductProperty", b =>
