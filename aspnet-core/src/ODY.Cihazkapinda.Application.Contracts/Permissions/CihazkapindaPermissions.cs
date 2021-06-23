@@ -11,6 +11,7 @@
         public const string LicensesGroup = "Licenses";
         public const string ProductManagementGroup = "ProductManagement";
         public const string CategoriesGroup = "Categories";
+        public const string CustomersGroup = "Customers";
 
         public static class SiteSettings
         {
@@ -151,6 +152,15 @@
             public const string Create = ProductInfoTemplateDefault + ".Create";
             public const string Edit = ProductInfoTemplateDefault + ".Edit";
             public const string Delete = ProductInfoTemplateDefault + ".Delete";
+        }
+        public static class Customers
+        {
+            public const string CustomersDefault = CustomersGroup + ".Customers";
+            public const string MenuList = CustomersDefault + ".MenuList";
+            public const string List = CustomersDefault + ".List";
+            public const string Create = CustomersDefault + ".Create";
+            public const string Edit = CustomersDefault + ".Edit";
+            public const string Delete = CustomersDefault + ".Delete";
         }
     }
 }

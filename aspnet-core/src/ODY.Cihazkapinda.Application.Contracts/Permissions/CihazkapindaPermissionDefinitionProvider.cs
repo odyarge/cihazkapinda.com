@@ -19,6 +19,7 @@ namespace ODY.Cihazkapinda.Permissions
             var ProductManagementGroup = context.AddGroup(CihazkapindaPermissions.ProductManagementGroup, L("Permission:ProductManagement"));
             var OperatorSettingsGroup = context.AddGroup(CihazkapindaPermissions.OperatorSettingsGroup, L("Permission:OperatorSettings"), Volo.Abp.MultiTenancy.MultiTenancySides.Host);
             var LicensesGroup = context.AddGroup(CihazkapindaPermissions.LicensesGroup, L("Permission:Licenses"), Volo.Abp.MultiTenancy.MultiTenancySides.Host);
+            var CustomersGroup = context.AddGroup(CihazkapindaPermissions.CustomersGroup, L("Permission:Customers"));
 
             var siteSettingGroup = SiteSettingsGroup.AddPermission(CihazkapindaPermissions.SiteSettings.SiteSettingDefault, L("Permission:SiteSettings"));
             siteSettingGroup.AddChild(CihazkapindaPermissions.SiteSettings.MenuList, L("Permission:SiteSettingsMenuList"));
@@ -124,6 +125,13 @@ namespace ODY.Cihazkapinda.Permissions
             productInfoTemplateGroup.AddChild(CihazkapindaPermissions.ProductInfoTemplate.Create, L("Permission:ProductInfoTemplateCreate"));
             productInfoTemplateGroup.AddChild(CihazkapindaPermissions.ProductInfoTemplate.Edit, L("Permission:ProductInfoTemplateEdit"));
             productInfoTemplateGroup.AddChild(CihazkapindaPermissions.ProductInfoTemplate.Delete, L("Permission:ProductInfoTemplateDelete"));
+            
+            var customersGroup = ProductManagementGroup.AddPermission(CihazkapindaPermissions.Customers.CustomersDefault, L("Permission:Customers"));
+            customersGroup.AddChild(CihazkapindaPermissions.Customers.MenuList, L("Permission:CustomersMenuList"));
+            customersGroup.AddChild(CihazkapindaPermissions.Customers.List, L("Permission:CustomersList"));
+            customersGroup.AddChild(CihazkapindaPermissions.Customers.Create, L("Permission:CustomersCreate"));
+            customersGroup.AddChild(CihazkapindaPermissions.Customers.Edit, L("Permission:CustomersEdit"));
+            customersGroup.AddChild(CihazkapindaPermissions.Customers.Delete, L("Permission:CustomersDelete"));
 
             //Define your own permissions here. Example:
             //myGroup.AddPermission(CihazkapindaPermissions.MyPermission1, L("Permission:MyPermission1"));

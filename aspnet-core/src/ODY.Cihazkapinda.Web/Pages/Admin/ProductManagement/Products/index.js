@@ -136,7 +136,7 @@
     $(function () {
         var _$wrapper = $('#ProductsWrapper');
         var _$table = _$wrapper.find('table');
-
+        
         _dataTable = _$table.DataTable(
             abp.libs.datatables.normalizeConfiguration({
                 order: [[1, 'asc']],

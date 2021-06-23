@@ -2,8 +2,10 @@
 using ODY.Cihazkapinda.BannerImages;
 using ODY.Cihazkapinda.BannerSettings;
 using ODY.Cihazkapinda.Categories;
+using ODY.Cihazkapinda.Customers;
 using ODY.Cihazkapinda.GeneralSettings;
 using ODY.Cihazkapinda.Licenses;
+using ODY.Cihazkapinda.MessageData;
 using ODY.Cihazkapinda.OperatorSettings;
 using ODY.Cihazkapinda.ProductManagement;
 using ODY.Cihazkapinda.SiteSettings;
@@ -61,6 +63,14 @@ namespace ODY.Cihazkapinda.EntityFrameworkCore
         public DbSet<ProductInfo> ProductInfo { get; set; }
         public DbSet<ProductInfoTemplate> ProductInfoTemplate { get; set; }
         #endregion PRODUCTS
+
+        #region MESSAGE
+        public DbSet<Messages> Messages { get; set; }
+        #endregion MESSAGE
+
+        #region CUSTOMER
+        public DbSet<Customer> Customer { get; set; }
+        #endregion CUSTOMER
 
         public CihazkapindaDbContext(DbContextOptions<CihazkapindaDbContext> options)
             : base(options)

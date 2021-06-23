@@ -2,8 +2,10 @@
 using ODY.Cihazkapinda.BannerImages;
 using ODY.Cihazkapinda.BannerSettings;
 using ODY.Cihazkapinda.Categories;
+using ODY.Cihazkapinda.Customers;
 using ODY.Cihazkapinda.GeneralSettings;
 using ODY.Cihazkapinda.Licenses;
+using ODY.Cihazkapinda.MessageData;
 using ODY.Cihazkapinda.OperatorSettings;
 using ODY.Cihazkapinda.ProductManagement;
 using ODY.Cihazkapinda.SiteSettings;
@@ -79,6 +81,15 @@ namespace ODY.Cihazkapinda
             CreateMap<ProductInfoTemplate, ProductInfoTemplateDto>();
             CreateMap<ProductInfoTemplateDto, ProductInfoTemplateCreateUpdateDto>();
             CreateMap<ProductInfoTemplateCreateUpdateDto, ProductInfoTemplate>();
+
+            CreateMap<Customer, CustomerDto>();
+            CreateMap<CustomerDto, CustomerCreateUpdateDto>();
+            CreateMap<CustomerCreateUpdateDto, Customer>();
+
+            CreateMap<Messages, MessagesDto>();
+            CreateMap<MessagesDto, MessagesCreateUpdateDto>();
+            CreateMap<MessagesCreateUpdateDto, Messages>();
+            CreateMap<Messages, MessagesCreateUpdateDto>();
         }
     }
 }

@@ -40,6 +40,7 @@ using Lsw.Abp.AspNetCore.Mvc.UI.Theme.Stisla;
 using Lsw.Abp.AspNetCore.Mvc.UI.Theme.Stisla.Bundling;
 using Volo.Abp.MultiTenancy;
 using ODY.Cihazkapinda.Web.Hubs;
+using Microsoft.AspNetCore.Http.Connections;
 
 namespace ODY.Cihazkapinda.Web
 {
@@ -235,7 +236,12 @@ namespace ODY.Cihazkapinda.Web
 
             app.UseEndpoints(endpoints => {
                 endpoints.MapRazorPages();
-                endpoints.MapHub<SignalRHub>("/chatHub");
+                endpoints.MapHub<SignalRHub>("/chatHub", options =>
+                {
+                    options.Transports =
+                        HttpTransportType.WebSockets |
+                        HttpTransportType.LongPolling;
+                });
             });
         }
     }

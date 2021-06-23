@@ -2,8 +2,10 @@
 using ODY.Cihazkapinda.BannerImages;
 using ODY.Cihazkapinda.BannerSettings;
 using ODY.Cihazkapinda.Categories;
+using ODY.Cihazkapinda.Customers;
 using ODY.Cihazkapinda.GeneralSettings;
 using ODY.Cihazkapinda.Licenses;
+using ODY.Cihazkapinda.MessageData;
 using ODY.Cihazkapinda.OperatorSettings;
 using ODY.Cihazkapinda.ProductManagement;
 using ODY.Cihazkapinda.SiteSettings;
@@ -197,6 +199,28 @@ namespace ODY.Cihazkapinda.EntityFrameworkCore
                 b.Property(x => x.Image).IsRequired();
                 b.Property(x => x.Title).IsRequired();
                 b.Property(x => x.Description).IsRequired();
+            });
+
+            builder.Entity<Messages>(b =>
+            {
+                b.ToTable(CihazkapindaConsts.DbTablePrefix + "Messages", CihazkapindaConsts.DbSchema);
+                b.ConfigureByConvention();
+
+                b.Ignore(x => x.ExtraProperties);
+                b.Property(x => x.Sender).IsRequired();
+                b.Property(x => x.Receive).IsRequired();
+                b.Property(x => x.Message).IsRequired();
+            });
+
+            builder.Entity<Customer>(b =>
+            {
+                b.ToTable(CihazkapindaConsts.DbTablePrefix + "Customer", CihazkapindaConsts.DbSchema);
+                b.ConfigureByConvention();
+
+                b.Ignore(x => x.ExtraProperties);
+                b.Property(x => x.Name).IsRequired();
+                b.Property(x => x.Surname).IsRequired();
+                b.Property(x => x.NameAndSurname).IsRequired();
             });
 
             builder.Entity<Category>(b =>

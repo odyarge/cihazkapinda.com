@@ -12,6 +12,7 @@
 @inject IHtmlLocalizer<AbpTenantManagementResource> L
 @inject IAuthorizationService Authorization
 @inject IPageLayout PageLayout
+
 @{ PageLayout.Content.Title = L["Tenants"].Value;
                 PageLayout.Content.BreadCrumb.Add(L["Menu:TenantManagement"].Value);
                 PageLayout.Content.MenuItemName = TenantManagementMenuNames.Tenants; }

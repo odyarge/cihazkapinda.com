@@ -32,10 +32,12 @@ namespace ODY.Cihazkapinda.Web.Menus
 
             context.Menu.Items.RemoveAt(0);
             context.Menu.Items.Insert(0, new ApplicationMenuItem(CihazkapindaMenus.Home, l["Menu:Home"], "/Admin/", "fa fa-home"));
+            context.Menu.Items.Insert(1, new ApplicationMenuItem(CihazkapindaMenus.Customers, l["Menu:Customers"], "/Admin/Customers/", "fa fa-users"));
+            context.Menu.Items.Insert(2, new ApplicationMenuItem(CihazkapindaMenus.Chat, l["Menu:Chat"], "/Admin/Chat/", "fa fa-comment-alt"));
 
             #region COMPONENTS
             var componentsMenu = new ApplicationMenuItem(CihazkapindaMenus.Components, l["Menu:Components"], "", "fa fa-cube");
-            context.Menu.Items.Insert(1, componentsMenu);
+            context.Menu.Items.Insert(3, componentsMenu);
             #region COMPONENTS_SUB_MENUS
             if (await context.IsGrantedAsync(CihazkapindaPermissions.BannerSettings.MenuList))
             {
@@ -130,7 +132,6 @@ namespace ODY.Cihazkapinda.Web.Menus
             }
             #endregion SETTINGS_SUB_MENUS
             #endregion SETTINGS
-
         }
     }
 }

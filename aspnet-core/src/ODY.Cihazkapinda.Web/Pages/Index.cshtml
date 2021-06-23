@@ -14,7 +14,8 @@
 @{ var layout = Model.theme;
     Layout = "~/" + layout;
     ViewBag.Title = Model.setting.Title;
-    }
+    @await Html.PartialAsync("./Shared/Chat/Index.cshtml", Model.TenantName);
+}
 <style>
     .mylink:hover {
         color: #e60000 !important;
@@ -411,9 +412,9 @@
                             </div>
                         </div>
                         @*<h5 class="font-weight-bold pt-5">Etiketler</h5>
-                        <div class="mb-3 pb-1">
-                            <a href="#"><span class="badge badge-dark badge-sm badge-pill text-uppercase px-2 py-1 mr-1">Nike</span></a>
-                        </div>*@
+                            <div class="mb-3 pb-1">
+                                <a href="#"><span class="badge badge-dark badge-sm badge-pill text-uppercase px-2 py-1 mr-1">Nike</span></a>
+                            </div>*@
                     </aside>
                 </div>
                 <div class="col-lg-9">
@@ -435,7 +436,7 @@
         </div>
 
     </div>
-    <partial name="~/Views/_SharedFront/_chat.cshtml" />
+
     <footer id="footer">
         <div class="footer-copyright">
             <div class="container py-2">

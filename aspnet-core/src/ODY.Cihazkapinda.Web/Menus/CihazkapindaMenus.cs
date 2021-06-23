@@ -34,6 +34,11 @@
         public const string ProductInfoTemplate = ProductManagement + ".ProductInfoTemplate";
         #endregion PRODUCTMANAGEMENT
 
+        #region CUSTOMER&CHAT
+        public const string Chat = Prefix + ".Chat";
+        public const string Customers = Prefix + ".Customers";
+        #endregion CUSTOMER&CHAT
+
         //Add your menu items here...
 
     }

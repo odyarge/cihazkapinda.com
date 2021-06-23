@@ -2,6 +2,7 @@
 using ODY.Cihazkapinda.BannerImages;
 using ODY.Cihazkapinda.BannerSettings;
 using ODY.Cihazkapinda.Categories;
+using ODY.Cihazkapinda.Customers;
 using ODY.Cihazkapinda.GeneralSettings;
 using ODY.Cihazkapinda.Licenses;
 using ODY.Cihazkapinda.OperatorSettings;
@@ -11,6 +12,7 @@ using ODY.Cihazkapinda.ThemeSettings;
 using ODY.Cihazkapinda.Web.Models.BannerImageModals;
 using ODY.Cihazkapinda.Web.Models.BannerSettingModals;
 using ODY.Cihazkapinda.Web.Models.CategoryModals;
+using ODY.Cihazkapinda.Web.Models.CustomerModals;
 using ODY.Cihazkapinda.Web.Models.GeneralSettingModals;
 using ODY.Cihazkapinda.Web.Models.LicenseModals;
 using ODY.Cihazkapinda.Web.Models.OperatorSettingModals;
@@ -102,6 +104,10 @@ namespace ODY.Cihazkapinda.Web
             CreateMap<ProductInfoTemplateDto, ProductInfoTemplateSelectModal>();
             CreateMap<ProductInfoTemplateEditModal, ProductInfoTemplateCreateUpdateDto>();
             CreateMap<ProductInfoTemplateCreateModal, ProductInfoTemplateCreateUpdateDto>();
+            //
+            CreateMap<CustomerDto, CustomerEditModal>();
+            CreateMap<CustomerEditModal, CustomerCreateUpdateDto>();
+            CreateMap<CustomerCreateModal, CustomerCreateUpdateDto>();
         }
     }
 }

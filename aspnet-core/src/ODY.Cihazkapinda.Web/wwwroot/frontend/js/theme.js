@@ -2322,125 +2322,125 @@ window.theme.fn = {
 }).apply(this, [window.theme, jQuery]);
 
 // Scroll to Top
-(function(theme, $) {
+//(function(theme, $) {
 
-	theme = theme || {};
+//	theme = theme || {};
 
-	$.extend(theme, {
+//	$.extend(theme, {
 
-		PluginScrollToTop: {
+//		PluginScrollToTop: {
 
-			defaults: {
-				wrapper: $('body'),
-				offset: 150,
-				buttonClass: 'scroll-to-top',
-				iconClass: 'fas fa-chevron-up',
-				delay: 1000,
-				visibleMobile: false,
-				label: false,
-				easing: 'easeOutBack'
-			},
+//			defaults: {
+//				wrapper: $('body'),
+//				offset: 150,
+//				buttonClass: 'scroll-to-top',
+//				iconClass: 'fas fa-chevron-up',
+//				delay: 1000,
+//				visibleMobile: false,
+//				label: false,
+//				easing: 'easeOutBack'
+//			},
 
-			initialize: function(opts) {
-				initialized = true;
+//			initialize: function(opts) {
+//				initialized = true;
 
-				// Don't initialize if the page has Section Scroll
-				if( $('body[data-plugin-section-scroll]').get(0) ) {
-					return;
-				}
+//				// Don't initialize if the page has Section Scroll
+//				if( $('body[data-plugin-section-scroll]').get(0) ) {
+//					return;
+//				}
 
-				this
-					.setOptions(opts)
-					.build()
-					.events();
+//				this
+//					.setOptions(opts)
+//					.build()
+//					.events();
 
-				return this;
-			},
+//				return this;
+//			},
 
-			setOptions: function(opts) {
-				this.options = $.extend(true, {}, this.defaults, opts);
+//			setOptions: function(opts) {
+//				this.options = $.extend(true, {}, this.defaults, opts);
 
-				return this;
-			},
+//				return this;
+//			},
 
-			build: function() {
-				var self = this,
-					$el;
+//			build: function() {
+//				var self = this,
+//					$el;
 
-				// Base HTML Markup
-				$el = $('<a />')
-					.addClass(self.options.buttonClass)
-					.attr({
-						'href': '#',
-					})
-					.append(
-						$('<i />')
-						.addClass(self.options.iconClass)
-				);
+//				// Base HTML Markup
+//				$el = $('<a />')
+//					.addClass(self.options.buttonClass)
+//					.attr({
+//						'href': '#',
+//					})
+//					.append(
+//						$('<i />')
+//						.addClass(self.options.iconClass)
+//				);
 
-				// Visible Mobile
-				if (!self.options.visibleMobile) {
-					$el.addClass('hidden-mobile');
-				}
+//				// Visible Mobile
+//				if (!self.options.visibleMobile) {
+//					$el.addClass('hidden-mobile');
+//				}
 
-				// Label
-				if (self.options.label) {
-					$el.append(
-						$('<span />').html(self.options.label)
-					);
-				}
+//				// Label
+//				if (self.options.label) {
+//					$el.append(
+//						$('<span />').html(self.options.label)
+//					);
+//				}
 
-				this.options.wrapper.append($el);
+//				this.options.wrapper.append($el);
 
-				this.$el = $el;
+//				this.$el = $el;
 
-				return this;
-			},
+//				return this;
+//			},
 
-			events: function() {
-				var self = this,
-					_isScrolling = false;
+//			events: function() {
+//				var self = this,
+//					_isScrolling = false;
 
-				// Click Element Action
-				self.$el.on('click', function(e) {
-					e.preventDefault();
-					$('body, html').animate({
-						scrollTop: 0
-					}, self.options.delay, self.options.easing);
-					return false;
-				});
+//				// Click Element Action
+//				self.$el.on('click', function(e) {
+//					e.preventDefault();
+//					$('body, html').animate({
+//						scrollTop: 0
+//					}, self.options.delay, self.options.easing);
+//					return false;
+//				});
 
-				// Show/Hide Button on Window Scroll event.
-				$(window).scroll(function() {
+//				// Show/Hide Button on Window Scroll event.
+//				$(window).scroll(function() {
 
-					if (!_isScrolling) {
+//					if (!_isScrolling) {
 
-						_isScrolling = true;
+//						_isScrolling = true;
 
-						if ($(window).scrollTop() > self.options.offset) {
+//						if ($(window).scrollTop() > self.options.offset) {
 
-							self.$el.stop(true, true).addClass('visible');
-							_isScrolling = false;
+//							self.$el.stop(true, true).addClass('visible');
+//							_isScrolling = false;
 
-						} else {
+//						} else {
 
-							self.$el.stop(true, true).removeClass('visible');
-							_isScrolling = false;
+//							self.$el.stop(true, true).removeClass('visible');
+//							_isScrolling = false;
 
-						}
+//						}
 
-					}
+//					}
 
-				});
+//				});
 
-				return this;
-			}
+//				return this;
+//			}
 
-		}
+//		}
 
-	});
+//	});
 
-}).apply(this, [window.theme, jQuery]);
+//}).apply(this, [window.theme, jQuery]);
 
 // Scrollable
 (function(theme, $) {

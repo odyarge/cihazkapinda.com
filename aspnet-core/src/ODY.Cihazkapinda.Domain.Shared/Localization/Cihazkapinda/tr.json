@@ -28,6 +28,8 @@
     "Menu:ProductPropertyTemplate": "Özellik Şablonu",
     "Menu:ProductPropertySubTemplate": "Şablon Alt Özellik",
     "Menu:ProductInfoTemplate": "Kampanyalar",
+    "Menu:Customers": "Müşteriler",
+    "Menu:Chat": "Mesajlar",
     //TOPBAR MENU
     "TopBar:Profile": "Profil",
     "TopBar:Logout": "Çıkış Yap",
@@ -151,6 +153,13 @@
     "Permission:ProductInfoTemplateEdit": "Düzenle",
     "Permission:ProductInfoTemplateDelete": "Sil",
 
+    "Permission:Customers": "Müşteriler",
+    "Permission:CustomersMenuList": "Menüde Göster",
+    "Permission:CustomersList": "Listele",
+    "Permission:CustomersCreate": "Oluştur",
+    "Permission:CustomersEdit": "Düzenle",
+    "Permission:CustomersDelete": "Sil",
+
     //GENERAL
     "Welcome": "Hoşgeldiniz",
     "LongWelcomeMessage": "Uygulamaya hoşgeldiniz. Bu, ABP framework'ü üzerine bina edilmiş bir başlangıç projesidir. Daha fazla bilgi için abp.io adresini ziyaret edebilirsiniz.",
@@ -166,6 +175,7 @@
     "CreateLicense": "Yeni Lisans Ekle",
     "CreateTheme": "Yeni Tema Ekle",
     "CreateCategory": "Kategori Oluştur",
+    "CreateCustomer": "Yeni Müşteri",
     "CreateProductPropertyTemplate": "Yeni Şablon Oluştur",
     "CreateProductPropertyTitle": "Yeni Özellik Başlığı Ekle",
     "titles": "Başlık",
@@ -201,6 +211,9 @@
     "LicenseOwner": "Lisans Sahibi",
     "License": "Lisans",
     "Name": "Ad",
+    "Surname": "Soyad",
+    "NameAndSurname": "Ad Soyad",
+    "Address": "Adres",
     "OwnerCategory": "Üst Kategori",
     "OwnerCategorySelect": "Üst Kategori Seç",
     "contents": "İçerik",
@@ -232,6 +245,8 @@
     "ProductColor": "Renk",
     "ProductInfoTemplate": "Kampanya Özellik Şablonları",
     "CreateProductInfoTemplate": "Yeni Özellik",
+    "Customers": "Müşteriler",
+    "AddCustomer": "Müşteri Ekle",
 
     //ENUMS
     "Enum:ProductColorType:0": "Tümü",

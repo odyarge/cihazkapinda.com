@@ -16,6 +16,7 @@ namespace ODY.Cihazkapinda.Web.Pages
         public string theme { get; set; }
 
         public GeneralSettingDto setting { get; set; }
+        public string TenantName { get; set; }
         #endregion PROPS
 
         #region SERVICES
@@ -61,6 +62,7 @@ namespace ODY.Cihazkapinda.Web.Pages
 
             theme = await _generalSettingAppService.GetAsyncTheme(CurrentTenant.Id);
             setting = await _generalSettingAppService.GetAsyncByTenant(CurrentTenant.Id);
+            TenantName = CurrentTenant.Name;
             return await Task.FromResult<IActionResult>(Page());
         }
     }
